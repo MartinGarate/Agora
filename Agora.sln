@@ -12,6 +12,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución",
 		readme.md = readme.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webBlazor", "webBlazor\webBlazor.csproj", "{1EF97F90-5658-4C61-97C4-643946E2E88E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAgora", "TestAgora\TestAgora.csproj", "{EAFE2B14-AD5E-47B0-A02D-B2F5EAFAB434}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +30,14 @@ Global
 		{66700766-754C-4060-9ECC-9B58D0E15D98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66700766-754C-4060-9ECC-9B58D0E15D98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66700766-754C-4060-9ECC-9B58D0E15D98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EF97F90-5658-4C61-97C4-643946E2E88E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EF97F90-5658-4C61-97C4-643946E2E88E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EF97F90-5658-4C61-97C4-643946E2E88E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EF97F90-5658-4C61-97C4-643946E2E88E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAFE2B14-AD5E-47B0-A02D-B2F5EAFAB434}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAFE2B14-AD5E-47B0-A02D-B2F5EAFAB434}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAFE2B14-AD5E-47B0-A02D-B2F5EAFAB434}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAFE2B14-AD5E-47B0-A02D-B2F5EAFAB434}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

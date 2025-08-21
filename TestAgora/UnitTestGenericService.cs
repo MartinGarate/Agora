@@ -1,0 +1,30 @@
+using Service.Interfaces;
+using Service.Models;
+using Service.Models;
+
+
+namespace TestAgora
+{
+    public class UnitTestGenericService
+    {
+        [Fact]
+        public async void TestGetAll()
+        {
+            // Arrange
+            var service = new GenericService<Capacitacion>();
+
+            // Act
+            var result = await service.GetAllAsync(null);
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<List<Capacitacion>>(result);
+            Assert.True(result.Count > 0);
+            foreach (var item in result)
+            {
+                //imprimimos las capacitaciones
+                Console.WriteLine($"Id: {item.Id}, Nombre: {item.Nombre}");
+            }
+
+        }
+    }
+}
