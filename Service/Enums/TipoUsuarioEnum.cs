@@ -16,6 +16,7 @@ namespace Service.Enums
         Docente,
         Administrador,
 
+
         // si no le ponemos valor, automaticamente toma el valor comenzando desde 0 y aumentando en 1 por cada elemento.
     }
 }
