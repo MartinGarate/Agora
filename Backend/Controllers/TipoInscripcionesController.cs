@@ -84,7 +84,13 @@ namespace Backend.Controllers
             return CreatedAtAction("GetTipoInscripcion", new { id = tipoInscripcion.Id }, tipoInscripcion);
         }
 
-        // DELETE: api/TipoInscripciones/5
+        private bool TipoInscripcionExists(int id)
+        {
+            return _context.TipoInscripciones.Any(e => e.Id == id);
+        }
+        //
+
+        // DELETE: api/Capacitaciones/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTipoInscripcion(int id)
         {
@@ -93,16 +99,38 @@ namespace Backend.Controllers
             {
                 return NotFound();
             }
-
-            _context.TipoInscripciones.Remove(tipoInscripcion);
+            tipoInscripcion.IsDeleted = true; //esto es un soft delete
+            _context.TipoInscripciones.Update(tipoInscripcion);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool TipoInscripcionExists(int id)
+        // Ahora hacemos un restore capacitacion
+        // esto es un soft restore, no eliminamos el registro, solo cambiamos el estado de IsDeleted a false
+        // PUT: api/Capacitaciones/restore/{id}
+        [HttpPut("restore/{id}")]
+        public async Task<IActionResult> RestoreTipoInscripcion(int id)
         {
-            return _context.TipoInscripciones.Any(e => e.Id == id);
+            var tipoInscripcion = await _context.TipoInscripciones.IgnoreQueryFilters().FirstOrDefaultAsync(c => c.Id.Equals(id));
+            if (tipoInscripcion == null)
+            {
+                return NotFound();
+            }
+            tipoInscripcion.IsDeleted = false; //esto es un soft restore
+            _context.TipoInscripciones.Update(tipoInscripcion);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
         }
+
+        // GET: api/Capacitaciones/deleteds
+        [HttpGet("deleteds")]
+        public async Task<ActionResult<IEnumerable<TipoInscripcion>>> GetTipoInscripcionDeleteds()
+        {
+
+            return await _context.TipoInscripciones.IgnoreQueryFilters().Where(c => c.IsDeleted).ToListAsync();
+        }
+
     }
 }

@@ -12,47 +12,47 @@ namespace Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsuariosController : ControllerBase
+    public class InscripcionesController : ControllerBase
     {
         private readonly AgoraContext _context;
 
-        public UsuariosController(AgoraContext context)
+        public InscripcionesController(AgoraContext context)
         {
             _context = context;
         }
 
-        // GET: api/Usuarios
+        // GET: api/Inscripciones
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuarios()
+        public async Task<ActionResult<IEnumerable<Inscripcion>>> GetInscripciones()
         {
-            return await _context.Usuarios.ToListAsync();
+            return await _context.Inscripciones.ToListAsync();
         }
 
-        // GET: api/Usuarios/5
+        // GET: api/Inscripciones/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Usuario>> GetUsuario(int id)
+        public async Task<ActionResult<Inscripcion>> GetInscripcion(int id)
         {
-            var usuario = await _context.Usuarios.FindAsync(id);
+            var inscripcion = await _context.Inscripciones.FindAsync(id);
 
-            if (usuario == null)
+            if (inscripcion == null)
             {
                 return NotFound();
             }
 
-            return usuario;
+            return inscripcion;
         }
 
-        // PUT: api/Usuarios/5
+        // PUT: api/Inscripciones/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUsuario(int id, Usuario usuario)
+        public async Task<IActionResult> PutInscripcion(int id, Inscripcion inscripcion)
         {
-            if (id != usuario.Id)
+            if (id != inscripcion.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(usuario).State = EntityState.Modified;
+            _context.Entry(inscripcion).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace Backend.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UsuarioExists(id))
+                if (!InscripcionExists(id))
                 {
                     return NotFound();
                 }
@@ -73,40 +73,34 @@ namespace Backend.Controllers
             return NoContent();
         }
 
-        // POST: api/Usuarios
+        // POST: api/Inscripciones
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Usuario>> PostUsuario(Usuario usuario)
+        public async Task<ActionResult<Inscripcion>> PostInscripcion(Inscripcion inscripcion)
         {
-            _context.Usuarios.Add(usuario);
+            _context.Inscripciones.Add(inscripcion);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUsuario", new { id = usuario.Id }, usuario);
+            return CreatedAtAction("GetInscripcion", new { id = inscripcion.Id }, inscripcion);
         }
 
 
-       
-
-        private bool UsuarioExists(int id)
+        private bool InscripcionExists(int id)
         {
-            return _context.Usuarios.Any(e => e.Id == id);
+            return _context.Inscripciones.Any(e => e.Id == id);
         }
-
-
-        //
-
 
         // DELETE: api/Capacitaciones/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUsuario(int id)
+        public async Task<IActionResult> DeleteInscripcion(int id)
         {
-            var usuario = await _context.Usuarios.FindAsync(id);
-            if (usuario == null)
+            var inscripcion = await _context.Inscripciones.FindAsync(id);
+            if (inscripcion == null)
             {
                 return NotFound();
             }
-            usuario.IsDeleted = true; //esto es un soft delete
-            _context.Usuarios.Update(usuario);
+            inscripcion.IsDeleted = true; //esto es un soft delete
+            _context.Inscripciones.Update(inscripcion);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -116,15 +110,15 @@ namespace Backend.Controllers
         // esto es un soft restore, no eliminamos el registro, solo cambiamos el estado de IsDeleted a false
         // PUT: api/Capacitaciones/restore/{id}
         [HttpPut("restore/{id}")]
-        public async Task<IActionResult> RestoreUsuario(int id)
+        public async Task<IActionResult> RestoreInscripcion(int id)
         {
-            var usuario = await _context.Usuarios.IgnoreQueryFilters().FirstOrDefaultAsync(c => c.Id.Equals(id));
-            if (usuario == null)
+            var inscripcion = await _context.Inscripciones.IgnoreQueryFilters().FirstOrDefaultAsync(c => c.Id.Equals(id));
+            if (inscripcion == null)
             {
                 return NotFound();
             }
-            usuario.IsDeleted = false; //esto es un soft restore
-            _context.Usuarios.Update(usuario);
+            inscripcion.IsDeleted = false; //esto es un soft restore
+            _context.Inscripciones.Update(inscripcion);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -132,10 +126,10 @@ namespace Backend.Controllers
 
         // GET: api/Capacitaciones/deleteds
         [HttpGet("deleteds")]
-        public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuarioDeleteds()
+        public async Task<ActionResult<IEnumerable<Inscripcion>>> GetInscripcionDeleteds()
         {
 
-            return await _context.Usuarios.IgnoreQueryFilters().Where(c => c.IsDeleted).ToListAsync();
+            return await _context.Inscripciones.IgnoreQueryFilters().Where(c => c.IsDeleted).ToListAsync();
         }
     }
 }
