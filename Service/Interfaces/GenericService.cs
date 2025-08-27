@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Service.Interfaces
+namespace Service.Services
 {
     public class GenericService<T> : IGenericService<T> where T : class
     {
@@ -15,11 +15,12 @@ namespace Service.Interfaces
         protected readonly JsonSerializerOptions _options;
         protected readonly string _endpoint;
 
+
         public GenericService()
         {
             _httpClient = new HttpClient();
             _options = new JsonSerializerOptions() { PropertyNameCaseInsensitive = true };
-            _endpoint=Properties.Resources.UrlApi+ApiEndpoints.GetEndpoint(typeof(T).Name);
+            _endpoint = Properties.Resources.UrlApi + ApiEndpoints.GetEndpoint(typeof(T).Name);
 
         }
         public Task<T?> AddAsync(T? entity)
@@ -27,9 +28,15 @@ namespace Service.Interfaces
             throw new NotImplementedException();
         }
 
-        public Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var response = await _httpClient.DeleteAsync($"{_endpoint}/{id}");
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"Error al eliminar el dato: {response.StatusCode}");
+            }
+            return response.IsSuccessStatusCode;
+
         }
 
         public async Task<List<T>?> GetAllAsync(string? filtro)
@@ -38,7 +45,7 @@ namespace Service.Interfaces
             var content = await response.Content.ReadAsStringAsync();
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception($"Error al obtener datos: {response.StatusCode} - {content}");
+                throw new Exception($"Error al obtener los datos: {response.StatusCode}");
             }
             return JsonSerializer.Deserialize<List<T>>(content, _options);
 
@@ -49,9 +56,15 @@ namespace Service.Interfaces
             throw new NotImplementedException();
         }
 
-        public Task<T?> GetByIdAsync(int id)
+        public async Task<T?> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var response = await _httpClient.GetAsync($"{_endpoint}/{id}");
+            var content = await response.Content.ReadAsStringAsync();
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"Error al obtener los datos: {response.StatusCode}");
+            }
+            return JsonSerializer.Deserialize<T>(content, _options);
         }
 
         public Task<bool> RestoreAsync(int id)

@@ -1,22 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Backend.datacontext;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Backend.datacontext;
 using Service.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TipoInscripcionesController : ControllerBase
+    public class TiposInscripcionesController : ControllerBase
     {
         private readonly AgoraContext _context;
 
-        public TipoInscripcionesController(AgoraContext context)
+        public TiposInscripcionesController(AgoraContext context)
         {
             _context = context;
         }
@@ -84,13 +84,7 @@ namespace Backend.Controllers
             return CreatedAtAction("GetTipoInscripcion", new { id = tipoInscripcion.Id }, tipoInscripcion);
         }
 
-        private bool TipoInscripcionExists(int id)
-        {
-            return _context.TipoInscripciones.Any(e => e.Id == id);
-        }
-        //
-
-        // DELETE: api/Capacitaciones/5
+        // DELETE: api/TipoInscripciones/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTipoInscripcion(int id)
         {
@@ -99,38 +93,38 @@ namespace Backend.Controllers
             {
                 return NotFound();
             }
-            tipoInscripcion.IsDeleted = true; //esto es un soft delete
+            tipoInscripcion.IsDeleted = true;
             _context.TipoInscripciones.Update(tipoInscripcion);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        // Ahora hacemos un restore capacitacion
-        // esto es un soft restore, no eliminamos el registro, solo cambiamos el estado de IsDeleted a false
-        // PUT: api/Capacitaciones/restore/{id}
+        private bool TipoInscripcionExists(int id)
+        {
+            return _context.TipoInscripciones.Any(e => e.Id == id);
+        }
+
+        // GET: api/TipoInscripciones/deleteds
+        [HttpGet("deleteds/")]
+        public async Task<ActionResult<IEnumerable<TipoInscripcion>>> GetTipoInscripcionesDeleteds()
+        {
+            return await _context.TipoInscripciones.IgnoreQueryFilters().Where(ti => ti.IsDeleted).ToListAsync();
+        }
+
+        // PUT: api/TipoInscripciones/restore/5
         [HttpPut("restore/{id}")]
         public async Task<IActionResult> RestoreTipoInscripcion(int id)
         {
-            var tipoInscripcion = await _context.TipoInscripciones.IgnoreQueryFilters().FirstOrDefaultAsync(c => c.Id.Equals(id));
+            var tipoInscripcion = await _context.TipoInscripciones.IgnoreQueryFilters().FirstOrDefaultAsync(ti => ti.Id == id);
             if (tipoInscripcion == null)
             {
                 return NotFound();
             }
-            tipoInscripcion.IsDeleted = false; //esto es un soft restore
+            tipoInscripcion.IsDeleted = false;
             _context.TipoInscripciones.Update(tipoInscripcion);
             await _context.SaveChangesAsync();
-
             return NoContent();
         }
-
-        // GET: api/Capacitaciones/deleteds
-        [HttpGet("deleteds")]
-        public async Task<ActionResult<IEnumerable<TipoInscripcion>>> GetTipoInscripcionDeleteds()
-        {
-
-            return await _context.TipoInscripciones.IgnoreQueryFilters().Where(c => c.IsDeleted).ToListAsync();
-        }
-
     }
 }

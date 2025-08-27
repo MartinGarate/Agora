@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Backend.datacontext;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Backend.datacontext;
 using Service.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Backend.Controllers
 {
@@ -84,19 +84,7 @@ namespace Backend.Controllers
             return CreatedAtAction("GetUsuario", new { id = usuario.Id }, usuario);
         }
 
-
-       
-
-        private bool UsuarioExists(int id)
-        {
-            return _context.Usuarios.Any(e => e.Id == id);
-        }
-
-
-        //
-
-
-        // DELETE: api/Capacitaciones/5
+        // DELETE: api/Usuarios/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUsuario(int id)
         {
@@ -105,37 +93,39 @@ namespace Backend.Controllers
             {
                 return NotFound();
             }
-            usuario.IsDeleted = true; //esto es un soft delete
-            _context.Usuarios.Update(usuario);
+            usuario.IsDeleted = true; // Soft delete
+            usuario.DeleteDate = DateTime.Now;
+            _context.Usuarios.Remove(usuario);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        // Ahora hacemos un restore capacitacion
-        // esto es un soft restore, no eliminamos el registro, solo cambiamos el estado de IsDeleted a false
-        // PUT: api/Capacitaciones/restore/{id}
+        private bool UsuarioExists(int id)
+        {
+            return _context.Usuarios.Any(e => e.Id == id);
+        }
+        // GET: api/Usuarios/deleteds
+        [HttpGet("deleteds/")]
+        public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuariosDeleteds()
+        {
+            return await _context.Usuarios.IgnoreQueryFilters().Where(u => u.IsDeleted).ToListAsync();
+        }
+        // PUT: api/Usuarios/restore/5
         [HttpPut("restore/{id}")]
         public async Task<IActionResult> RestoreUsuario(int id)
         {
-            var usuario = await _context.Usuarios.IgnoreQueryFilters().FirstOrDefaultAsync(c => c.Id.Equals(id));
+            var usuario = await _context.Usuarios.IgnoreQueryFilters().FirstOrDefaultAsync(u => u.Id == id);
             if (usuario == null)
             {
                 return NotFound();
             }
-            usuario.IsDeleted = false; //esto es un soft restore
+            usuario.IsDeleted = false;
+            usuario.DeleteDate = DateTime.MinValue;
             _context.Usuarios.Update(usuario);
             await _context.SaveChangesAsync();
-
             return NoContent();
         }
 
-        // GET: api/Capacitaciones/deleteds
-        [HttpGet("deleteds")]
-        public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuarioDeleteds()
-        {
-
-            return await _context.Usuarios.IgnoreQueryFilters().Where(c => c.IsDeleted).ToListAsync();
-        }
     }
 }
