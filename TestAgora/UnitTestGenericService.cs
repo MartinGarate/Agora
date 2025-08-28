@@ -5,7 +5,8 @@ namespace TestAgora
 {
     public class UnitTestGenericService
     {
-        [Fact]
+        [Fact] // Forma en que xUnite identifique que lo que vas a poner es un test
+
         public async void TestGetAllInscripciones()
         {
             // Arrange
@@ -23,7 +24,8 @@ namespace TestAgora
             }
 
         }
-        [Fact]
+        [Fact] // Forma en que xUnite identifique que lo que vas a poner es un test
+
         public async void TestGetAllCapacitaciones()
         {
             // Arrange
@@ -41,7 +43,8 @@ namespace TestAgora
             }
 
         }
-        [Fact]
+        [Fact] // Forma en que xUnite identifique que lo que vas a poner es un test
+
         public async void TestGetAllUsuarios()
         {
             // Arrange
@@ -59,7 +62,8 @@ namespace TestAgora
             }
 
         }
-        [Fact]
+        [Fact] // Forma en que xUnite identifique que lo que vas a poner es un test
+
         public async void TestGetAllTipoInscripciones()
         {
             // Arrange
@@ -77,7 +81,8 @@ namespace TestAgora
             }
 
         }
-        [Fact]
+        [Fact] // Forma en que xUnite identifique que lo que vas a poner es un test
+
         public async void TestGetAllTiposInscripcionesCapacitaciones()
         {
             // Arrange
@@ -95,7 +100,8 @@ namespace TestAgora
             }
 
         }
-        [Fact]
+        [Fact] // Forma en que xUnite identifique que lo que vas a poner es un test
+
         public async void TestGetByIdTipoInscripcion()
         {
             // Arrange
@@ -111,7 +117,8 @@ namespace TestAgora
             //imprimimos la inscripcion
             Console.WriteLine($"Id: {result.Id}, Nombre: {result.Nombre}");
         }
-        [Fact]
+        [Fact] // Forma en que xUnite identifique que lo que vas a poner es un test
+
         public async void TestDeleteInscripcion()
         {
             // Arrange
@@ -123,5 +130,78 @@ namespace TestAgora
             Assert.True(result);
             Console.WriteLine($"TipoInscripcion con Id {idToDelete} eliminada exitosamente.");
         }
+
+        
+        [Fact] // Forma en que xUnite identifique que lo que vas a poner es un test
+        public async void TestUpdateTipoInscripcion()
+        {
+            // Arrange
+            var service = new GenericService<TipoInscripcion>();
+            var tipoInscripcionAModificar = new TipoInscripcion() // Objeto que se va a modificar
+            {
+                Id = 2,
+                Nombre = "Docente Instituto"
+            };
+            // Action
+            var result = await service.UpdateAsync(tipoInscripcionAModificar);
+
+            // Etapa de comprobacion: Assert
+            Assert.NotNull(result);
+            Assert.True(result);
+
+        }
+
+        [Fact]
+        public async void TestAddTipoInscripcion()
+        {
+            // Arrange
+            var service = new GenericService<TipoInscripcion>();
+            var newTipoInscripcion = new TipoInscripcion
+            {
+                Nombre = "Estudiante instituto"
+            };
+            // Act
+            var result = await service.AddAsync(newTipoInscripcion);
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<TipoInscripcion>(result);
+            Assert.Equal(newTipoInscripcion.Nombre, result.Nombre);
+            //imprimimos la inscripcion
+            Console.WriteLine($"Id: {result.Id}, Nombre: {result.Nombre}");
+        }
+
+
+        [Fact]
+        public async void TestRestoreCapacitacion()
+        {
+            // Arrange
+            var service = new GenericService<Capacitacion>();
+            int idToRestore = 1; // Asumiendo que este ID existe en la base de datos
+                                 // Act
+            var result = await service.RestoreAsync(idToRestore);
+            // Assert
+            Assert.True(result);
+            Console.WriteLine($"Capacitacion con Id {idToRestore} restaurada exitosamente.");
+        }
+
+        
+        [Fact]
+        public async void TestDeletedsCapacitacion()
+        {
+            // Arrange
+            var service = new GenericService<Capacitacion>();
+            // Act
+            var result = await service.GetAllDeletedsAsync(null);
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<List<Capacitacion>>(result);
+            Assert.True(result.Count == 1); // Asumiendo que siempre hay datos en la base de datos
+            foreach (var item in result)
+            {
+                //imprimimos las capacitaciones
+                Console.WriteLine($"Id: {item.Id}, Nombre: {item.Nombre}");
+            }
+        }
+
     }
 }
