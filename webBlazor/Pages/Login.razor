@@ -1,10 +1,99 @@
 ﻿@* Blazor tiene 3 lugares segmentados: *@
 @* 1. Pages: Componentes que representan páginas y tienen rutas asociadas. *@
 @page "/login"
+@inject FirebaseAuthService firebaseAuthService
+@inject SweetAlertService sweetAlert
+
 
 @* Componentes html reutilizables que pueden ser utilizados en múltiples páginas. *@
-<h3>Login</h3>
+
+@if (!isAuthenticated)
+{
+    <div class="card text-center">
+        <div class="card-header">
+            Iniciar sesión
+        </div>
+        <div class="card-body">
+            <h3 class="card-title">¡Hola de Nuevo!</h3>
+            <p class="card-text">Porfavor, Inicia sesión para continuar en Ágora...</p>
+            <div class="container"> @* Container: sirve para agrupar contenido y darle un estilo global *@
+                <div class="row mb-3">
+                    <div class="col-md-12 d-flex justify-content-center align-items-center">
+                        <label class="form-label me-2">Correo Electrónico</label>
+                        <InputText class="form-control w-50" @bind-Value="email" placeholder="usuario@gmail.com" />
+                    </div> @* InputText es una elemento blazor que cuando renderiza puede darle valor a una variable (? *@
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-12 d-flex justify-content-center align-items-center">
+                        <label class="form-label me-2">Contraseña</label>
+                        <InputText class="form-control w-50" @bind-Value="password" placeholder="Contraseña" type="password" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 d-flex justify-content-center">
+                        <button class="btn btn-primary" @onclick="Loguear">Acceder</button>
+                    </div>
+                    <div class="col-md-12 d-flex justify-content-center">
+                        <button class="btn btn-secondary" @onclick="RegisterMe">Registrarme</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-body-secondary">
+            Desarrollo de Software 2do Año | 2025
+        </div>
+    </div>
+}
+else
+{
+    <div class="card text-center">
+        <div class="card-header">
+            Cerrar sesión
+        </div>
+        <div class="card-body">
+            <p class="card-header">Cerrar sesión de Ágora</p>
+
+            <button class="btn btn-primary" @onclick="Desloguear">Cerrar sesión</button>
+        </div>
+        <div class="card-footer text-body-secondary">
+            Desarrollo de Software 2do Año | 2025
+        </div>
+    </div>
+}
 
 @code {
+    bool isAuthenticated = false;
+    string email = string.Empty;
+    string password = string.Empty;
+    
+    private async Task Loguear()
+    {
+        var user = await firebaseAuthService.SignInWithEmailPassword(email, password);
+        if (user != null)
+        {
+            isAuthenticated = true;
+            StateHasChanged(); // Fuerza la actualización de la interfaz de usuario después de iniciar sesión (Blazor)
 
+            // Aquí puedes redirigir al usuario a otra página si es necesario
+        }
+        else
+        {
+            // Manejar error de autenticación (mostrar mensaje, etc.)
+            isAuthenticated = false;
+            await sweetAlert.FireAsync("Error de autenticación", "Correo o contraseña incorrectos.", SweetAlertIcon.Error);
+        }
+    }
+
+    private async Task Desloguear()
+    {
+        isAuthenticated = false;
+        email = string.Empty;
+        password = string.Empty;
+        StateHasChanged(); // Fuerza la actualización de la interfaz de usuario después de cerrar sesión (Blazor)
+    }
+
+    private async Task RegisterMe()
+    {
+        // Lógica para registrar al usuario
+    }
 }
