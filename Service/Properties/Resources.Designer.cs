@@ -61,6 +61,24 @@ namespace Service.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a AIzaSyApSGTjh9O36xQmfVkxo6gabpw-XTbubu0.
+        /// </summary>
+        public static string ApiKeyFirebase {
+            get {
+                return ResourceManager.GetString("ApiKeyFirebase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a agora-2ee01.firebaseapp.com.
+        /// </summary>
+        public static string AuthDomainFirebase {
+            get {
+                return ResourceManager.GetString("AuthDomainFirebase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a https://apiagoramartin.azurewebsites.net/api/.
         /// </summary>
         public static string UrlApi {
