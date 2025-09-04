@@ -3,7 +3,7 @@
 @page "/login"
 @inject FirebaseAuthService firebaseAuthService
 @inject SweetAlertService sweetAlert
-
+@inject NavigationManager navigationManager
 
 @* Componentes html reutilizables que pueden ser utilizados en múltiples páginas. *@
 
@@ -89,11 +89,13 @@ else
         isAuthenticated = false;
         email = string.Empty;
         password = string.Empty;
+        await firebaseAuthService.SignOut();
         StateHasChanged(); // Fuerza la actualización de la interfaz de usuario después de cerrar sesión (Blazor)
     }
 
     private async Task RegisterMe()
     {
-        // Lógica para registrar al usuario
+        navigationManager.NavigateTo("/signin");
+        
     }
 }

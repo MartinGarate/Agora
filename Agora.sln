@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAgora", "TestAgora\Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Desktop", "Desktop\Desktop.csproj", "{CC958004-0BC6-47ED-8A88-42EBA6C23AB7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovilApp", "MovilApp\MovilApp.csproj", "{A702E7C0-BFE9-4515-8637-0533B32389DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,12 @@ Global
 		{CC958004-0BC6-47ED-8A88-42EBA6C23AB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC958004-0BC6-47ED-8A88-42EBA6C23AB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC958004-0BC6-47ED-8A88-42EBA6C23AB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A702E7C0-BFE9-4515-8637-0533B32389DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A702E7C0-BFE9-4515-8637-0533B32389DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A702E7C0-BFE9-4515-8637-0533B32389DE}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{A702E7C0-BFE9-4515-8637-0533B32389DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A702E7C0-BFE9-4515-8637-0533B32389DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A702E7C0-BFE9-4515-8637-0533B32389DE}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
