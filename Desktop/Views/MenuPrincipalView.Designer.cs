@@ -44,6 +44,7 @@
             usuarios = new FontAwesome.Sharp.IconMenuItem();
             menuSalir = new FontAwesome.Sharp.IconMenuItem();
             subMenuSalir = new FontAwesome.Sharp.IconMenuItem();
+            subMenu_Capacitaciones = new FontAwesome.Sharp.IconMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -127,7 +128,7 @@
             // 
             // menuPrincipal
             // 
-            menuPrincipal.DropDownItems.AddRange(new ToolStripItem[] { usuarios });
+            menuPrincipal.DropDownItems.AddRange(new ToolStripItem[] { usuarios, subMenu_Capacitaciones });
             menuPrincipal.IconChar = FontAwesome.Sharp.IconChar.Bars;
             menuPrincipal.IconColor = Color.Black;
             menuPrincipal.IconFont = FontAwesome.Sharp.IconFont.Auto;
@@ -164,6 +165,16 @@
             subMenuSalir.Size = new Size(149, 22);
             subMenuSalir.Text = "Salir del Menu";
             subMenuSalir.Click += subMenuSalir_Click;
+            // 
+            // subMenu_Capacitaciones
+            // 
+            subMenu_Capacitaciones.IconChar = FontAwesome.Sharp.IconChar.BookBookmark;
+            subMenu_Capacitaciones.IconColor = Color.Black;
+            subMenu_Capacitaciones.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            subMenu_Capacitaciones.Name = "subMenu_Capacitaciones";
+            subMenu_Capacitaciones.Size = new Size(180, 22);
+            subMenu_Capacitaciones.Text = "Capacitaciones";
+            subMenu_Capacitaciones.Click += subMenu_Capacitaciones_Click;
             // 
             // MenuPrincipalView
             // 
@@ -208,5 +219,6 @@
         private FontAwesome.Sharp.IconMenuItem usuarios;
         private FontAwesome.Sharp.IconMenuItem menuSalir;
         private FontAwesome.Sharp.IconMenuItem subMenuSalir;
+        private FontAwesome.Sharp.IconMenuItem subMenu_Capacitaciones;
     }
 }
