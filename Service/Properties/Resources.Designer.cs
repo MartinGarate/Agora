@@ -79,7 +79,7 @@ namespace Service.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a https://apiagoramartin.azurewebsites.net/api/.
+        ///   Busca una cadena traducida similar a https://apiagoramartingarate.azurewebsites.net/api/.
         /// </summary>
         public static string UrlApi {
             get {
@@ -93,6 +93,15 @@ namespace Service.Properties {
         public static string UrlApiLocal {
             get {
                 return ResourceManager.GetString("UrlApiLocal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a https://apiagoramartin.azurewebsites.net/api/.
+        /// </summary>
+        public static string UrlApiXime {
+            get {
+                return ResourceManager.GetString("UrlApiXime", resourceCulture);
             }
         }
     }

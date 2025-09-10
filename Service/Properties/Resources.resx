@@ -123,10 +123,13 @@
   <data name="AuthDomainFirebase" xml:space="preserve">
     <value>agora-2ee01.firebaseapp.com</value>
   </data>
-  <data name="UrlApi" xml:space="preserve">
+  <data name="UrlApiXime" xml:space="preserve">
     <value>https://apiagoramartin.azurewebsites.net/api/</value>
   </data>
   <data name="UrlApiLocal" xml:space="preserve">
     <value>https://localhost:7000/api/</value>
+  </data>
+  <data name="UrlApi" xml:space="preserve">
+    <value>https://apiagoramartingarate.azurewebsites.net/api/</value>
   </data>
 </root>
