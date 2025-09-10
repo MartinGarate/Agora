@@ -5,13 +5,13 @@
              x:Class="MovilApp.Views.Login.SignInView"
              Title="CrearCuenta">
     <ContentPage.BindingContext>
-        <login:LoginViewModel />
+        <login:SignInViewModel />
     </ContentPage.BindingContext>
     <ScrollView>
         <VerticalStackLayout Margin="20">
             <Label 
              FontSize="Title"
-             Text="Creando nueva cuenta en InstitutoApp"
+             Text="Creando nueva cuenta en ÁgoraApp"
              VerticalOptions="Center" 
              HorizontalOptions="Center" />
             <Grid RowDefinitions="2*,2*,2*,2*,*" ColumnDefinitions="*,*">

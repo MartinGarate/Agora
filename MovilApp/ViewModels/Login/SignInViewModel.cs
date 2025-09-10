@@ -4,7 +4,7 @@ using Firebase.Auth;
 using Firebase.Auth.Providers;
 using System.Net.Http.Headers;
 
-namespace MovileApp.ViewModels.Login
+namespace MovilApp.ViewModels.Login
 {
     public partial class SignInViewModel : ObservableObject
     {
@@ -49,7 +49,6 @@ namespace MovileApp.ViewModels.Login
                 await Application.Current.MainPage.DisplayAlert("Registrarse", "Por favor complete todos los campos", "Ok");
                 return;
             }
-
             if (password == verifyPassword)
             {
                 try

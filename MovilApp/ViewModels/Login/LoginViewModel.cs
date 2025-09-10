@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using Firebase.Auth;
 using Firebase.Auth.Providers;
 using Firebase.Auth.Repository;
-
 using Microsoft.Extensions.Configuration;
 using Microsoft.Maui.Storage;
 using MovilApp.Views;
@@ -44,7 +43,7 @@ namespace MovilApp.ViewModels.Login
                     new EmailProvider()
                 }
             });
-            _userRepository = new FileUserRepository("AgoraMovileApp");
+            _userRepository = new FileUserRepository("AgoraMovilApp");
             ChequearSiHayUsuarioAlmacenado();
             IniciarSesionCommand = new RelayCommand(IniciarSesion, PermitirIniciarSesion);
             RegistrarseCommand = new RelayCommand(Registrarse);
@@ -92,8 +91,8 @@ namespace MovilApp.ViewModels.Login
                     _userRepository.DeleteUser();
                 }
 
-                var institutoShell = (AgoraShell)App.Current.MainPage;
-                institutoShell.EnableAppAfterLogin();
+                var agoraShell = (AgoraShell)App.Current.MainPage;
+                agoraShell.EnableAppAfterLogin();
 
             }
             catch (FirebaseAuthException error)
@@ -105,3 +104,4 @@ namespace MovilApp.ViewModels.Login
         }
     }
 }
+

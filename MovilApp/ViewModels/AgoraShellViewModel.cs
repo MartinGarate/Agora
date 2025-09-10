@@ -1,5 +1,4 @@
-﻿
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MovilApp.Views;
 using System;
@@ -13,9 +12,7 @@ namespace MovilApp.ViewModels
     public partial class AgoraShellViewModel : ObservableObject
     {
         [ObservableProperty]
-
         private bool userIsLogout = true;
-
 
         public IRelayCommand LogoutCommand { get; }
 
