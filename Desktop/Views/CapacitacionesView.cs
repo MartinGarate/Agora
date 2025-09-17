@@ -23,23 +23,28 @@ namespace Desktop.Views
         public CapacitacionesView()
         {
             InitializeComponent();
-            _=GetAllData();
+            _ = GetAllData();
             textBoxFiltrarAuto.ContextMenuStrip = contextMenuStripLimpiar; // Asignar el menú contextual al TextBox
+            buttonRestaurar.Visible = false;
         }
 
         private void ConfigurarDataGridView()
         {
-                dataGridView.Columns["Id"].Visible = false;
-                dataGridView.Columns["IsDeleted"].Visible = false;
-                dataGridView.Columns["DeleteTime"].Visible = false;
-                dataGridView.Columns["FechaHora"].Name = "Fecha y Hora";
-                dataGridView.Columns["InscripcionAbierta"].Name = "Inscripción Abierta";
+            dataGridView.Columns["Id"].Visible = false;
+            dataGridView.Columns["IsDeleted"].Visible = false;
+            dataGridView.Columns["DeleteTime"].Visible = false;
+
 
         }
 
         private async Task GetAllData()
         {
-            _capacitaciones = await _capacitacionService.GetAllAsync();
+            if (checkBox_VerEliminados.Checked)
+            {
+                _capacitaciones = await _capacitacionService.GetAllDeletedsAsync();
+            }
+            else
+                _capacitaciones = await _capacitacionService.GetAllAsync();
             dataGridView.DataSource = _capacitaciones;
             ConfigurarDataGridView();
         }
@@ -54,10 +59,10 @@ namespace Desktop.Views
 
                 if (respuesta == DialogResult.Yes)
                 {
-                    
+
                     if (await _capacitacionService.DeleteAsync(entitySelected.Id))
                     {
-                        MessageBox.Show($"El {entitySelected.Nombre} ha sido borrado correctamente", "Borrado correctamente", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show($"{entitySelected.Nombre} ha sido borrado correctamente", "Borrado correctamente", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         await GetAllData();
                     }
                     else
@@ -87,19 +92,15 @@ namespace Desktop.Views
 
             //if (string.IsNullOrWhiteSpace(filtro))
             //{
-            //    dataGridViewAutos.DataSource = null;
-            //    dataGridViewAutos.DataSource = autos;
+            //    dataGridView.DataSource = null;
+            //    dataGridView.DataSource = _capacitaciones;
             //    ConfigurarDataGridView();
             //    return;
             //}
 
-            //var autosFiltrados = autos
-            //    .Where(p =>
-            //        (!string.IsNullOrEmpty(p.modelo) && p.modelo.ToLower().Contains(filtro)) ||
-            //        (!string.IsNullOrEmpty(p.marca) && p.marca.ToLower().Contains(filtro)) ||
-            //        p.anio.ToString().Contains(filtro)
-            //    )
-            //    .ToList();
+            //var capacitacionesFiltrados = _capacitaciones
+            //    .Where(c =>
+            //        (!string.IsNullOrEmpty(c.Nombre) && c.Ponente.ToLower().ToString().Contains(filtro)).ToList());
 
             //dataGridViewAutos.DataSource = null;
             //dataGridViewAutos.DataSource = autosFiltrados;
@@ -208,6 +209,45 @@ namespace Desktop.Views
         private void ButtonClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private async void checkBox_VerEliminados_CheckedChanged(object sender, EventArgs e)
+        {
+                await GetAllData(); 
+                if (checkBox_VerEliminados.Checked)
+                {
+                    buttonRestaurar.Visible = true;
+                }
+                else
+                {
+                    buttonRestaurar.Visible = false;
+            }
+
+        }
+
+        private async void buttonRestaurar_Click(object sender, EventArgs e)
+        {
+            if(checkBox_VerEliminados.Checked == false)
+            {
+                MessageBox.Show("Debe de estar seleccionado 'Ver eliminados' para restaurar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (dataGridView.RowCount > 0 && dataGridView.SelectedRows.Count > 0)
+            {
+                Capacitacion entitySelected = (Capacitacion)dataGridView.SelectedRows[0].DataBoundItem;
+                var respuesta = MessageBox.Show($"¿Seguro que quieres restaurar {entitySelected.Nombre}?", "Restaurar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (respuesta == DialogResult.Yes)
+                {
+                    // Lógica para restaurar la capacitación
+                    MessageBox.Show($"{entitySelected.Nombre} ha sido restaurado correctamente", "Restaurado correctamente", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    await _capacitacionService.RestoreAsync(entitySelected.Id);
+                    GetAllData();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Debe de seleccionar un campo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

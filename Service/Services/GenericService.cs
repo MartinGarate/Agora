@@ -22,7 +22,7 @@ namespace Service.Services
             _httpClient = new HttpClient();
             _options = new JsonSerializerOptions() { PropertyNameCaseInsensitive = true };
             _endpoint = Properties.Resources.UrlApi + ApiEndpoints.GetEndpoint(typeof(T).Name);
-            // _endpoint = Properties.Resources.UrlApiLocal + ApiEndpoints.GetEndpoint(typeof(T).Name);
+            //_endpoint = Properties.Resources.UrlApiLocal + ApiEndpoints.GetEndpoint(typeof(T).Name);
 
         }
         public Task<T?> AddAsync(T? entity)
@@ -53,9 +53,15 @@ namespace Service.Services
 
         }
 
-        public Task<List<T>?> GetAllDeletedsAsync(string? filtro)
+        public async Task<List<T>?> GetAllDeletedsAsync(string? filtro = "")
         {
-            throw new NotImplementedException();
+            var response = await _httpClient.GetAsync($"{_endpoint}/Deleteds");
+            var content = await response.Content.ReadAsStringAsync();
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"Error al obtener los datos: {response.StatusCode} - {content}");
+            }
+            return JsonSerializer.Deserialize<List<T>>(content, _options);
         }
 
         public async Task<T?> GetByIdAsync(int id)
@@ -83,8 +89,6 @@ namespace Service.Services
             }
 
         }
-
-
 
         public async Task<bool> UpdateAsync(T? entity)
         {
