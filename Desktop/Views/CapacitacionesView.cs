@@ -25,7 +25,18 @@ namespace Desktop.Views
             InitializeComponent();
             _ = GetAllData();
             textBoxFiltrarAuto.ContextMenuStrip = contextMenuStripLimpiar; // Asignar el menú contextual al TextBox
-            buttonRestaurar.Visible = false;
+            checkBox_VerEliminados.CheckedChanged += DisplayHideControlsRestoreButton;
+        }
+
+        private void DisplayHideControlsRestoreButton(object? sender, EventArgs e)
+        {
+
+            buttonRestaurar.Visible = checkBox_VerEliminados.Checked;
+            textBoxFiltrarAuto.Enabled = !checkBox_VerEliminados.Checked;
+            ButtonBuscarAuto.Enabled = !checkBox_VerEliminados.Checked;
+            ButtonEditarAuto.Enabled = !checkBox_VerEliminados.Checked;
+            ButtonEliminarAuto.Enabled = !checkBox_VerEliminados.Checked;
+            ButtonAgregarAuto.Enabled = !checkBox_VerEliminados.Checked;
         }
 
         private void ConfigurarDataGridView()
@@ -88,35 +99,26 @@ namespace Desktop.Views
 
         private void ButtonBuscarAuto_Click(object sender, EventArgs e)
         {
-            //string filtro = textBoxFiltrarAuto.Text?.Trim().ToLower() ?? string.Empty;
-
-            //if (string.IsNullOrWhiteSpace(filtro))
-            //{
-            //    dataGridView.DataSource = null;
-            //    dataGridView.DataSource = _capacitaciones;
-            //    ConfigurarDataGridView();
-            //    return;
-            //}
-
-            //var capacitacionesFiltrados = _capacitaciones
-            //    .Where(c =>
-            //        (!string.IsNullOrEmpty(c.Nombre) && c.Ponente.ToLower().ToString().Contains(filtro)).ToList());
-
-            //dataGridViewAutos.DataSource = null;
-            //dataGridViewAutos.DataSource = autosFiltrados;
-            //ConfigurarDataGridView();
+            // Filtramos por ponente o nombre
+            string filtro = textBoxFiltrarAuto.Text.Trim().ToUpper();
+            dataGridView.DataSource = _capacitaciones
+                .Where(c =>
+                    (!string.IsNullOrEmpty(c.Nombre) && c.Nombre.ToUpper().Contains(filtro)) ||
+                    (!string.IsNullOrEmpty(c.Ponente) && c.Ponente.ToUpper().Contains(filtro))
+                )
+                .ToList();
         }
 
         private void LimpiarCampos()
         {
-            textBoxFiltrarAuto.Clear();
-            dataGridView.ClearSelection();
-            textBoxImagenAuto.Clear();
-            textBoxMarcaAuto.Clear();
-            numericAnioAuto.Value = numericAnioAuto.Minimum;
-            textBoxModeloAuto.Clear();
-            numericPrecioAuto.Value = numericPrecioAuto.Minimum;
-            checkBoxUsado.Checked = false;
+            //limpiamos todo
+            TxtNombre.Clear();
+            TxtDetalle.Clear();
+            dateTimeFechaHora.Value = DateTime.Now;
+            TxtPonente.Clear();
+            checkBoxInscripcion.Checked = false;
+            numericUpDownCupo.Value = 0;
+
         }
 
         public void limpiarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -134,12 +136,27 @@ namespace Desktop.Views
 
         private void ButtonCancelar_Click(object sender, EventArgs e)
         {
-            tabControl.SelectTab("tabPageLista");
+            tabControl.SelectedTab = tabPageLista;
             LimpiarCampos();
         }
 
         private void ButtonEditarAuto_Click(object sender, EventArgs e)
         {
+            if (dataGridView.RowCount > 0 && dataGridView.SelectedRows.Count > 0)
+            {
+                _currentCapacitacion = (Capacitacion)dataGridView.SelectedRows[0].DataBoundItem;
+                TxtNombre.Text = _currentCapacitacion.Nombre;
+                TxtDetalle.Text = _currentCapacitacion.Detalle;
+                dateTimeFechaHora.Value = _currentCapacitacion.FechaHora;
+                TxtPonente.Text = _currentCapacitacion.Ponente;
+                checkBoxInscripcion.Checked = _currentCapacitacion.InscripcionAbierta;
+                numericUpDownCupo.Value = _currentCapacitacion.Cupo;
+                tabControl.SelectedTab = tabPageAgregar_Editar;
+            }
+            else
+            {
+                MessageBox.Show("No hay capacitación seleccionada para editar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
             //if (dataGridViewAutos.RowCount > 0 && dataGridViewAutos.SelectedRows.Count > 0)
             //{
@@ -159,37 +176,41 @@ namespace Desktop.Views
         }
         private async void ButtonGuardar_Click(object sender, EventArgs e)
         {
-            //Autos autoAGuardar = new Autos
-            //{
-            //    imagen = textBoxImagenAuto.Text,
-            //    marca = textBoxMarcaAuto.Text,
-            //    anio = (int)numericAnioAuto.Value,
-            //    modelo = textBoxModeloAuto.Text,
-            //    precio = (double)numericPrecioAuto.Value,
-            //    usado = checkBoxUsado.Checked
-            //};
-            //HttpResponseMessage response;
-            //if (autoModificado != null)
-            //{
-            //    var urlEditar = $"https://autostock-c2a0.restdb.io/rest/autostock/{autoModificado._id}?apikey=d600303563746b80ed362976592e68879b394";
-            //    response = await clientHttp.PutAsJsonAsync(urlEditar, autoAGuardar);
-            //}
-            //else
-            //{
-            //    response = await clientHttp.PostAsJsonAsync(url, autoAGuardar);
-            //}
-            //if (response.IsSuccessStatusCode)
-            //{
-            //    autoModificado = null;
-            //    MessageBox.Show("El auto se guardó correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //    ObtenemosAutos();
-            //    tabControl.SelectTab("tabPageLista");
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Error al guardar el auto", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
-            //LimpiarCampos();
+            Capacitacion capacitacionAGuardar = new Capacitacion
+            {
+                Id = _currentCapacitacion?.Id ?? 0,
+                Nombre = TxtNombre.Text,
+                Detalle = TxtDetalle.Text,
+                FechaHora = dateTimeFechaHora.Value,
+                Ponente = TxtPonente.Text,
+                InscripcionAbierta = checkBoxInscripcion.Checked,
+                Cupo = (int)numericUpDownCupo.Value
+
+            };
+
+            bool response = false;
+            if (_currentCapacitacion != null)
+            {
+                response = await _capacitacionService.UpdateAsync(capacitacionAGuardar);
+            }
+            else
+            {
+                var nuevaCapacitacion = await _capacitacionService.AddAsync(capacitacionAGuardar);
+                response = nuevaCapacitacion != null;
+            }
+            if (response)
+            {
+                _currentCapacitacion = null;
+                MessageBox.Show($"La capacitación {capacitacionAGuardar.Nombre} se guardó correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                await GetAllData();
+                tabControl.SelectedTab=tabPageLista;
+            }
+            else
+            {
+                MessageBox.Show("Error al guardar la capacitación", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            LimpiarCampos();
+
         }
 
         private void textBoxImagenAuto_TextChanged(object sender, EventArgs e)
@@ -202,7 +223,8 @@ namespace Desktop.Views
 
         private void ButtonAgregarAuto_Click(object sender, EventArgs e)
         {
-            tabControl.SelectTab("tabPageAgregar_Editar");
+
+            tabControl.SelectedTab = tabPageAgregar_Editar;
             LimpiarCampos();
         }
 
@@ -214,14 +236,6 @@ namespace Desktop.Views
         private async void checkBox_VerEliminados_CheckedChanged(object sender, EventArgs e)
         {
                 await GetAllData(); 
-                if (checkBox_VerEliminados.Checked)
-                {
-                    buttonRestaurar.Visible = true;
-                }
-                else
-                {
-                    buttonRestaurar.Visible = false;
-            }
 
         }
 

@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CapacitacionesView));
             tabControl = new TabControl();
             tabPageLista = new TabPage();
+            buttonRestaurar = new FontAwesome.Sharp.IconButton();
             checkBox_VerEliminados = new CheckBox();
             ButtonEliminarAuto = new FontAwesome.Sharp.IconButton();
             ButtonEditarAuto = new FontAwesome.Sharp.IconButton();
@@ -43,35 +44,33 @@
             ButtonClose = new FontAwesome.Sharp.IconButton();
             pictureBox1 = new PictureBox();
             tabPageAgregar_Editar = new TabPage();
+            label5 = new Label();
+            dateTimeFechaHora = new DateTimePicker();
+            numericUpDownCupo = new NumericUpDown();
+            label4 = new Label();
+            label3 = new Label();
+            TxtPonente = new TextBox();
+            label2 = new Label();
+            TxtDetalle = new TextBox();
             panel2 = new Panel();
             pictureBox2 = new PictureBox();
-            numericPrecioAuto = new NumericUpDown();
-            numericAnioAuto = new NumericUpDown();
             ButtonCancelar = new FontAwesome.Sharp.IconButton();
             ButtonGuardar = new FontAwesome.Sharp.IconButton();
             pictureBox4 = new PictureBox();
-            checkBoxUsado = new CheckBox();
-            label5 = new Label();
-            label4 = new Label();
-            textBoxModeloAuto = new TextBox();
-            label3 = new Label();
-            label2 = new Label();
-            textBoxMarcaAuto = new TextBox();
+            checkBoxInscripcion = new CheckBox();
             label1 = new Label();
-            textBoxImagenAuto = new TextBox();
+            TxtNombre = new TextBox();
             contextMenuStripLimpiar = new ContextMenuStrip(components);
             limpiarToolStripMenuItem = new ToolStripMenuItem();
-            buttonRestaurar = new FontAwesome.Sharp.IconButton();
             tabControl.SuspendLayout();
             tabPageLista.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             tabPageAgregar_Editar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownCupo).BeginInit();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericPrecioAuto).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericAnioAuto).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             contextMenuStripLimpiar.SuspendLayout();
             SuspendLayout();
@@ -108,13 +107,35 @@
             tabPageLista.TabIndex = 0;
             tabPageLista.Text = "Lista";
             // 
+            // buttonRestaurar
+            // 
+            buttonRestaurar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            buttonRestaurar.BackColor = Color.FromArgb(28, 28, 27);
+            buttonRestaurar.FlatStyle = FlatStyle.Flat;
+            buttonRestaurar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            buttonRestaurar.ForeColor = Color.FromArgb(242, 242, 242);
+            buttonRestaurar.IconChar = FontAwesome.Sharp.IconChar.Reply;
+            buttonRestaurar.IconColor = Color.FromArgb(242, 242, 242);
+            buttonRestaurar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            buttonRestaurar.IconSize = 24;
+            buttonRestaurar.ImageAlign = ContentAlignment.MiddleRight;
+            buttonRestaurar.Location = new Point(283, 512);
+            buttonRestaurar.Name = "buttonRestaurar";
+            buttonRestaurar.Size = new Size(103, 28);
+            buttonRestaurar.TabIndex = 5;
+            buttonRestaurar.Text = "Restaurar";
+            buttonRestaurar.TextAlign = ContentAlignment.MiddleLeft;
+            buttonRestaurar.UseVisualStyleBackColor = false;
+            buttonRestaurar.Visible = false;
+            buttonRestaurar.Click += buttonRestaurar_Click;
+            // 
             // checkBox_VerEliminados
             // 
             checkBox_VerEliminados.AutoSize = true;
             checkBox_VerEliminados.Location = new Point(818, 145);
             checkBox_VerEliminados.Name = "checkBox_VerEliminados";
             checkBox_VerEliminados.Size = new Size(103, 19);
-            checkBox_VerEliminados.TabIndex = 8;
+            checkBox_VerEliminados.TabIndex = 1;
             checkBox_VerEliminados.Text = "Ver eliminados";
             checkBox_VerEliminados.UseVisualStyleBackColor = true;
             checkBox_VerEliminados.CheckedChanged += checkBox_VerEliminados_CheckedChanged;
@@ -134,7 +155,7 @@
             ButtonEliminarAuto.Location = new Point(833, 512);
             ButtonEliminarAuto.Name = "ButtonEliminarAuto";
             ButtonEliminarAuto.Size = new Size(88, 28);
-            ButtonEliminarAuto.TabIndex = 7;
+            ButtonEliminarAuto.TabIndex = 6;
             ButtonEliminarAuto.Text = "Eliminar";
             ButtonEliminarAuto.TextAlign = ContentAlignment.MiddleLeft;
             ButtonEliminarAuto.UseVisualStyleBackColor = false;
@@ -155,7 +176,7 @@
             ButtonEditarAuto.Location = new Point(174, 512);
             ButtonEditarAuto.Name = "ButtonEditarAuto";
             ButtonEditarAuto.Size = new Size(103, 28);
-            ButtonEditarAuto.TabIndex = 6;
+            ButtonEditarAuto.TabIndex = 4;
             ButtonEditarAuto.Text = "Editar";
             ButtonEditarAuto.TextAlign = ContentAlignment.MiddleLeft;
             ButtonEditarAuto.UseVisualStyleBackColor = false;
@@ -176,7 +197,7 @@
             ButtonAgregarAuto.Location = new Point(65, 512);
             ButtonAgregarAuto.Name = "ButtonAgregarAuto";
             ButtonAgregarAuto.Size = new Size(103, 28);
-            ButtonAgregarAuto.TabIndex = 5;
+            ButtonAgregarAuto.TabIndex = 3;
             ButtonAgregarAuto.Text = "Agregar";
             ButtonAgregarAuto.TextAlign = ContentAlignment.MiddleLeft;
             ButtonAgregarAuto.UseVisualStyleBackColor = false;
@@ -195,7 +216,7 @@
             ButtonBuscarAuto.Location = new Point(885, 170);
             ButtonBuscarAuto.Name = "ButtonBuscarAuto";
             ButtonBuscarAuto.Size = new Size(36, 25);
-            ButtonBuscarAuto.TabIndex = 4;
+            ButtonBuscarAuto.TabIndex = 2;
             ButtonBuscarAuto.UseVisualStyleBackColor = false;
             ButtonBuscarAuto.Click += ButtonBuscarAuto_Click;
             // 
@@ -208,7 +229,7 @@
             textBoxFiltrarAuto.Name = "textBoxFiltrarAuto";
             textBoxFiltrarAuto.PlaceholderText = "¿Qué estás buscando?...";
             textBoxFiltrarAuto.Size = new Size(820, 25);
-            textBoxFiltrarAuto.TabIndex = 3;
+            textBoxFiltrarAuto.TabIndex = 0;
             textBoxFiltrarAuto.TextChanged += textBoxFiltrarAuto_TextChanged;
             // 
             // dataGridView
@@ -259,7 +280,7 @@
             ButtonClose.Location = new Point(917, 15);
             ButtonClose.Name = "ButtonClose";
             ButtonClose.Size = new Size(65, 28);
-            ButtonClose.TabIndex = 8;
+            ButtonClose.TabIndex = 0;
             ButtonClose.Text = "Salir";
             ButtonClose.TextAlign = ContentAlignment.MiddleLeft;
             ButtonClose.UseVisualStyleBackColor = false;
@@ -278,27 +299,115 @@
             // tabPageAgregar_Editar
             // 
             tabPageAgregar_Editar.BackColor = Color.FromArgb(242, 242, 242);
+            tabPageAgregar_Editar.Controls.Add(label5);
+            tabPageAgregar_Editar.Controls.Add(dateTimeFechaHora);
+            tabPageAgregar_Editar.Controls.Add(numericUpDownCupo);
+            tabPageAgregar_Editar.Controls.Add(label4);
+            tabPageAgregar_Editar.Controls.Add(label3);
+            tabPageAgregar_Editar.Controls.Add(TxtPonente);
+            tabPageAgregar_Editar.Controls.Add(label2);
+            tabPageAgregar_Editar.Controls.Add(TxtDetalle);
             tabPageAgregar_Editar.Controls.Add(panel2);
-            tabPageAgregar_Editar.Controls.Add(numericPrecioAuto);
-            tabPageAgregar_Editar.Controls.Add(numericAnioAuto);
             tabPageAgregar_Editar.Controls.Add(ButtonCancelar);
             tabPageAgregar_Editar.Controls.Add(ButtonGuardar);
             tabPageAgregar_Editar.Controls.Add(pictureBox4);
-            tabPageAgregar_Editar.Controls.Add(checkBoxUsado);
-            tabPageAgregar_Editar.Controls.Add(label5);
-            tabPageAgregar_Editar.Controls.Add(label4);
-            tabPageAgregar_Editar.Controls.Add(textBoxModeloAuto);
-            tabPageAgregar_Editar.Controls.Add(label3);
-            tabPageAgregar_Editar.Controls.Add(label2);
-            tabPageAgregar_Editar.Controls.Add(textBoxMarcaAuto);
+            tabPageAgregar_Editar.Controls.Add(checkBoxInscripcion);
             tabPageAgregar_Editar.Controls.Add(label1);
-            tabPageAgregar_Editar.Controls.Add(textBoxImagenAuto);
+            tabPageAgregar_Editar.Controls.Add(TxtNombre);
             tabPageAgregar_Editar.Location = new Point(4, 24);
             tabPageAgregar_Editar.Name = "tabPageAgregar_Editar";
             tabPageAgregar_Editar.Padding = new Padding(3);
             tabPageAgregar_Editar.Size = new Size(981, 577);
             tabPageAgregar_Editar.TabIndex = 1;
             tabPageAgregar_Editar.Text = "Agregar o Editar";
+            // 
+            // label5
+            // 
+            label5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            label5.AutoSize = true;
+            label5.Font = new Font("Plus Jakarta Sans ExtraBold", 12.7499981F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.ForeColor = Color.FromArgb(20, 21, 20);
+            label5.Location = new Point(52, 325);
+            label5.Name = "label5";
+            label5.Size = new Size(118, 28);
+            label5.TabIndex = 31;
+            label5.Text = "Fecha y Hora";
+            // 
+            // dateTimeFechaHora
+            // 
+            dateTimeFechaHora.CustomFormat = "dd/MM/yyyy HH:mm";
+            dateTimeFechaHora.Format = DateTimePickerFormat.Custom;
+            dateTimeFechaHora.Location = new Point(172, 329);
+            dateTimeFechaHora.Name = "dateTimeFechaHora";
+            dateTimeFechaHora.Size = new Size(291, 23);
+            dateTimeFechaHora.TabIndex = 4;
+            // 
+            // numericUpDownCupo
+            // 
+            numericUpDownCupo.Location = new Point(172, 300);
+            numericUpDownCupo.Name = "numericUpDownCupo";
+            numericUpDownCupo.Size = new Size(291, 23);
+            numericUpDownCupo.TabIndex = 3;
+            // 
+            // label4
+            // 
+            label4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            label4.AutoSize = true;
+            label4.Font = new Font("Plus Jakarta Sans ExtraBold", 12.7499981F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.ForeColor = Color.FromArgb(20, 21, 20);
+            label4.Location = new Point(113, 294);
+            label4.Name = "label4";
+            label4.Size = new Size(57, 28);
+            label4.TabIndex = 28;
+            label4.Text = "Cupo";
+            // 
+            // label3
+            // 
+            label3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            label3.AutoSize = true;
+            label3.Font = new Font("Plus Jakarta Sans ExtraBold", 12.7499981F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.ForeColor = Color.FromArgb(20, 21, 20);
+            label3.Location = new Point(78, 264);
+            label3.Name = "label3";
+            label3.Size = new Size(92, 28);
+            label3.TabIndex = 26;
+            label3.Text = "Orador/a";
+            // 
+            // TxtPonente
+            // 
+            TxtPonente.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            TxtPonente.BackColor = Color.FromArgb(242, 242, 242);
+            TxtPonente.Font = new Font("Segoe UI", 10F);
+            TxtPonente.ForeColor = Color.FromArgb(28, 28, 27);
+            TxtPonente.Location = new Point(172, 269);
+            TxtPonente.Name = "TxtPonente";
+            TxtPonente.PlaceholderText = "Nombre del orador/a";
+            TxtPonente.Size = new Size(291, 25);
+            TxtPonente.TabIndex = 2;
+            // 
+            // label2
+            // 
+            label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            label2.AutoSize = true;
+            label2.Font = new Font("Plus Jakarta Sans ExtraBold", 12.7499981F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.ForeColor = Color.FromArgb(20, 21, 20);
+            label2.Location = new Point(100, 235);
+            label2.Name = "label2";
+            label2.Size = new Size(70, 28);
+            label2.TabIndex = 24;
+            label2.Text = "Detalle";
+            // 
+            // TxtDetalle
+            // 
+            TxtDetalle.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            TxtDetalle.BackColor = Color.FromArgb(242, 242, 242);
+            TxtDetalle.Font = new Font("Segoe UI", 10F);
+            TxtDetalle.ForeColor = Color.FromArgb(28, 28, 27);
+            TxtDetalle.Location = new Point(172, 238);
+            TxtDetalle.Name = "TxtDetalle";
+            TxtDetalle.PlaceholderText = "Mas información...";
+            TxtDetalle.Size = new Size(291, 25);
+            TxtDetalle.TabIndex = 1;
             // 
             // panel2
             // 
@@ -320,30 +429,6 @@
             pictureBox2.TabIndex = 1;
             pictureBox2.TabStop = false;
             // 
-            // numericPrecioAuto
-            // 
-            numericPrecioAuto.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            numericPrecioAuto.Font = new Font("Segoe UI", 10F);
-            numericPrecioAuto.ForeColor = Color.FromArgb(28, 28, 27);
-            numericPrecioAuto.Location = new Point(159, 341);
-            numericPrecioAuto.Maximum = new decimal(new int[] { 268435456, 1042612833, 542101086, 0 });
-            numericPrecioAuto.Name = "numericPrecioAuto";
-            numericPrecioAuto.Size = new Size(291, 25);
-            numericPrecioAuto.TabIndex = 21;
-            // 
-            // numericAnioAuto
-            // 
-            numericAnioAuto.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            numericAnioAuto.Font = new Font("Segoe UI", 10F);
-            numericAnioAuto.ForeColor = Color.FromArgb(28, 28, 27);
-            numericAnioAuto.Location = new Point(159, 279);
-            numericAnioAuto.Maximum = new decimal(new int[] { 2025, 0, 0, 0 });
-            numericAnioAuto.Minimum = new decimal(new int[] { 1886, 0, 0, 0 });
-            numericAnioAuto.Name = "numericAnioAuto";
-            numericAnioAuto.Size = new Size(291, 25);
-            numericAnioAuto.TabIndex = 20;
-            numericAnioAuto.Value = new decimal(new int[] { 1886, 0, 0, 0 });
-            // 
             // ButtonCancelar
             // 
             ButtonCancelar.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
@@ -356,10 +441,10 @@
             ButtonCancelar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ButtonCancelar.IconSize = 24;
             ButtonCancelar.ImageAlign = ContentAlignment.MiddleRight;
-            ButtonCancelar.Location = new Point(357, 413);
+            ButtonCancelar.Location = new Point(370, 405);
             ButtonCancelar.Name = "ButtonCancelar";
             ButtonCancelar.Size = new Size(93, 28);
-            ButtonCancelar.TabIndex = 19;
+            ButtonCancelar.TabIndex = 7;
             ButtonCancelar.Text = "Cancelar";
             ButtonCancelar.TextAlign = ContentAlignment.MiddleLeft;
             ButtonCancelar.UseVisualStyleBackColor = false;
@@ -377,10 +462,10 @@
             ButtonGuardar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ButtonGuardar.IconSize = 24;
             ButtonGuardar.ImageAlign = ContentAlignment.MiddleRight;
-            ButtonGuardar.Location = new Point(258, 413);
+            ButtonGuardar.Location = new Point(271, 405);
             ButtonGuardar.Name = "ButtonGuardar";
             ButtonGuardar.Size = new Size(93, 28);
-            ButtonGuardar.TabIndex = 18;
+            ButtonGuardar.TabIndex = 6;
             ButtonGuardar.Text = "Guardar";
             ButtonGuardar.TextAlign = ContentAlignment.MiddleLeft;
             ButtonGuardar.UseVisualStyleBackColor = false;
@@ -397,113 +482,43 @@
             pictureBox4.TabIndex = 17;
             pictureBox4.TabStop = false;
             // 
-            // checkBoxUsado
+            // checkBoxInscripcion
             // 
-            checkBoxUsado.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            checkBoxUsado.AutoSize = true;
-            checkBoxUsado.Font = new Font("Orbitron SemiBold", 13F, FontStyle.Bold | FontStyle.Italic);
-            checkBoxUsado.ForeColor = Color.FromArgb(20, 21, 20);
-            checkBoxUsado.Location = new Point(159, 372);
-            checkBoxUsado.Name = "checkBoxUsado";
-            checkBoxUsado.Size = new Size(147, 26);
-            checkBoxUsado.TabIndex = 15;
-            checkBoxUsado.Text = "¿Es Usado?";
-            checkBoxUsado.UseVisualStyleBackColor = true;
-            // 
-            // label5
-            // 
-            label5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            label5.AutoSize = true;
-            label5.Font = new Font("Orbitron SemiBold", 13F, FontStyle.Bold | FontStyle.Italic);
-            label5.ForeColor = Color.FromArgb(20, 21, 20);
-            label5.Location = new Point(80, 344);
-            label5.Name = "label5";
-            label5.Size = new Size(74, 22);
-            label5.TabIndex = 13;
-            label5.Text = "Precio";
-            // 
-            // label4
-            // 
-            label4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            label4.AutoSize = true;
-            label4.Font = new Font("Orbitron SemiBold", 13F, FontStyle.Bold | FontStyle.Italic);
-            label4.ForeColor = Color.FromArgb(20, 21, 20);
-            label4.Location = new Point(73, 313);
-            label4.Name = "label4";
-            label4.Size = new Size(81, 22);
-            label4.TabIndex = 11;
-            label4.Text = "Modelo";
-            // 
-            // textBoxModeloAuto
-            // 
-            textBoxModeloAuto.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            textBoxModeloAuto.Font = new Font("Segoe UI", 10F);
-            textBoxModeloAuto.ForeColor = Color.FromArgb(28, 28, 27);
-            textBoxModeloAuto.Location = new Point(159, 310);
-            textBoxModeloAuto.Name = "textBoxModeloAuto";
-            textBoxModeloAuto.PlaceholderText = " Ingrese el MODELO del auto...";
-            textBoxModeloAuto.Size = new Size(291, 25);
-            textBoxModeloAuto.TabIndex = 10;
-            // 
-            // label3
-            // 
-            label3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            label3.AutoSize = true;
-            label3.Font = new Font("Orbitron SemiBold", 13F, FontStyle.Bold | FontStyle.Italic);
-            label3.ForeColor = Color.FromArgb(20, 21, 20);
-            label3.Location = new Point(103, 282);
-            label3.Name = "label3";
-            label3.Size = new Size(50, 22);
-            label3.TabIndex = 9;
-            label3.Text = "Año";
-            // 
-            // label2
-            // 
-            label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            label2.AutoSize = true;
-            label2.Font = new Font("Orbitron SemiBold", 13F, FontStyle.Bold | FontStyle.Italic);
-            label2.ForeColor = Color.FromArgb(20, 21, 20);
-            label2.Location = new Point(80, 251);
-            label2.Name = "label2";
-            label2.Size = new Size(73, 22);
-            label2.TabIndex = 7;
-            label2.Text = "Marca";
-            // 
-            // textBoxMarcaAuto
-            // 
-            textBoxMarcaAuto.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            textBoxMarcaAuto.Font = new Font("Segoe UI", 10F);
-            textBoxMarcaAuto.ForeColor = Color.FromArgb(28, 28, 27);
-            textBoxMarcaAuto.Location = new Point(159, 248);
-            textBoxMarcaAuto.Name = "textBoxMarcaAuto";
-            textBoxMarcaAuto.PlaceholderText = " Ingrese la MARCA del auto...";
-            textBoxMarcaAuto.Size = new Size(291, 25);
-            textBoxMarcaAuto.TabIndex = 6;
+            checkBoxInscripcion.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            checkBoxInscripcion.AutoSize = true;
+            checkBoxInscripcion.Font = new Font("Plus Jakarta Sans ExtraBold", 12.7499981F, FontStyle.Bold);
+            checkBoxInscripcion.ForeColor = Color.FromArgb(20, 21, 20);
+            checkBoxInscripcion.Location = new Point(277, 358);
+            checkBoxInscripcion.Name = "checkBoxInscripcion";
+            checkBoxInscripcion.Size = new Size(186, 32);
+            checkBoxInscripcion.TabIndex = 5;
+            checkBoxInscripcion.Text = "Inscripción Abierta";
+            checkBoxInscripcion.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
             label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label1.AutoSize = true;
-            label1.Font = new Font("Orbitron SemiBold", 13F, FontStyle.Bold | FontStyle.Italic);
+            label1.Font = new Font("Plus Jakarta Sans ExtraBold", 12.7499981F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.FromArgb(20, 21, 20);
-            label1.Location = new Point(72, 220);
+            label1.Location = new Point(90, 204);
             label1.Name = "label1";
-            label1.Size = new Size(81, 22);
+            label1.Size = new Size(80, 28);
             label1.TabIndex = 5;
-            label1.Text = "Imagen";
+            label1.Text = "Nombre";
             // 
-            // textBoxImagenAuto
+            // TxtNombre
             // 
-            textBoxImagenAuto.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            textBoxImagenAuto.BackColor = Color.FromArgb(242, 242, 242);
-            textBoxImagenAuto.Font = new Font("Segoe UI", 10F);
-            textBoxImagenAuto.ForeColor = Color.FromArgb(28, 28, 27);
-            textBoxImagenAuto.Location = new Point(159, 217);
-            textBoxImagenAuto.Name = "textBoxImagenAuto";
-            textBoxImagenAuto.PlaceholderText = " Ingrese la IMAGEN del auto...";
-            textBoxImagenAuto.Size = new Size(291, 25);
-            textBoxImagenAuto.TabIndex = 4;
-            textBoxImagenAuto.TextChanged += textBoxImagenAuto_TextChanged;
+            TxtNombre.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            TxtNombre.BackColor = Color.FromArgb(242, 242, 242);
+            TxtNombre.Font = new Font("Segoe UI", 10F);
+            TxtNombre.ForeColor = Color.FromArgb(28, 28, 27);
+            TxtNombre.Location = new Point(172, 207);
+            TxtNombre.Name = "TxtNombre";
+            TxtNombre.PlaceholderText = "Nombre de la capacitación";
+            TxtNombre.Size = new Size(291, 25);
+            TxtNombre.TabIndex = 0;
+            TxtNombre.TextChanged += textBoxImagenAuto_TextChanged;
             // 
             // contextMenuStripLimpiar
             // 
@@ -518,27 +533,6 @@
             limpiarToolStripMenuItem.Size = new Size(98, 22);
             limpiarToolStripMenuItem.Text = "Limpiar...";
             limpiarToolStripMenuItem.Click += limpiarToolStripMenuItem_Click;
-            // 
-            // buttonRestaurar
-            // 
-            buttonRestaurar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            buttonRestaurar.BackColor = Color.FromArgb(28, 28, 27);
-            buttonRestaurar.FlatStyle = FlatStyle.Flat;
-            buttonRestaurar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            buttonRestaurar.ForeColor = Color.FromArgb(242, 242, 242);
-            buttonRestaurar.IconChar = FontAwesome.Sharp.IconChar.Reply;
-            buttonRestaurar.IconColor = Color.FromArgb(242, 242, 242);
-            buttonRestaurar.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            buttonRestaurar.IconSize = 24;
-            buttonRestaurar.ImageAlign = ContentAlignment.MiddleRight;
-            buttonRestaurar.Location = new Point(283, 512);
-            buttonRestaurar.Name = "buttonRestaurar";
-            buttonRestaurar.Size = new Size(103, 28);
-            buttonRestaurar.TabIndex = 9;
-            buttonRestaurar.Text = "Restaurar";
-            buttonRestaurar.TextAlign = ContentAlignment.MiddleLeft;
-            buttonRestaurar.UseVisualStyleBackColor = false;
-            buttonRestaurar.Click += buttonRestaurar_Click;
             // 
             // CapacitacionesView
             // 
@@ -560,10 +554,9 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             tabPageAgregar_Editar.ResumeLayout(false);
             tabPageAgregar_Editar.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownCupo).EndInit();
             panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericPrecioAuto).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericAnioAuto).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             contextMenuStripLimpiar.ResumeLayout(false);
             ResumeLayout(false);
@@ -588,13 +581,13 @@
         private Label label2;
         private TextBox textBoxMarcaAuto;
         private Label label1;
-        private TextBox textBoxImagenAuto;
+        private TextBox TxtNombre;
         private Label label3;
         private Label label4;
         private TextBox textBoxModeloAuto;
         private Label label5;
         private PictureBox pictureBox4;
-        private CheckBox checkBoxUsado;
+        private CheckBox checkBoxInscripcion;
         private FontAwesome.Sharp.IconButton ButtonCancelar;
         private FontAwesome.Sharp.IconButton ButtonGuardar;
         private NumericUpDown numericAnioAuto;
@@ -604,5 +597,9 @@
         private FontAwesome.Sharp.IconButton ButtonClose;
         private CheckBox checkBox_VerEliminados;
         private FontAwesome.Sharp.IconButton buttonRestaurar;
+        private DateTimePicker dateTimeFechaHora;
+        private NumericUpDown numericUpDownCupo;
+        private TextBox TxtPonente;
+        private TextBox TxtDetalle;
     }
 }
