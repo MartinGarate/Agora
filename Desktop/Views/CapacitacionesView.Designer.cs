@@ -38,7 +38,7 @@
             ButtonEditarAuto = new FontAwesome.Sharp.IconButton();
             ButtonAgregarAuto = new FontAwesome.Sharp.IconButton();
             ButtonBuscarAuto = new FontAwesome.Sharp.IconButton();
-            textBoxFiltrarAuto = new TextBox();
+            textBoxBuscar = new TextBox();
             dataGridView = new DataGridView();
             panel1 = new Panel();
             ButtonClose = new FontAwesome.Sharp.IconButton();
@@ -98,7 +98,7 @@
             tabPageLista.Controls.Add(ButtonEditarAuto);
             tabPageLista.Controls.Add(ButtonAgregarAuto);
             tabPageLista.Controls.Add(ButtonBuscarAuto);
-            tabPageLista.Controls.Add(textBoxFiltrarAuto);
+            tabPageLista.Controls.Add(textBoxBuscar);
             tabPageLista.Controls.Add(dataGridView);
             tabPageLista.Controls.Add(panel1);
             tabPageLista.Location = new Point(4, 24);
@@ -220,17 +220,17 @@
             ButtonBuscarAuto.UseVisualStyleBackColor = false;
             ButtonBuscarAuto.Click += ButtonBuscarAuto_Click;
             // 
-            // textBoxFiltrarAuto
+            // textBoxBuscar
             // 
-            textBoxFiltrarAuto.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBoxFiltrarAuto.Font = new Font("Segoe UI", 10F);
-            textBoxFiltrarAuto.ForeColor = Color.FromArgb(28, 28, 27);
-            textBoxFiltrarAuto.Location = new Point(65, 170);
-            textBoxFiltrarAuto.Name = "textBoxFiltrarAuto";
-            textBoxFiltrarAuto.PlaceholderText = "¿Qué estás buscando?...";
-            textBoxFiltrarAuto.Size = new Size(820, 25);
-            textBoxFiltrarAuto.TabIndex = 0;
-            textBoxFiltrarAuto.TextChanged += textBoxFiltrarAuto_TextChanged;
+            textBoxBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            textBoxBuscar.Font = new Font("Segoe UI", 10F);
+            textBoxBuscar.ForeColor = Color.FromArgb(28, 28, 27);
+            textBoxBuscar.Location = new Point(65, 170);
+            textBoxBuscar.Name = "textBoxBuscar";
+            textBoxBuscar.PlaceholderText = "¿Qué estás buscando?...";
+            textBoxBuscar.Size = new Size(820, 25);
+            textBoxBuscar.TabIndex = 0;
+            textBoxBuscar.TextChanged += textBoxFiltrarAuto_TextChanged;
             // 
             // dataGridView
             // 
@@ -571,7 +571,7 @@
         private PictureBox pictureBox1;
         private PictureBox pictureBoxAuto;
         private FontAwesome.Sharp.IconButton ButtonBuscarAuto;
-        private TextBox textBoxFiltrarAuto;
+        private TextBox textBoxBuscar;
         private DataGridView dataGridView;
         private FontAwesome.Sharp.IconButton ButtonAgregarAuto;
         private FontAwesome.Sharp.IconButton ButtonEliminarAuto;

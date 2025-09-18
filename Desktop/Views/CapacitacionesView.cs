@@ -24,7 +24,7 @@ namespace Desktop.Views
         {
             InitializeComponent();
             _ = GetAllData();
-            textBoxFiltrarAuto.ContextMenuStrip = contextMenuStripLimpiar; // Asignar el menú contextual al TextBox
+            textBoxBuscar.ContextMenuStrip = contextMenuStripLimpiar; // Asignar el menú contextual al TextBox
             checkBox_VerEliminados.CheckedChanged += DisplayHideControlsRestoreButton;
         }
 
@@ -32,7 +32,7 @@ namespace Desktop.Views
         {
 
             buttonRestaurar.Visible = checkBox_VerEliminados.Checked;
-            textBoxFiltrarAuto.Enabled = !checkBox_VerEliminados.Checked;
+            textBoxBuscar.Enabled = !checkBox_VerEliminados.Checked;
             ButtonBuscarAuto.Enabled = !checkBox_VerEliminados.Checked;
             ButtonEditarAuto.Enabled = !checkBox_VerEliminados.Checked;
             ButtonEliminarAuto.Enabled = !checkBox_VerEliminados.Checked;
@@ -97,16 +97,10 @@ namespace Desktop.Views
             }
         }
 
-        private void ButtonBuscarAuto_Click(object sender, EventArgs e)
+        private async void ButtonBuscarAuto_Click(object sender, EventArgs e)
         {
-            // Filtramos por ponente o nombre
-            string filtro = textBoxFiltrarAuto.Text.Trim().ToUpper();
-            dataGridView.DataSource = _capacitaciones
-                .Where(c =>
-                    (!string.IsNullOrEmpty(c.Nombre) && c.Nombre.ToUpper().Contains(filtro)) ||
-                    (!string.IsNullOrEmpty(c.Ponente) && c.Ponente.ToUpper().Contains(filtro))
-                )
-                .ToList();
+
+            dataGridView.DataSource = await _capacitacionService.GetAllAsync(textBoxBuscar.Text);
         }
 
         private void LimpiarCampos()
