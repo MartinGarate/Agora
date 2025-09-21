@@ -1,7 +1,7 @@
 ﻿@* Blazor tiene 3 lugares segmentados: *@
 @* 1. Pages: Componentes que representan páginas y tienen rutas asociadas. *@
 @page "/login"
-@inject FirebaseAuthService firebaseAuthService
+@inject FirebaseAuthService _firebaseAuthService
 @inject SweetAlertService sweetAlert
 @inject NavigationManager navigationManager
 
@@ -68,13 +68,16 @@ else
     
     private async Task Loguear()
     {
-        var user = await firebaseAuthService.SignInWithEmailPassword(email, password);
+        var user = await _firebaseAuthService.SignInWithEmailPassword(email, password);
         if (user != null)
         {
+            if (user.EmailVerified == false)
+            {
+                await sweetAlert.FireAsync("Error de autenticación", "Por favor, verifica tu correo electrónico antes de iniciar sesión.", SweetAlertIcon.Warning);
+                return;
+            }
             isAuthenticated = true;
             StateHasChanged(); // Fuerza la actualización de la interfaz de usuario después de iniciar sesión (Blazor)
-
-            // Aquí puedes redirigir al usuario a otra página si es necesario
         }
         else
         {
@@ -89,7 +92,7 @@ else
         isAuthenticated = false;
         email = string.Empty;
         password = string.Empty;
-        await firebaseAuthService.SignOut();
+        await _firebaseAuthService.SignOut();
         StateHasChanged(); // Fuerza la actualización de la interfaz de usuario después de cerrar sesión (Blazor)
     }
 
