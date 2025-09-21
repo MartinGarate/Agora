@@ -101,4 +101,9 @@ else
         navigationManager.NavigateTo("/signin");
         
     }
+
+    protected override async Task OnInitializedAsync()
+    {
+        isAuthenticated = await _firebaseAuthService.IsUserAuthenticated();
+    }   
 }
