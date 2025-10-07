@@ -1,27 +1,23 @@
 ﻿@page "/capacitaciones"
-
 @inject IGenericService<Capacitacion> _serviceCapacitacion
-@inject SweetAlertService sweetAlert
-
+@inject SweetAlertService _sweetAlert
 
 <PageTitle>Capacitaciones</PageTitle>
 
-<h1>Ágora — Capacitaciones!</h1>
+<h1>Capacitaciones</h1>
 
-<p> hola esto es una capacitacion</p>
-
-@if (capacitaciones is null)
+@if(capacitaciones == null)
 {
     <p><em>Cargando la lista de capacitaciones...</em></p>
 }
-else if (!capacitaciones.Any())
+else if(!capacitaciones.Any())
 {
     <p><em>No hay capacitaciones disponibles.</em></p>
 }
 else
 {
-    <NavLink class="btn btn-primary" href=@("NuevoEditarCapacitacion")>
-        Agregar Capacitación
+    <NavLink class="btn btn-info" href=@($"NuevoEditarCapacitacion")>
+        Agregar capacitación
     </NavLink>
     <table class="table">
         <thead>
@@ -29,11 +25,11 @@ else
                 <th>Nombre</th>
                 <th>Orador/a</th>
                 <th>Fecha</th>
-                <th colspan="2">Acciones</th> 
+                <th colspan="2">Acciones</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var cap in capacitaciones)
+            @foreach(var cap in capacitaciones)
             {
                 <tr>
                     <td>@cap.Nombre</td>
@@ -53,12 +49,17 @@ else
     </table>
 }
 
+
 @code {
     private List<Capacitacion>? capacitaciones;
 
+    protected override async Task OnInitializedAsync()
+    {
+        capacitaciones = (await _serviceCapacitacion.GetAllAsync(null))?.ToList();
+    }
     private async Task DeleteCapacitacion(Capacitacion capacitacion)
     {
-        var respuesta = await sweetAlert.FireAsync(new SweetAlertOptions
+        var respuesta = await _sweetAlert.FireAsync(new SweetAlertOptions
         {
             Title = "¿Estás seguro?",
             Text = $"¿Deseas eliminar la capacitación '{capacitacion.Nombre}'?",
@@ -73,23 +74,11 @@ else
             {
                 capacitaciones?.Remove(capacitacion);
                 StateHasChanged();
-            }
-            else
+            }else
             {
-                await sweetAlert.FireAsync("Error", "No se pudo eliminar la capacitación.", SweetAlertIcon.Error);
+                await _sweetAlert.FireAsync("Error", "No se pudo eliminar la capacitación.", SweetAlertIcon.Error);
             }
         }
 
     }
-
-    private async Task EditCapacitacion(Capacitacion capacitacion)
-    {
-
-    }
-
-    protected override async Task OnInitializedAsync()
-    {
-        capacitaciones = (await _serviceCapacitacion.GetAllAsync(null))?.ToList();
-    }
-
 }

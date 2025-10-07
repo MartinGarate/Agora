@@ -1,5 +1,5 @@
-﻿@page "/nuevoEditarCapacitacion"
-@inject IGenericService<Capacitacion> _serviceCapacitacion
+﻿@page "/nuevoeditarcapacitacion"
+@inject IGenericService<Capacitacion> _capacitacionService
 @inject NavigationManager NavigationManager
 
 @if (capacitacion == null )
@@ -9,45 +9,44 @@
 else
 {
     <h3 >@tituloPagina</h3>
-    <EditForm Model="capacitacion" OnValidSubmit="Guardar">
+    <div style="background-color: @(isEditing ? "lightyellow": "white")">
+        <EditForm Model="capacitacion" OnValidSubmit="Guardar">
         <DataAnnotationsValidator />
         <div class="container">
-            <div class="col-md-5">
-                <div class="form-group">
-                    <label class="form-label">Nombre:</label>
-                    <InputText class="form-control mb-2" type="text" @bind-Value="capacitacion.Nombre" />
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Detalle:</label>
-                    <InputText class="form-control mb-2" type="text" @bind-Value="capacitacion.Detalle" />
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Ponente:</label>
-                    <InputText class="form-control mb-2" type="text" @bind-Value="capacitacion.Ponente" />
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Fecha y hora:</label>
-                    <InputDate class="form-control mb-2" @bind-Value="capacitacion.FechaHora" />
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Cupo:</label>
-                    <InputNumber class="form-control mb-2" type="text" @bind-Value="capacitacion.Cupo" />
-                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="form-label">Nombre:</label>
+                        <InputText class="form-control mb-2" type="text" @bind-Value="capacitacion.Nombre" />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Detalle:</label>
+                        <InputText class="form-control mb-2" type="text" @bind-Value="capacitacion.Detalle" />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Ponente:</label>
+                        <InputText class="form-control mb-2" type="text" @bind-Value="capacitacion.Ponente" />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Fecha y hora:</label>
+                        <InputDate class="form-control mb-2" @bind-Value="capacitacion.FechaHora" />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Cupo:</label>
+                        <InputNumber class="form-control mb-2" type="text" @bind-Value="capacitacion.Cupo" />
+                    </div>
 
-                <div class="form-group">
+                    <div class="form-group">
 
-                    <label class="form-label">Inscripción Abierta:</label>
-                    <InputCheckbox class="form-check" @bind-Value="capacitacion.InscripcionAbierta" />
+                        <label class="form-label">Inscripción Abierta:</label>
+                        <InputCheckbox class="form-check" @bind-Value="capacitacion.InscripcionAbierta" />
+                    </div>
                 </div>
-            </div>
-            <ValidationSummary />
-            <button class="btn btn-primary" type="submit">@guardarButtonText</button>
-            <button class="btn btn-danger" @onclick="Cancelar">Cancelar</button>
+                <ValidationSummary />
+                <button class="btn btn-primary" type="submit">@guardarButtonText</button>
+                <button class="btn btn-danger" @onclick="Cancelar">Cancelar</button>
         </div>
     </EditForm>
-
-
-
+    </div>
 }
 @code {
     [SupplyParameterFromQuery]
@@ -55,8 +54,7 @@ else
     public int? idCapacitacion { get; set; }
     private Capacitacion capacitacion;
 
-
-    private bool isEditing => idCapacitacion != null; // propiedades de cuerpo de expresion
+    private bool isEditing => idCapacitacion != null;
     private string guardarButtonText => isEditing ? "Actualizar" : "Agregar";
     private string tituloPagina => isEditing ? "Editando Capacitación" : "Agregando nueva Capacitación";
 
@@ -64,11 +62,11 @@ else
     {
         if (idCapacitacion != null)
         {
-            capacitacion = await _serviceCapacitacion.GetByIdAsync((int)idCapacitacion);
+            capacitacion = await _capacitacionService.GetByIdAsync((int)idCapacitacion);
         }
         else
         {
-            capacitacion = new();
+            capacitacion = new Capacitacion();
         }
     }
 
@@ -76,9 +74,9 @@ else
     {
         //logger.LogInformation(campania.PropertiesToString());
         if (idCapacitacion != null)
-            await _serviceCapacitacion.UpdateAsync(capacitacion);
+            await _capacitacionService.UpdateAsync(capacitacion);
         else
-            await _serviceCapacitacion.AddAsync(capacitacion);
+            await _capacitacionService.AddAsync(capacitacion);
         NavigationManager.NavigateTo($"capacitaciones");
     }
 
@@ -86,5 +84,4 @@ else
     {
         NavigationManager.NavigateTo($"capacitaciones");
     }
-
 }
