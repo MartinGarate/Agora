@@ -27,6 +27,8 @@ namespace MovilApp.ViewModels.Login
         [ObservableProperty]
         private bool recordarContraseña;
 
+        [ObservableProperty]
+        private bool estaDescargando;
 
         public IRelayCommand IniciarSesionCommand { get; }
         public IRelayCommand RegistrarseCommand { get; }
@@ -51,18 +53,32 @@ namespace MovilApp.ViewModels.Login
 
         private async void Registrarse()
         {
-            await Shell.Current.GoToAsync("Registrarse");
+            if (Application.Current?.MainPage is AgoraShell shell)
+            { 
+                await shell.GoToAsync("//Registrarse");
+            }
         }
 
         private async void ChequearSiHayUsuarioAlmacenado()
         {
-            if (_userRepository.UserExists())
+            //_userRepository.DeleteUser(); // codigo para testing en pc
+            if (DeviceInfo.Platform == DevicePlatform.Android || DeviceInfo.Platform == DevicePlatform.iOS)
             {
-                (_userInfo, _firebaseCredential) = _userRepository.ReadUser();
-
-                if (Application.Current?.MainPage is AgoraShell shell)
+                try
                 {
-                    shell.SetLoginState(true);
+                    if (_userRepository.UserExists())
+                    {
+                        (_userInfo, _firebaseCredential) = _userRepository.ReadUser();
+
+                        if (Application.Current?.MainPage is AgoraShell shell)
+                        {
+                            shell.SetLoginState(true);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error", "Ocurrió un problema al leer el usuario almacenado: " + ex.Message, "Ok");
                 }
             }
         }
@@ -76,13 +92,14 @@ namespace MovilApp.ViewModels.Login
         {
             try
             {
-
+                estaDescargando = true;
                 var userCredential = await _clientAuth.SignInWithEmailAndPasswordAsync(email, password);
-                //if (userCredential.User.Info.IsEmailVerified == false)
-                //{
-                //    await Application.Current.MainPage.DisplayAlert("Inicio de sesión", "Debe verificar su correo electrónico", "Ok");
-                //    return;
-                //}
+                if (userCredential.User.Info.IsEmailVerified == false)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Inicio de sesión", "Debe verificar su correo electrónico", "Ok");
+                 estaDescargando = false;
+                    return;
+                }
 
                 if (recordarContraseña)
                 {
@@ -96,6 +113,7 @@ namespace MovilApp.ViewModels.Login
                 if (Application.Current?.MainPage is AgoraShell shell)
                 {
                     shell.SetLoginState(true);
+                    estaDescargando = false;
                 }
 
             }

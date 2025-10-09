@@ -28,7 +28,15 @@
         ContentTemplate="{DataTemplate login:LoginView}"
         Route="Login"
         FlyoutItemIsVisible="False"/>
-        
+
+
+    <ShellContent
+    Title="Iniciar sesión"
+    ContentTemplate="{DataTemplate login:SignInView}"
+    Route="Registrarse"
+    FlyoutItemIsVisible="False"/>
+
+
     <FlyoutItem Route="nuestra_app" 
         FlyoutDisplayOptions="AsMultipleItems" >
         <ShellContent

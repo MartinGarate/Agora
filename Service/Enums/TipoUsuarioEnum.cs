@@ -12,7 +12,7 @@ namespace Service.Enums
         //los valores por defecto son 0,1,2,3...
         //se pueden asignar valores personalizados
         
-        Estudiante,
+        Asistente,
         Docente,
         Administrador,
 
