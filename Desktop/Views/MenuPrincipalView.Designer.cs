@@ -28,197 +28,142 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MenuPrincipalView));
-            iconMenuItem1 = new FontAwesome.Sharp.IconMenuItem();
+            menuPrincipal = new MenuStrip();
+            SubMenuPrincipal = new FontAwesome.Sharp.IconMenuItem();
+            SubMenuUsuarios = new FontAwesome.Sharp.IconMenuItem();
+            subMenuCapacitaciones = new FontAwesome.Sharp.IconMenuItem();
+            SubMenuTiposDeInscripciones = new FontAwesome.Sharp.IconMenuItem();
+            toolStripSeparator1 = new ToolStripSeparator();
+            SubmenuInscripciones = new FontAwesome.Sharp.IconMenuItem();
+            SubMenuSalir = new FontAwesome.Sharp.IconMenuItem();
+            SubMenuSalirDelSistema = new FontAwesome.Sharp.IconMenuItem();
             toolStrip1 = new ToolStrip();
-            contextMenuStrip1 = new ContextMenuStrip(components);
-            salirMenu = new ToolStripMenuItem();
-            subMenu_Salir = new ToolStripMenuItem();
-            subMenu_Principal = new ToolStripMenuItem();
-            subMenuUsuarios = new FontAwesome.Sharp.IconMenuItem();
-            iconMenuItem2 = new FontAwesome.Sharp.IconMenuItem();
-            salir_menu = new FontAwesome.Sharp.IconMenuItem();
-            menuStrip1 = new MenuStrip();
-            menuPrincipal = new FontAwesome.Sharp.IconMenuItem();
-            usuarios = new FontAwesome.Sharp.IconMenuItem();
-            menuSalir = new FontAwesome.Sharp.IconMenuItem();
-            subMenuSalir = new FontAwesome.Sharp.IconMenuItem();
-            subMenu_Capacitaciones = new FontAwesome.Sharp.IconMenuItem();
-            menuStrip1.SuspendLayout();
+            menuPrincipal.SuspendLayout();
             SuspendLayout();
-            // 
-            // iconMenuItem1
-            // 
-            iconMenuItem1.IconChar = FontAwesome.Sharp.IconChar.None;
-            iconMenuItem1.IconColor = Color.Black;
-            iconMenuItem1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconMenuItem1.Name = "iconMenuItem1";
-            iconMenuItem1.Size = new Size(32, 19);
-            iconMenuItem1.Text = "iconMenuItem1";
-            // 
-            // toolStrip1
-            // 
-            toolStrip1.Location = new Point(0, 24);
-            toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(800, 25);
-            toolStrip1.TabIndex = 6;
-            toolStrip1.Text = "toolStrip1";
-            // 
-            // contextMenuStrip1
-            // 
-            contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(61, 4);
-            // 
-            // salirMenu
-            // 
-            salirMenu.DropDownItems.AddRange(new ToolStripItem[] { subMenu_Salir });
-            salirMenu.Name = "salirMenu";
-            salirMenu.Size = new Size(41, 20);
-            salirMenu.Text = "Salir";
-            // 
-            // subMenu_Salir
-            // 
-            subMenu_Salir.Name = "subMenu_Salir";
-            subMenu_Salir.Size = new Size(158, 22);
-            subMenu_Salir.Text = "Salir del sistema";
-            // 
-            // subMenu_Principal
-            // 
-            subMenu_Principal.Name = "subMenu_Principal";
-            subMenu_Principal.Size = new Size(180, 22);
-            subMenu_Principal.Text = "Menu Principal";
-            // 
-            // subMenuUsuarios
-            // 
-            subMenuUsuarios.IconChar = FontAwesome.Sharp.IconChar.None;
-            subMenuUsuarios.IconColor = Color.Black;
-            subMenuUsuarios.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            subMenuUsuarios.Name = "subMenuUsuarios";
-            subMenuUsuarios.Size = new Size(180, 22);
-            subMenuUsuarios.Text = "Usuarios";
-            // 
-            // iconMenuItem2
-            // 
-            iconMenuItem2.DropDownItems.AddRange(new ToolStripItem[] { salir_menu });
-            iconMenuItem2.IconChar = FontAwesome.Sharp.IconChar.None;
-            iconMenuItem2.IconColor = Color.Black;
-            iconMenuItem2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconMenuItem2.Name = "iconMenuItem2";
-            iconMenuItem2.Size = new Size(57, 20);
-            iconMenuItem2.Text = "Salir";
-            // 
-            // salir_menu
-            // 
-            salir_menu.IconChar = FontAwesome.Sharp.IconChar.None;
-            salir_menu.IconColor = Color.Black;
-            salir_menu.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            salir_menu.Name = "salir_menu";
-            salir_menu.Size = new Size(149, 22);
-            salir_menu.Text = "Salir del Menu";
-            // 
-            // menuStrip1
-            // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { menuPrincipal, menuSalir });
-            menuStrip1.Location = new Point(0, 0);
-            menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(800, 24);
-            menuStrip1.TabIndex = 11;
-            menuStrip1.Text = "menuStrip1";
             // 
             // menuPrincipal
             // 
-            menuPrincipal.DropDownItems.AddRange(new ToolStripItem[] { usuarios, subMenu_Capacitaciones });
-            menuPrincipal.IconChar = FontAwesome.Sharp.IconChar.Bars;
-            menuPrincipal.IconColor = Color.Black;
-            menuPrincipal.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            menuPrincipal.ImageScalingSize = new Size(24, 24);
+            menuPrincipal.Items.AddRange(new ToolStripItem[] { SubMenuPrincipal, SubMenuSalir });
+            menuPrincipal.Location = new Point(0, 0);
             menuPrincipal.Name = "menuPrincipal";
-            menuPrincipal.Size = new Size(115, 20);
-            menuPrincipal.Text = "Menu Principal";
+            menuPrincipal.Size = new Size(800, 33);
+            menuPrincipal.TabIndex = 1;
+            menuPrincipal.Text = "menuStrip1";
             // 
-            // usuarios
+            // SubMenuPrincipal
             // 
-            usuarios.IconChar = FontAwesome.Sharp.IconChar.Users;
-            usuarios.IconColor = Color.Black;
-            usuarios.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            usuarios.Name = "usuarios";
-            usuarios.Size = new Size(180, 22);
-            usuarios.Text = "Usuarios";
-            usuarios.Click += usuarios_Click;
+            SubMenuPrincipal.DropDownItems.AddRange(new ToolStripItem[] { SubMenuUsuarios, subMenuCapacitaciones, SubMenuTiposDeInscripciones, toolStripSeparator1, SubmenuInscripciones });
+            SubMenuPrincipal.IconChar = FontAwesome.Sharp.IconChar.HomeLg;
+            SubMenuPrincipal.IconColor = Color.Black;
+            SubMenuPrincipal.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            SubMenuPrincipal.Name = "SubMenuPrincipal";
+            SubMenuPrincipal.Size = new Size(118, 29);
+            SubMenuPrincipal.Text = "Principal";
             // 
-            // menuSalir
+            // SubMenuUsuarios
             // 
-            menuSalir.DropDownItems.AddRange(new ToolStripItem[] { subMenuSalir });
-            menuSalir.IconChar = FontAwesome.Sharp.IconChar.RightToBracket;
-            menuSalir.IconColor = Color.Black;
-            menuSalir.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            menuSalir.Name = "menuSalir";
-            menuSalir.Size = new Size(57, 20);
-            menuSalir.Text = "Salir";
+            SubMenuUsuarios.IconChar = FontAwesome.Sharp.IconChar.UserFriends;
+            SubMenuUsuarios.IconColor = Color.Black;
+            SubMenuUsuarios.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            SubMenuUsuarios.Name = "SubMenuUsuarios";
+            SubMenuUsuarios.Size = new Size(289, 34);
+            SubMenuUsuarios.Text = "Usuarios";
+            SubMenuUsuarios.Click += SubMenuUsuarios_Click;
             // 
-            // subMenuSalir
+            // subMenuCapacitaciones
             // 
-            subMenuSalir.IconChar = FontAwesome.Sharp.IconChar.RightToBracket;
-            subMenuSalir.IconColor = Color.Black;
-            subMenuSalir.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            subMenuSalir.Name = "subMenuSalir";
-            subMenuSalir.Size = new Size(149, 22);
-            subMenuSalir.Text = "Salir del Menu";
-            subMenuSalir.Click += subMenuSalir_Click;
+            subMenuCapacitaciones.IconChar = FontAwesome.Sharp.IconChar.Book;
+            subMenuCapacitaciones.IconColor = Color.Black;
+            subMenuCapacitaciones.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            subMenuCapacitaciones.Name = "subMenuCapacitaciones";
+            subMenuCapacitaciones.Size = new Size(289, 34);
+            subMenuCapacitaciones.Text = "Capacitaciones";
+            subMenuCapacitaciones.Click += subMenuCapacitaciones_Click;
             // 
-            // subMenu_Capacitaciones
+            // SubMenuTiposDeInscripciones
             // 
-            subMenu_Capacitaciones.IconChar = FontAwesome.Sharp.IconChar.BookBookmark;
-            subMenu_Capacitaciones.IconColor = Color.Black;
-            subMenu_Capacitaciones.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            subMenu_Capacitaciones.Name = "subMenu_Capacitaciones";
-            subMenu_Capacitaciones.Size = new Size(180, 22);
-            subMenu_Capacitaciones.Text = "Capacitaciones";
-            subMenu_Capacitaciones.Click += subMenu_Capacitaciones_Click;
+            SubMenuTiposDeInscripciones.IconChar = FontAwesome.Sharp.IconChar.PeopleGroup;
+            SubMenuTiposDeInscripciones.IconColor = Color.Black;
+            SubMenuTiposDeInscripciones.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            SubMenuTiposDeInscripciones.Name = "SubMenuTiposDeInscripciones";
+            SubMenuTiposDeInscripciones.Size = new Size(289, 34);
+            SubMenuTiposDeInscripciones.Text = "Tipos de Inscripciones";
+            SubMenuTiposDeInscripciones.Click += SubMenuTiposDeInscripciones_Click;
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(286, 6);
+            // 
+            // SubmenuInscripciones
+            // 
+            SubmenuInscripciones.IconChar = FontAwesome.Sharp.IconChar.Pencil;
+            SubmenuInscripciones.IconColor = Color.Black;
+            SubmenuInscripciones.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            SubmenuInscripciones.Name = "SubmenuInscripciones";
+            SubmenuInscripciones.Size = new Size(289, 34);
+            SubmenuInscripciones.Text = "Inscripciones";
+            SubmenuInscripciones.Click += SubmenuInscripciones_Click;
+            // 
+            // SubMenuSalir
+            // 
+            SubMenuSalir.DropDownItems.AddRange(new ToolStripItem[] { SubMenuSalirDelSistema });
+            SubMenuSalir.IconChar = FontAwesome.Sharp.IconChar.DoorClosed;
+            SubMenuSalir.IconColor = Color.Black;
+            SubMenuSalir.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            SubMenuSalir.Name = "SubMenuSalir";
+            SubMenuSalir.Size = new Size(85, 29);
+            SubMenuSalir.Text = "Salir";
+            // 
+            // SubMenuSalirDelSistema
+            // 
+            SubMenuSalirDelSistema.IconChar = FontAwesome.Sharp.IconChar.DoorOpen;
+            SubMenuSalirDelSistema.IconColor = Color.Black;
+            SubMenuSalirDelSistema.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            SubMenuSalirDelSistema.Name = "SubMenuSalirDelSistema";
+            SubMenuSalirDelSistema.Size = new Size(241, 34);
+            SubMenuSalirDelSistema.Text = "Salir del sistema";
+            SubMenuSalirDelSistema.Click += SubMenuSalirDelSistema_Click;
+            // 
+            // toolStrip1
+            // 
+            toolStrip1.ImageScalingSize = new Size(24, 24);
+            toolStrip1.Location = new Point(0, 33);
+            toolStrip1.Name = "toolStrip1";
+            toolStrip1.Size = new Size(800, 25);
+            toolStrip1.TabIndex = 2;
+            toolStrip1.Text = "toolStrip1";
             // 
             // MenuPrincipalView
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(toolStrip1);
-            Controls.Add(menuStrip1);
-            Icon = (Icon)resources.GetObject("$this.Icon");
+            Controls.Add(menuPrincipal);
             IsMdiContainer = true;
+            MainMenuStrip = menuPrincipal;
             Name = "MenuPrincipalView";
-            StartPosition = FormStartPosition.CenterScreen;
-            Text = "Ágora | Software de Acreditación de Capacitaciones ISP 20";
-            Load += Form1_Load;
-            menuStrip1.ResumeLayout(false);
-            menuStrip1.PerformLayout();
+            Text = "Ágora : Software de Acreditación de Capacitaciones ISP20";
+            WindowState = FormWindowState.Maximized;
+            menuPrincipal.ResumeLayout(false);
+            menuPrincipal.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private FontAwesome.Sharp.IconMenuItem iconMenuItem1;
+        private MenuStrip menuPrincipal;
         private ToolStrip toolStrip1;
-        private ContextMenuStrip contextMenuStrip1;
-        private FontAwesome.Sharp.IconMenuItem iconMenuItem2;
-        private ToolStripMenuItem subMenuPrincipal;
-        private ToolStripMenuItem salirToolStripMenuItem;
-        private ToolStripMenuItem salirSubMenu;
-        private ToolStripMenuItem subMenu_Principal;
-        private ToolStripMenuItem salirMenu;
-        private ToolStripMenuItem subMenu_Salir;
-        private FontAwesome.Sharp.IconMenuItem iconMenuItem3;
-        private ToolStripMenuItem sub_menuPrincipal;
-        private ToolStripMenuItem toolStripMenuItem1;
-        private ToolStripMenuItem sub_menuSalir;
-        private FontAwesome.Sharp.IconMenuItem iconMenuItem4;
-        private FontAwesome.Sharp.IconMenuItem subMenuUsuarios;
-        private FontAwesome.Sharp.IconMenuItem salir_menu;
-        private MenuStrip menuStrip1;
-        private FontAwesome.Sharp.IconMenuItem menuPrincipal;
-        private FontAwesome.Sharp.IconMenuItem usuarios;
-        private FontAwesome.Sharp.IconMenuItem menuSalir;
-        private FontAwesome.Sharp.IconMenuItem subMenuSalir;
-        private FontAwesome.Sharp.IconMenuItem subMenu_Capacitaciones;
+        private FontAwesome.Sharp.IconMenuItem SubMenuPrincipal;
+        private FontAwesome.Sharp.IconMenuItem SubMenuSalir;
+        private FontAwesome.Sharp.IconMenuItem SubMenuSalirDelSistema;
+        private FontAwesome.Sharp.IconMenuItem SubMenuUsuarios;
+        private FontAwesome.Sharp.IconMenuItem subMenuCapacitaciones;
+        private FontAwesome.Sharp.IconMenuItem SubMenuTiposDeInscripciones;
+        private ToolStripSeparator toolStripSeparator1;
+        private FontAwesome.Sharp.IconMenuItem SubmenuInscripciones;
     }
 }

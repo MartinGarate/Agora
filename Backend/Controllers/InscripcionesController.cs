@@ -14,122 +14,131 @@ namespace Backend.Controllers
     [ApiController]
     public class InscripcionesController : ControllerBase
     {
-        private readonly AgoraContext _context;
+            private readonly AgoraContext _context;
 
-        public InscripcionesController(AgoraContext context)
-        {
-            _context = context;
-        }
-
-        // GET: api/Inscripciones
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Inscripcion>>> GetInscripciones()
-        {
-            return await _context.Inscripciones.ToListAsync();
-        }
-
-        // GET: api/Inscripciones/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Inscripcion>> GetInscripcion(int id)
-        {
-            var inscripcion = await _context.Inscripciones.FindAsync(id);
-
-            if (inscripcion == null)
+            public InscripcionesController(AgoraContext context)
             {
-                return NotFound();
+                _context = context;
             }
 
-            return inscripcion;
-        }
-
-        // PUT: api/Inscripciones/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutInscripcion(int id, Inscripcion inscripcion)
-        {
-            if (id != inscripcion.Id)
+            // GET: api/Inscripciones
+            [HttpGet]
+            public async Task<ActionResult<IEnumerable<Inscripcion>>> GetInscripciones()
             {
-                return BadRequest();
+                return await _context.Inscripciones
+                            .Include(i => i.Capacitacion)
+                            .Include(i => i.TipoInscripcion)
+                            .Include(i => i.Usuario).ToListAsync();
             }
 
-            _context.Entry(inscripcion).State = EntityState.Modified;
-
-            try
+            [HttpGet("inscriptos/{id}")]
+            public async Task<ActionResult<IEnumerable<Inscripcion>>> GetInscriptos(int id)
             {
-                await _context.SaveChangesAsync();
+                return await _context.Inscripciones
+                            .Include(i => i.Capacitacion)
+                            .Include(i => i.TipoInscripcion)
+                            .Include(i => i.Usuario)
+                            .Where(i => i.CapacitacionId == id)
+                            .ToListAsync();
             }
-            catch (DbUpdateConcurrencyException)
+
+            // GET: api/Inscripciones/5
+            [HttpGet("{id}")]
+            public async Task<ActionResult<Inscripcion>> GetInscripcion(int id)
             {
-                if (!InscripcionExists(id))
+                var inscripcion = await _context.Inscripciones.FindAsync(id);
+
+                if (inscripcion == null)
                 {
                     return NotFound();
                 }
-                else
+
+                return inscripcion;
+            }
+
+            // PUT: api/Inscripciones/5
+            // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+            [HttpPut("{id}")]
+            public async Task<IActionResult> PutInscripcion(int id, Inscripcion inscripcion)
+            {
+                if (id != inscripcion.Id)
                 {
-                    throw;
+                    return BadRequest();
                 }
+
+                _context.Entry(inscripcion).State = EntityState.Modified;
+
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!InscripcionExists(id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+
+                return NoContent();
             }
 
-            return NoContent();
-        }
-
-        // POST: api/Inscripciones
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Inscripcion>> PostInscripcion(Inscripcion inscripcion)
-        {
-            _context.Inscripciones.Add(inscripcion);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetInscripcion", new { id = inscripcion.Id }, inscripcion);
-        }
-
-
-        private bool InscripcionExists(int id)
-        {
-            return _context.Inscripciones.Any(e => e.Id == id);
-        }
-
-        // DELETE: api/Capacitaciones/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteInscripcion(int id)
-        {
-            var inscripcion = await _context.Inscripciones.FindAsync(id);
-            if (inscripcion == null)
+            // POST: api/Inscripciones
+            // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+            [HttpPost]
+            public async Task<ActionResult<Inscripcion>> PostInscripcion(Inscripcion inscripcion)
             {
-                return NotFound();
+                _context.Inscripciones.Add(inscripcion);
+                await _context.SaveChangesAsync();
+
+                return CreatedAtAction("GetInscripcion", new { id = inscripcion.Id }, inscripcion);
             }
-            inscripcion.IsDeleted = true; //esto es un soft delete
-            _context.Inscripciones.Update(inscripcion);
-            await _context.SaveChangesAsync();
 
-            return NoContent();
-        }
-
-        // Ahora hacemos un restore capacitacion
-        // esto es un soft restore, no eliminamos el registro, solo cambiamos el estado de IsDeleted a false
-        // PUT: api/Capacitaciones/restore/{id}
-        [HttpPut("restore/{id}")]
-        public async Task<IActionResult> RestoreInscripcion(int id)
-        {
-            var inscripcion = await _context.Inscripciones.IgnoreQueryFilters().FirstOrDefaultAsync(c => c.Id.Equals(id));
-            if (inscripcion == null)
+            // DELETE: api/Inscripciones/5
+            [HttpDelete("{id}")]
+            public async Task<IActionResult> DeleteInscripcion(int id)
             {
-                return NotFound();
+                var inscripcion = await _context.Inscripciones.FindAsync(id);
+                if (inscripcion == null)
+                {
+                    return NotFound();
+                }
+                inscripcion.IsDeleted = true; // Soft delete
+                _context.Inscripciones.Update(inscripcion);
+                await _context.SaveChangesAsync();
+
+                return NoContent();
             }
-            inscripcion.IsDeleted = false; //esto es un soft restore
-            _context.Inscripciones.Update(inscripcion);
-            await _context.SaveChangesAsync();
 
-            return NoContent();
+            private bool InscripcionExists(int id)
+            {
+                return _context.Inscripciones.Any(e => e.Id == id);
+            }
+
+            // PUT: api/Inscripciones/restore/5
+            [HttpPut("restore/{id}")]
+            public async Task<IActionResult> RestoreInscripcion(int id)
+            {
+                var inscripcion = await _context.Inscripciones.IgnoreQueryFilters().FirstOrDefaultAsync(i => i.Equals(id));
+                if (inscripcion == null)
+                {
+                    return NotFound();
+                }
+                inscripcion.IsDeleted = false; // Restore the soft-deleted record
+                _context.Inscripciones.Update(inscripcion);
+                await _context.SaveChangesAsync();
+                return NoContent();
+            }
+
+            // Get : api/Inscripciones/deleteds/
+            [HttpGet("deleteds")]
+            public async Task<ActionResult<IEnumerable<Inscripcion>>> GetDeletedInscripciones()
+            {
+                return await _context.Inscripciones.IgnoreQueryFilters().Where(i => i.IsDeleted).ToListAsync();
+            }
         }
-
-        // GET: api/Capacitaciones/deleteds
-        [HttpGet("deleteds")]
-        public async Task<ActionResult<IEnumerable<Inscripcion>>> GetInscripcionDeleteds()
-        {
-
-            return await _context.Inscripciones.IgnoreQueryFilters().Where(c => c.IsDeleted).ToListAsync();
-        }
-    }
 }

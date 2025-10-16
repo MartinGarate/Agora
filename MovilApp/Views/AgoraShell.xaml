@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-    <Shell
+<Shell
     x:Class="MovilApp.Views.AgoraShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -7,6 +7,8 @@
     xmlns:login="clr-namespace:MovilApp.Views.Login"
     xmlns:contentviews="clr-namespace:MovilApp.ContentViews"
     xmlns:views="clr-namespace:MovilApp.Views"
+    xmlns:admin="clr-namespace:MovilApp.Views.Admin"
+    
     xmlns:viewmodels="clr-namespace:MovilApp.ViewModels"
     FlyoutBehavior="Disabled"
     Title="ÁgoraApp">
@@ -22,20 +24,17 @@
     <Shell.FlyoutFooter>
         <contentviews:FlyoutFooter />
     </Shell.FlyoutFooter>
-        
+
     <ShellContent
         Title="Iniciar sesión"
         ContentTemplate="{DataTemplate login:LoginView}"
         Route="Login"
         FlyoutItemIsVisible="False"/>
-
-
     <ShellContent
-    Title="Iniciar sesión"
-    ContentTemplate="{DataTemplate login:SignInView}"
-    Route="Registrarse"
-    FlyoutItemIsVisible="False"/>
-
+        Title="Crear cuenta"
+        ContentTemplate="{DataTemplate login:SignInView}"
+        Route="Registrarse"
+        FlyoutItemIsVisible="False"/>
 
     <FlyoutItem Route="nuestra_app" 
         FlyoutDisplayOptions="AsMultipleItems" >
@@ -44,20 +43,20 @@
             ContentTemplate="{DataTemplate local:MainPage}"
             Route="MainPage" />
 
-        <!--<Tab Title="Carreras"
-         Route="carreras"
+        <Tab Title="Admin Capacitaciones"
+         Route="capacitaciones"
          Icon="paw.png">
             <ShellContent
                 Title="Lista"
                 Icon="cat.png"
-                ContentTemplate="{DataTemplate commons:CarrerasView}"
-                Route="ListaCarreras" />
+                ContentTemplate="{DataTemplate admin:AdminCapacitacionesView}"
+                Route="ListaCapacitaciones" />
             <ShellContent
                 Title="Agregar carrera"
                 Icon="dog.png"
-                ContentTemplate="{DataTemplate commons:AddEditCarreraView}"
-                Route="AgregarEditarCarrera" />
-        </Tab>-->
+                ContentTemplate="{DataTemplate admin:AddEditCapacitacionView}"
+                Route="AddEditCapacitacion" />
+        </Tab>
     </FlyoutItem>
     <FlyoutItem Title="📖 Buscar Capacitaciones" Icon="search.png" >
         <ShellContent

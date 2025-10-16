@@ -3,79 +3,108 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MovilApp.Views.Login.LoginView"
              xmlns:viewModels="clr-namespace:MovilApp.ViewModels.Login"
-             Title="IniciarSesionView"
-             NavigationPage.HasNavigationBar="False">
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#1E1E2C">
     <ContentPage.BindingContext>
         <viewModels:LoginViewModel />
     </ContentPage.BindingContext>
     <ScrollView Padding="20">
-        <VerticalStackLayout VerticalOptions="Center" Spacing="20">
+        <VerticalStackLayout VerticalOptions="Start" Spacing="25">
+            <!-- Encabezado -->
             <Label 
-            FontSize="28"
-            Text="Inicio de sesión a ÁgoraApp"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center"
-            HorizontalTextAlignment="Center"
-            LineBreakMode="WordWrap" />
+                FontSize="32"
+                Text="Bienvenido a ÁgoraApp"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                TextColor="#A29BFE"
+                FontAttributes="Bold" />
 
-            <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="Auto,*" ColumnSpacing="10" RowSpacing="15">
+            <Label 
+                FontSize="18"
+                Text="Por favor, inicia sesión para continuar"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                TextColor="#D6D6D6" />
+
+            <!-- Formulario -->
+            <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="Auto,*" ColumnSpacing="10" RowSpacing="20">
                 <Label Grid.Row="0" Grid.Column="0"
-                   Text="Email:"
-                   FontSize="16"
-                   VerticalTextAlignment="Center"
-                   HorizontalOptions="End"
-                   VerticalOptions="Center" />
+                       Text="Email:"
+                       FontSize="16"
+                       VerticalTextAlignment="Center"
+                       HorizontalOptions="End"
+                       VerticalOptions="Center"
+                       TextColor="#A29BFE" />
                 <Entry Grid.Row="0" Grid.Column="1" 
-                   Text="{Binding Email}" 
-                   Margin="0"
-                   FontSize="14"
-                   Placeholder="Introduce tu email" />
+                       Text="{Binding Email}" 
+                       Margin="0"
+                       FontSize="14"
+                       Placeholder="Introduce tu email"
+                       PlaceholderColor="#6C6C6C"
+                       TextColor="#FFFFFF"
+                       BackgroundColor="#2E2E3E" />
 
                 <Label Grid.Row="1" Grid.Column="0" 
-                   Text="Contraseña:"
-                   FontSize="16"
-                   VerticalTextAlignment="Center"
-                   HorizontalOptions="End"
-                   VerticalOptions="Center" />
+                       Text="Contraseña:"
+                       FontSize="16"
+                       VerticalTextAlignment="Center"
+                       HorizontalOptions="End"
+                       VerticalOptions="Center"
+                       TextColor="#A29BFE" />
                 <Entry Grid.Row="1" Grid.Column="1" 
-                   Text="{Binding Password}"
-                   IsPassword="True"
-                   FontSize="14"
-                   Placeholder="Introduce tu contraseña" />
+                       Text="{Binding Password}"
+                       IsPassword="True"
+                       FontSize="14"
+                       Placeholder="Introduce tu contraseña"
+                       PlaceholderColor="#6C6C6C"
+                       TextColor="#FFFFFF"
+                       BackgroundColor="#2E2E3E" />
 
                 <CheckBox IsChecked="{Binding RecordarContraseña}"
-                      Grid.Row="2" Grid.Column="0"
-                      VerticalOptions="Center"
-                      HorizontalOptions="End" />
+                          Grid.Row="2" Grid.Column="0"
+                          VerticalOptions="Center"
+                          HorizontalOptions="End"
+                          Color="#A29BFE" />
                 <Label Grid.Row="2" Grid.Column="1"
-                   Text="Recordar contraseña"
-                   FontSize="14"
-                   VerticalOptions="Center"
-                   HorizontalOptions="Start" />
+                       Text="Recordar contraseña"
+                       FontSize="14"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Start"
+                       TextColor="#D6D6D6" />
 
                 <Button Text="Iniciar sesión"
-                    x:Name="btnIniciarSesion"
-                    Grid.Row="3" Grid.Column="0"
-                    Command="{Binding IniciarSesionCommand}"
-                    Grid.ColumnSpan="2"
-                    Margin="0"
-                    FontSize="16"
-                    Padding="10"
-                    CornerRadius="8" />
+                        x:Name="btnIniciarSesion"
+                        Grid.Row="3" Grid.Column="0"
+                        Command="{Binding IniciarSesionCommand}"
+                        Grid.ColumnSpan="2"
+                        Margin="0"
+                        FontSize="16"
+                        Padding="12"
+                        CornerRadius="10"
+                        BackgroundColor="#6C5CE7"
+                        TextColor="#FFFFFF" />
 
                 <Button Text="Registrarse"
-                    x:Name="btnRegistrarse"
-                    Grid.Row="4" Grid.Column="0"
-                    Command="{Binding RegistrarseCommand}"
-                    Grid.ColumnSpan="2"
-                    Margin="0"
-                    FontSize="16"
-                    Padding="10"
-                  
-                    CornerRadius="8" />
+                        x:Name="btnRegistrarse"
+                        Grid.Row="4" Grid.Column="0"
+                        Command="{Binding RegistrarseCommand}"
+                        Grid.ColumnSpan="2"
+                        Margin="0"
+                        FontSize="16"
+                        Padding="12"
+                        CornerRadius="10"
+                        BackgroundColor="#A29BFE"
+                        TextColor="#FFFFFF" />
             </Grid>
+
+            <!-- Indicador de carga -->
             <ActivityIndicator
-                IsRunning="{Binding EstaDescargando}"/>
+                IsRunning="{Binding EstaDescargando}"
+                Color="#6C5CE7"
+                VerticalOptions="Center"
+                HorizontalOptions="Center" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

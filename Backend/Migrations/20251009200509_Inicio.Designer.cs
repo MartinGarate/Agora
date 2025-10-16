@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Migrations
 {
     [DbContext(typeof(AgoraContext))]
-    [Migration("20250820191401_AddDespuesDeClases")]
-    partial class AddDespuesDeClases
+    [Migration("20251009200509_Inicio")]
+    partial class Inicio
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -71,7 +71,7 @@ namespace Backend.Migrations
                             Cupo = 30,
                             DeleteTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Detalle = "Aprende los conceptos básicos de programación.",
-                            FechaHora = new DateTime(2025, 8, 30, 16, 14, 0, 205, DateTimeKind.Local).AddTicks(4857),
+                            FechaHora = new DateTime(2025, 10, 19, 17, 5, 6, 559, DateTimeKind.Local).AddTicks(6572),
                             InscripcionAbierta = true,
                             IsDeleted = false,
                             Nombre = "Introducción a la Programación",
@@ -83,11 +83,23 @@ namespace Backend.Migrations
                             Cupo = 25,
                             DeleteTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Detalle = "Crea aplicaciones web modernas con ASP.NET Core.",
-                            FechaHora = new DateTime(2025, 9, 9, 16, 14, 0, 205, DateTimeKind.Local).AddTicks(4879),
+                            FechaHora = new DateTime(2025, 10, 29, 17, 5, 6, 559, DateTimeKind.Local).AddTicks(6598),
                             InscripcionAbierta = true,
                             IsDeleted = false,
                             Nombre = "Desarrollo Web con ASP.NET Core",
                             Ponente = "Ana Martínez"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Cupo = 25,
+                            DeleteTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Detalle = "Crea webapps con Angular y ASP.NET Core.",
+                            FechaHora = new DateTime(2025, 10, 29, 17, 5, 6, 559, DateTimeKind.Local).AddTicks(6602),
+                            InscripcionAbierta = true,
+                            IsDeleted = false,
+                            Nombre = "ASP.NET Core con Angular",
+                            Ponente = "Pedro Martínez"
                         });
                 });
 
@@ -102,30 +114,14 @@ namespace Backend.Migrations
                     b.Property<bool>("Acreditado")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<string>("Apellido")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<int>("CapacitacionId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Dni")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("longtext");
 
                     b.Property<decimal>("Importe")
                         .HasColumnType("decimal(65,30)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("longtext");
 
                     b.Property<bool>("Pagado")
                         .HasColumnType("tinyint(1)");
@@ -136,6 +132,9 @@ namespace Backend.Migrations
                     b.Property<int?>("UsuarioCobroId")
                         .HasColumnType("int");
 
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CapacitacionId");
@@ -144,78 +143,120 @@ namespace Backend.Migrations
 
                     b.HasIndex("UsuarioCobroId");
 
+                    b.HasIndex("UsuarioId");
+
                     b.ToTable("Inscripciones");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            Acreditado = false,
-                            Apellido = "Gómez",
+                            Acreditado = true,
                             CapacitacionId = 1,
-                            Dni = "12345678",
-                            Email = "carlos.gomez@gmail.com",
-                            Importe = 10000m,
+                            Importe = 0m,
                             IsDeleted = false,
-                            Nombre = "Carlos",
                             Pagado = false,
-                            TipoInscripcionId = 1
+                            TipoInscripcionId = 1,
+                            UsuarioId = 1
                         },
                         new
                         {
                             Id = 2,
-                            Acreditado = false,
-                            Apellido = "Martínez",
+                            Acreditado = true,
                             CapacitacionId = 1,
-                            Dni = "87654321",
-                            Email = "ana.martinez@gmail.com",
-                            Importe = 5000m,
+                            Importe = 12000m,
                             IsDeleted = false,
-                            Nombre = "Ana",
                             Pagado = false,
-                            TipoInscripcionId = 2
+                            TipoInscripcionId = 1,
+                            UsuarioId = 2
                         },
                         new
                         {
                             Id = 3,
-                            Acreditado = false,
-                            Apellido = "Pérez",
-                            CapacitacionId = 2,
-                            Dni = "11223344",
-                            Email = "juan.perez@gmail.com",
-                            Importe = 4000m,
+                            Acreditado = true,
+                            CapacitacionId = 1,
+                            Importe = 0m,
                             IsDeleted = false,
-                            Nombre = "Juan",
                             Pagado = false,
-                            TipoInscripcionId = 3
+                            TipoInscripcionId = 3,
+                            UsuarioId = 3
                         },
                         new
                         {
                             Id = 4,
-                            Acreditado = false,
-                            Apellido = "Lopez",
+                            Acreditado = true,
                             CapacitacionId = 2,
-                            Dni = "44332211",
-                            Email = "maria.lopez@gmail.com",
-                            Importe = 3000m,
+                            Importe = 8000m,
                             IsDeleted = false,
-                            Nombre = "Maria",
                             Pagado = false,
-                            TipoInscripcionId = 4
+                            TipoInscripcionId = 2,
+                            UsuarioId = 5
                         },
                         new
                         {
                             Id = 5,
-                            Acreditado = false,
-                            Apellido = "Fernandez",
+                            Acreditado = true,
                             CapacitacionId = 2,
-                            Dni = "55667788",
-                            Email = "luis.fernandez@gmail.com",
                             Importe = 12000m,
                             IsDeleted = false,
-                            Nombre = "Luis",
                             Pagado = false,
-                            TipoInscripcionId = 1
+                            TipoInscripcionId = 1,
+                            UsuarioId = 4
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Acreditado = false,
+                            CapacitacionId = 3,
+                            Importe = 15000m,
+                            IsDeleted = false,
+                            Pagado = false,
+                            TipoInscripcionId = 1,
+                            UsuarioId = 1
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Acreditado = false,
+                            CapacitacionId = 3,
+                            Importe = 0m,
+                            IsDeleted = false,
+                            Pagado = false,
+                            TipoInscripcionId = 3,
+                            UsuarioId = 2
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Acreditado = false,
+                            CapacitacionId = 3,
+                            Importe = 15000m,
+                            IsDeleted = false,
+                            Pagado = false,
+                            TipoInscripcionId = 1,
+                            UsuarioId = 3
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Acreditado = false,
+                            CapacitacionId = 3,
+                            Importe = 15000m,
+                            IsDeleted = false,
+                            Pagado = false,
+                            TipoInscripcionId = 1,
+                            UsuarioId = 4
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Acreditado = false,
+                            CapacitacionId = 3,
+                            Importe = 10000m,
+                            IsDeleted = false,
+                            Pagado = false,
+                            TipoInscripcionId = 2,
+                            UsuarioId = 5
                         });
                 });
 
@@ -249,19 +290,19 @@ namespace Backend.Migrations
                         {
                             Id = 2,
                             IsDeleted = false,
-                            Nombre = "Docente"
+                            Nombre = "Docentes"
                         },
                         new
                         {
                             Id = 3,
                             IsDeleted = false,
-                            Nombre = "Estudiante"
+                            Nombre = "Estudiantes"
                         },
                         new
                         {
                             Id = 4,
                             IsDeleted = false,
-                            Nombre = "Jubilado"
+                            Nombre = "Jubilados"
                         });
                 });
 
@@ -354,7 +395,7 @@ namespace Backend.Migrations
                         {
                             Id = 8,
                             CapacitacionId = 2,
-                            Costo = 30000m,
+                            Costo = 3000m,
                             IsDeleted = false,
                             TipoInscripcionId = 4
                         });
@@ -368,8 +409,16 @@ namespace Backend.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Apellido")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<DateTime>("DeleteDate")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Dni")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -379,10 +428,6 @@ namespace Backend.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -397,22 +442,68 @@ namespace Backend.Migrations
                         new
                         {
                             Id = 1,
-                            DeleteDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "admin@gmail.com",
+                            Apellido = "Ramírez",
+                            DeleteDate = new DateTime(1900, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Dni = "43111222",
+                            Email = "tadeo@isp20.edu.ar",
                             IsDeleted = false,
-                            Nombre = "Admin",
-                            Password = "admin123",
-                            TipoUsuario = 2
+                            Nombre = "Tadeo",
+                            TipoUsuario = 0
                         },
                         new
                         {
                             Id = 2,
-                            DeleteDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "perez@gmail.com",
+                            Apellido = "Gómez",
+                            DeleteDate = new DateTime(1900, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Dni = "40222333",
+                            Email = "lucia.gomez@isp20.edu.ar",
                             IsDeleted = false,
-                            Nombre = "Juan Perez",
-                            Password = "juan123",
+                            Nombre = "Lucía",
                             TipoUsuario = 0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Apellido = "Pérez",
+                            DeleteDate = new DateTime(1900, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Dni = "39555111",
+                            Email = "martin.perez@isp20.edu.ar",
+                            IsDeleted = false,
+                            Nombre = "Martín",
+                            TipoUsuario = 0
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Apellido = "Sosa",
+                            DeleteDate = new DateTime(1900, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Dni = "38888999",
+                            Email = "carla.sosa@isp20.edu.ar",
+                            IsDeleted = false,
+                            Nombre = "Carla",
+                            TipoUsuario = 0
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Apellido = "López",
+                            DeleteDate = new DateTime(1900, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Dni = "37777666",
+                            Email = "diego.lopez@isp20.edu.ar",
+                            IsDeleted = false,
+                            Nombre = "Diego",
+                            TipoUsuario = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Apellido = "Admin",
+                            DeleteDate = new DateTime(1900, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Dni = "00000000",
+                            Email = "soporte@agora.isp20.edu.ar",
+                            IsDeleted = false,
+                            Nombre = "Soporte",
+                            TipoUsuario = 2
                         });
                 });
 
@@ -434,9 +525,17 @@ namespace Backend.Migrations
                         .WithMany()
                         .HasForeignKey("UsuarioCobroId");
 
+                    b.HasOne("Service.Models.Usuario", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Capacitacion");
 
                     b.Navigation("TipoInscripcion");
+
+                    b.Navigation("Usuario");
 
                     b.Navigation("UsuarioCobro");
                 });

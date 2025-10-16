@@ -63,29 +63,9 @@ namespace Desktop.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Agora_Logo {
+        internal static System.Drawing.Bitmap Generated_Image_September_02__2025___4_57PM_removebg_preview {
             get {
-                object obj = ResourceManager.GetObject("Agora Logo", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Agora_Logo2 {
-            get {
-                object obj = ResourceManager.GetObject("Agora Logo2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Gemini_Generated_Image_frqc5rfrqc5rfrqc {
-            get {
-                object obj = ResourceManager.GetObject("Gemini_Generated_Image_frqc5rfrqc5rfrqc", resourceCulture);
+                object obj = ResourceManager.GetObject("Generated_Image_September_02__2025_-_4_57PM-removebg-preview", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -24,6 +24,7 @@ namespace MovilApp.ViewModels.Capacitaciones
         [ObservableProperty]
         private ObservableCollection<Capacitacion> capacitaciones = new();
 
+
         public IRelayCommand BuscarCommand { get; }
         public IRelayCommand LimpiarCommand { get; }
 

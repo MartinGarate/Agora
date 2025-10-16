@@ -3,78 +3,153 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:login="clr-namespace:MovilApp.ViewModels.Login"
              x:Class="MovilApp.Views.Login.SignInView"
-             Title="CrearCuenta">
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#1E1E2C">
     <ContentPage.BindingContext>
         <login:SignInViewModel />
     </ContentPage.BindingContext>
-    <ScrollView>
-        <VerticalStackLayout Margin="20">
+    <ScrollView Padding="20">
+        <VerticalStackLayout VerticalOptions="Start" Spacing="25">
+            <!-- Encabezado -->
             <Label 
-             FontSize="Title"
-             Text="Creando nueva cuenta en ÁgoraApp"
-             VerticalOptions="Center" 
-             HorizontalOptions="Center" />
-            <Grid RowDefinitions="2*,2*,2*,2*,2*,2*,*" ColumnDefinitions="*,*">
-                <Label Grid.Row="0" Grid.Column="0" 
-                    HorizontalTextAlignment="End"
-                    VerticalTextAlignment="Center"
-                    Margin="5,10">Nombre:</Label>
-                
-                <Entry Grid.Row="0" Grid.Column="1" 
-                    Text="{Binding Name}"
-                    Margin="10,20,10,20"></Entry>
-                
-                <Label Grid.Row="1" Grid.Column="0" 
-                HorizontalTextAlignment="End"
-                VerticalTextAlignment="Center"
-                Margin="5,10">Apellido:</Label>
-                
-                <Entry Grid.Row="1" Grid.Column="1" 
-                Text="{Binding Lastname}"
-                Margin="10,20,10,20"></Entry>
+                FontSize="32"
+                Text="Crea tu cuenta en ÁgoraApp"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                TextColor="#A29BFE"
+                FontAttributes="Bold" />
 
+            <Label 
+                FontSize="18"
+                Text="Por favor, completa los campos para registrarte"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                TextColor="#D6D6D6" />
+
+            <!-- Botón volver -->
+            <Button Text="← Volver"
+                    Command="{Binding VolverCommand}"
+                    BackgroundColor="#6C5CE7"
+                    TextColor="#FFFFFF"
+                    FontSize="16"
+                    HorizontalOptions="Start"
+                    Padding="10"
+                    CornerRadius="10"
+                    Margin="0,0,0,20"/>
+
+            <!-- Formulario -->
+            <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="Auto,*" ColumnSpacing="10" RowSpacing="20">
+                <Label Grid.Row="0" Grid.Column="0" 
+                       Text="Nombre:"
+                       FontSize="16"
+                       VerticalTextAlignment="Center"
+                       HorizontalOptions="End"
+                       VerticalOptions="Center"
+                       TextColor="#A29BFE" />
+                <Entry Grid.Row="0" Grid.Column="1" 
+                       Text="{Binding Name}"
+                       Placeholder="Introduce tu nombre"
+                       PlaceholderColor="#6C6C6C"
+                       FontSize="14"
+                       TextColor="#FFFFFF"
+                       BackgroundColor="#2E2E3E" />
+
+                <Label Grid.Row="1" Grid.Column="0" 
+                       Text="Apellido:"
+                       FontSize="16"
+                       VerticalTextAlignment="Center"
+                       HorizontalOptions="End"
+                       VerticalOptions="Center"
+                       TextColor="#A29BFE" />
+                <Entry Grid.Row="1" Grid.Column="1" 
+                       Text="{Binding Lastname}"
+                       Placeholder="Introduce tu apellido"
+                       PlaceholderColor="#6C6C6C"
+                       FontSize="14"
+                       TextColor="#FFFFFF"
+                       BackgroundColor="#2E2E3E" />
 
                 <Label Grid.Row="2" Grid.Column="0" 
-                HorizontalTextAlignment="End"
-                VerticalTextAlignment="Center"
-                Margin="5,10">DNI:</Label>
-
+                       Text="DNI:"
+                       FontSize="16"
+                       VerticalTextAlignment="Center"
+                       HorizontalOptions="End"
+                       VerticalOptions="Center"
+                       TextColor="#A29BFE" />
                 <Entry Grid.Row="2" Grid.Column="1" 
-                Text="{Binding Dni}"
-                Margin="10,20,10,20"></Entry>
-
+                       Text="{Binding Dni}"
+                       Placeholder="Introduce tu DNI"
+                       PlaceholderColor="#6C6C6C"
+                       FontSize="14"
+                       TextColor="#FFFFFF"
+                       BackgroundColor="#2E2E3E" />
 
                 <Label Grid.Row="3" Grid.Column="0" 
-                    HorizontalTextAlignment="End"
-                    VerticalTextAlignment="Center"
-                    Margin="10,20">Email:</Label>
+                       Text="Email:"
+                       FontSize="16"
+                       VerticalTextAlignment="Center"
+                       HorizontalOptions="End"
+                       VerticalOptions="Center"
+                       TextColor="#A29BFE" />
                 <Entry Grid.Row="3" Grid.Column="1" 
-                    Text="{Binding Email}"
-                    Margin="10,20,10,20"></Entry>
+                       Text="{Binding Email}"
+                       Placeholder="Introduce tu email"
+                       PlaceholderColor="#6C6C6C"
+                       FontSize="14"
+                       TextColor="#FFFFFF"
+                       BackgroundColor="#2E2E3E" />
 
                 <Label Grid.Row="4" Grid.Column="0" 
-                    HorizontalTextAlignment="End"
-                    VerticalTextAlignment="Center"
-                    Margin="10,20">Contraseña:</Label>
+                       Text="Contraseña:"
+                       FontSize="16"
+                       VerticalTextAlignment="Center"
+                       HorizontalOptions="End"
+                       VerticalOptions="Center"
+                       TextColor="#A29BFE" />
                 <Entry Grid.Row="4" Grid.Column="1" 
-                    Text="{Binding Password}"
-                    Margin="10,20,100,20" IsPassword="True"></Entry>
+                       Text="{Binding Password}"
+                       Placeholder="Introduce tu contraseña"
+                       PlaceholderColor="#6C6C6C"
+                       IsPassword="True"
+                       FontSize="14"
+                       TextColor="#FFFFFF"
+                       BackgroundColor="#2E2E3E" />
 
                 <Label Grid.Row="5" Grid.Column="0" 
-                    HorizontalTextAlignment="End"
-                    VerticalTextAlignment="Center"
-                    Margin="10,20">Verificar Contraseña:</Label>
+                       Text="Verificar Contraseña:"
+                       FontSize="16"
+                       VerticalTextAlignment="Center"
+                       HorizontalOptions="End"
+                       VerticalOptions="Center"
+                       TextColor="#A29BFE" />
                 <Entry Grid.Row="5" Grid.Column="1" 
-                    Text="{Binding VerifyPassword}"
-                    Margin="10,20,100,20" IsPassword="True"></Entry>
+                       Text="{Binding VerifyPassword}"
+                       Placeholder="Repite tu contraseña"
+                       PlaceholderColor="#6C6C6C"
+                       IsPassword="True"
+                       FontSize="14"
+                       TextColor="#FFFFFF"
+                       BackgroundColor="#2E2E3E" />
 
                 <Button Text="Registrarse"
-                     Command="{Binding RegistrarseCommand}"
-                     Grid.Row="6" Grid.Column="0"
-                     Grid.ColumnSpan="2"
-                     Margin="100,10"
-                     ></Button>
+                        Command="{Binding RegistrarseCommand}"
+                        Grid.Row="6" Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        FontSize="16"
+                        Padding="12"
+                        CornerRadius="10"
+                        BackgroundColor="#6C5CE7"
+                        TextColor="#FFFFFF" />
             </Grid>
+
+            <!-- Indicador de carga -->
+            <ActivityIndicator
+                IsRunning="{Binding EstaDescargando}"
+                Color="#6C5CE7"
+                VerticalOptions="Center"
+                HorizontalOptions="Center" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

@@ -4,13 +4,13 @@ using Service.Services;
 
 namespace Desktop.Views
 {
-    public partial class CapacitacionesView : Form
+    public partial class TipoInscripcionView : Form
     {
-        GenericService<Capacitacion> _capacitacionService = new GenericService<Capacitacion>();
-        Capacitacion _currentCapacitacion;
-        List<Capacitacion>? _capacitaciones;
+        GenericService<TipoInscripcion> _tipoInscripcionService = new();
+        TipoInscripcion _currentTipoInscripcion;
+        List<TipoInscripcion>? _tiposInscripciones;
 
-        public CapacitacionesView()
+        public TipoInscripcionView()
         {
             InitializeComponent();
             _ = GetAllData();
@@ -30,12 +30,12 @@ namespace Desktop.Views
         private async Task GetAllData()
         {
             if (checkVerEliminados.Checked)
-                _capacitaciones = await _capacitacionService.GetAllDeletedsAsync();
+                _tiposInscripciones = await _tipoInscripcionService.GetAllDeletedsAsync();
             else
-                _capacitaciones = await _capacitacionService.GetAllAsync();
+                _tiposInscripciones = await _tipoInscripcionService.GetAllAsync();
 
-            DataGrid.DataSource = _capacitaciones;
-            DataGrid.Columns["Id"].Visible = false; // Ocultar la columna Pais
+            DataGrid.DataSource = _tiposInscripciones;
+            DataGrid.Columns["Id"].Visible = false; // Ocultar la columna Id
             DataGrid.Columns["IsDeleted"].Visible = false; // Ocultar la columna Eliminado
 
         }
@@ -54,25 +54,25 @@ namespace Desktop.Views
             //checheamos que haya peliculas seleccionadas
             if (DataGrid.RowCount > 0 && DataGrid.SelectedRows.Count > 0)
             {
-                Capacitacion entitySelected = (Capacitacion)DataGrid.SelectedRows[0].DataBoundItem;
-                var respuesta = MessageBox.Show($"¿Seguro que desea eliminar la capacitación {entitySelected.Nombre}?", "Confirmar Eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                TipoInscripcion entitySelected = (TipoInscripcion)DataGrid.SelectedRows[0].DataBoundItem;
+                var respuesta = MessageBox.Show($"¿Seguro que desea eliminar el Tipo de inscripción {entitySelected.Nombre}?", "Confirmar Eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (respuesta == DialogResult.Yes)
                 {
-                    if (await _capacitacionService.DeleteAsync(entitySelected.Id))
+                    if (await _tipoInscripcionService.DeleteAsync(entitySelected.Id))
                     {
-                        LabelStatusMessage.Text = $"Capacitación {entitySelected.Nombre} eliminada correctamente";
+                        LabelStatusMessage.Text = $"Tipo inscripción {entitySelected.Nombre} eliminada correctamente";
                         TimerStatusBar.Start(); // Iniciar el temporizador para mostrar el mensaje en la barra de estado
                         await GetAllData();
                     }
                     else
                     {
-                        MessageBox.Show("Error al eliminar la capacitación", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Error al eliminar el tipo de inscripción", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
             else
             {
-                MessageBox.Show("Debe seleccionar una capacitación para eliminarla", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Debe seleccionar un tipo de inscripción a eliminar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -89,13 +89,7 @@ namespace Desktop.Views
 
         private void LimpiarControlesAgregarEditar()
         {
-            TxtNombre.Clear();
-            TxtPonente.Clear();
-            DateTimeFechaHora.Value = DateTime.Now;
-            checkInscripcionAbierta.Checked = false;
-            NumericCupo.Value = 0;
-            TxtDetalle.Clear();
-            
+            TxtNombre.Clear();           
         }
 
         private void BtnCancelar_Click(object sender, EventArgs e)
@@ -106,30 +100,25 @@ namespace Desktop.Views
 
         private async void BtnGuardar_Click(object sender, EventArgs e)
         {
-            Capacitacion capacitacionAGuardar = new Capacitacion
+            TipoInscripcion entidadAGuardar = new TipoInscripcion
             {
-                Id = _currentCapacitacion?.Id ?? 0,
-                Nombre = TxtNombre.Text,
-                Detalle = TxtDetalle.Text,
-                Ponente = TxtPonente.Text,
-                FechaHora = DateTimeFechaHora.Value,
-                Cupo = (int)NumericCupo.Value,
-                InscripcionAbierta = checkInscripcionAbierta.Checked
+                Id = _currentTipoInscripcion?.Id ?? 0,
+                Nombre = TxtNombre.Text,                
             };
             bool response = false;
-            if (_currentCapacitacion != null)
+            if (_currentTipoInscripcion != null)
             {
-                response = await _capacitacionService.UpdateAsync(capacitacionAGuardar);
+                response = await _tipoInscripcionService.UpdateAsync(entidadAGuardar);
             }
             else
             {
-                var nuevacapacitacion = await _capacitacionService.AddAsync(capacitacionAGuardar);
-                response = nuevacapacitacion != null;
+                var nuevaEntidad = await _tipoInscripcionService.AddAsync(entidadAGuardar);
+                response = nuevaEntidad != null;
             }
             if (response)
             {
-                _currentCapacitacion = null; // Reset the modified movie after saving
-                LabelStatusMessage.Text = $"Capacitación {capacitacionAGuardar.Nombre} guardada correctamente";
+                _currentTipoInscripcion = null; // Reset the modified entity after saving
+                LabelStatusMessage.Text = $"Tipo de inscripción {entidadAGuardar.Nombre} guardada correctamente";
                 TimerStatusBar.Start(); // Iniciar el temporizador para mostrar el mensaje en la barra de estado
                 await GetAllData();
                 LimpiarControlesAgregarEditar();
@@ -137,7 +126,7 @@ namespace Desktop.Views
             }
             else
             {
-                MessageBox.Show("Error al guardar la capacitación", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al guardar el tipo de inscripción", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -146,26 +135,19 @@ namespace Desktop.Views
             //checheamos que haya una capacitación seleccionada
             if (DataGrid.RowCount > 0 && DataGrid.SelectedRows.Count > 0)
             {
-                _currentCapacitacion = (Capacitacion)DataGrid.SelectedRows[0].DataBoundItem;
-                TxtNombre.Text = _currentCapacitacion.Nombre;
-                TxtDetalle.Text = _currentCapacitacion.Detalle;
-                TxtPonente.Text = _currentCapacitacion.Ponente;
-                DateTimeFechaHora.Value = _currentCapacitacion.FechaHora;
-                NumericCupo.Value = _currentCapacitacion.Cupo;
-                checkInscripcionAbierta.Checked = _currentCapacitacion.InscripcionAbierta;
-
-
+                _currentTipoInscripcion = (TipoInscripcion)DataGrid.SelectedRows[0].DataBoundItem;
+                TxtNombre.Text = _currentTipoInscripcion.Nombre;
                 TabControl.SelectedTab = TabPageAgregarEditar;
             }
             else
             {
-                MessageBox.Show("Debe seleccionar una capacitación para modificarla", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Debe seleccionar un tipo de inscripción a modificar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private async void BtnBuscar_Click(object sender, EventArgs e)
         {
-            DataGrid.DataSource = await _capacitacionService.GetAllAsync(TxtBuscar.Text);
+            DataGrid.DataSource = await _tipoInscripcionService.GetAllAsync(TxtBuscar.Text);
         }
 
         private void TxtBuscar_TextChanged(object sender, EventArgs e)
@@ -190,11 +172,11 @@ namespace Desktop.Views
             //checheamos que haya peliculas seleccionadas
             if (DataGrid.RowCount > 0 && DataGrid.SelectedRows.Count > 0)
             {
-                Capacitacion entitySelected = (Capacitacion)DataGrid.SelectedRows[0].DataBoundItem;
-                var respuesta = MessageBox.Show($"¿Seguro que recuper la capacitación {entitySelected.Nombre}?", "Confirmar Restauración", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                TipoInscripcion entitySelected = (TipoInscripcion)DataGrid.SelectedRows[0].DataBoundItem;
+                var respuesta = MessageBox.Show($"¿Seguro que desea recuperar el tipo de inscripción {entitySelected.Nombre}?", "Confirmar Restauración", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (respuesta == DialogResult.Yes)
                 {
-                    if (await _capacitacionService.RestoreAsync(entitySelected.Id))
+                    if (await _tipoInscripcionService.RestoreAsync(entitySelected.Id))
                     {
                         LabelStatusMessage.Text = $"Capacitación {entitySelected.Nombre} restaurada correctamente";
                         TimerStatusBar.Start(); // Iniciar el temporizador para mostrar el mensaje en la barra de estado
