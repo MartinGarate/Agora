@@ -17,6 +17,8 @@ namespace Service.Models
         public bool InscripcionAbierta { get; set; } = true; // Si la inscripción está abierta o no
         public bool IsDeleted { get; set; } = false; // Presencial, Virtual, Mixta
         public int Cupo { get; set; }
+        
+        public ICollection<TipoInscripcionCapacitacion> TiposDeInscripciones { get; set; } = new List<TipoInscripcionCapacitacion>();
         public override string ToString()
         {
             return Nombre;

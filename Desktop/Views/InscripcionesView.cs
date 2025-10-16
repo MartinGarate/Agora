@@ -1,4 +1,5 @@
-﻿using Service.Interfaces;
+﻿using Desktop.ExtensionMethod;
+using Service.Interfaces;
 using Service.Models;
 using Service.Services;
 using System;
@@ -18,6 +19,8 @@ namespace Desktop.Views
         GenericService<Capacitacion> _capacitacionService = new();
         GenericService<Usuario> _usuarioService = new();
         InscripcionService _inscripcionService = new();
+        List<Inscripcion>? _inscripciones = new();
+        List<Usuario>? _usuarios = new();
 
         public InscripcionesView()
         {
@@ -27,16 +30,17 @@ namespace Desktop.Views
 
         private async Task GetAllData()
         {
-           await GetComboCapacitaciones();
+            await GetComboCapacitaciones();
             await GetGrillaUsuarios();
         }
 
         private async Task GetGrillaUsuarios()
         {
-            //cargamos las capacitaciones en el combo
-
-            var usuarios = await _usuarioService.GetAllAsync();
-           dataGridViewUsuarios.DataSource = usuarios;
+            _usuarios = await _usuarioService.GetAllAsync();
+            _usuarios = _usuarios?.Where(u => _inscripciones != null && !_inscripciones.Any(i => i.UsuarioId == u.Id)).ToList();
+            dataGridViewUsuarios.DataSource = _usuarios;
+            //ocultamos las columnas Id, DeleteDate, Is deleted
+            dataGridViewUsuarios.HideColumns("Id", "DeleteDate", "IsDeleted");
 
         }
 
@@ -52,9 +56,43 @@ namespace Desktop.Views
 
         }
 
-        private void ComboCapacitaciones_SelectedIndexChanged(object sender, EventArgs e)
+        private async void ComboCapacitaciones_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (ComboCapacitaciones.SelectedValue is Capacitacion selectedCapacitacion)
+            {
+                _inscripciones = await _inscripcionService.GetInscriptosAsync(selectedCapacitacion.Id);
+                GridInscripciones.DataSource = _inscripciones;
+                GridInscripciones.HideColumns("Id", "UsuarioId", "TipoInscripcionId", "CapacitacionId", "UsuarioCobroId", "IsDeleted", "Capacitacion");
+                await GetGrillaUsuarios();
+            }
+        }
 
+        private void ButtonBuscar_Click(object sender, EventArgs e)
+        {
+            _usuarios = _usuarios?
+    .Where(u => u.Nombre.Contains(
+            textBoxBuscar.Text, StringComparison.OrdinalIgnoreCase) ||
+        u.Apellido.Contains(
+            textBoxBuscar.Text, StringComparison.OrdinalIgnoreCase))
+    .ToList();
+            dataGridViewUsuarios.DataSource = _usuarios;
+        }
+
+        private async void textBoxBuscar_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(textBoxBuscar.Text))
+            {
+                await GetGrillaUsuarios();
+            }
+        }
+
+        private void textBoxBuscar_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                ButtonBuscar.PerformClick();
+                e.Handled = true; // Evita el sonido de "ding" al presionar Enter
+            }
         }
     }
 }

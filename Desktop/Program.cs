@@ -1,4 +1,5 @@
 using Desktop.Views;
+using Service.Models;
 
 namespace Desktop
 {
@@ -13,7 +14,7 @@ namespace Desktop
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new InscripcionesView());
+            Application.Run(new CapacitacionesView());
         }
     }
 }

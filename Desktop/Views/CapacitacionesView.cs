@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using Desktop.ExtensionMethod;
 using Service.Models;
 using Service.Services;
 
@@ -7,6 +8,7 @@ namespace Desktop.Views
     public partial class CapacitacionesView : Form
     {
         GenericService<Capacitacion> _capacitacionService = new GenericService<Capacitacion>();
+        GenericService<TipoInscripcion> _tipoInscripcionService = new();
         Capacitacion _currentCapacitacion;
         List<Capacitacion>? _capacitaciones;
 
@@ -19,7 +21,7 @@ namespace Desktop.Views
 
         private void DisplayHideControlsRestoreButton(object? sender, EventArgs e)
         {
-            BtnRestaurar.Visible=checkVerEliminados.Checked;
+            BtnRestaurar.Visible = checkVerEliminados.Checked;
             TxtBuscar.Enabled = !checkVerEliminados.Checked;
             BtnModificar.Enabled = !checkVerEliminados.Checked;
             BtnEliminar.Enabled = !checkVerEliminados.Checked;
@@ -37,6 +39,17 @@ namespace Desktop.Views
             DataGrid.DataSource = _capacitaciones;
             DataGrid.Columns["Id"].Visible = false; // Ocultar la columna Pais
             DataGrid.Columns["IsDeleted"].Visible = false; // Ocultar la columna Eliminado
+            await GetComboTiposDeInscripciones();
+
+
+        }
+
+        private async Task GetComboTiposDeInscripciones()
+        {
+            var tiposInscripciones = await _tipoInscripcionService.GetAllAsync();
+            comboBoxTiposInscripciones.DataSource = tiposInscripciones;
+            comboBoxTiposInscripciones.DisplayMember = "Nombre";
+            comboBoxTiposInscripciones.ValueMember = "Id";
 
         }
 
@@ -95,7 +108,8 @@ namespace Desktop.Views
             checkInscripcionAbierta.Checked = false;
             NumericCupo.Value = 0;
             TxtDetalle.Clear();
-            
+            dataGridViewTiposInscripciones.DataSource = null;
+
         }
 
         private void BtnCancelar_Click(object sender, EventArgs e)
@@ -133,7 +147,7 @@ namespace Desktop.Views
                 TimerStatusBar.Start(); // Iniciar el temporizador para mostrar el mensaje en la barra de estado
                 await GetAllData();
                 LimpiarControlesAgregarEditar();
-                TabControl.SelectedTab=TabPageLista;
+                TabControl.SelectedTab = TabPageLista;
             }
             else
             {
@@ -210,6 +224,44 @@ namespace Desktop.Views
             {
                 MessageBox.Show("Debe seleccionar una capacitación para restaurarla", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void ButtonAnadir_Click(object sender, EventArgs e)
+        {
+            // este objeto representa la relacion entre capacitacion y tipo de inscripcion
+            var tipoInscripcionCapacitacion = new TipoInscripcionCapacitacion
+            {
+                TipoInscripcionId = (int)comboBoxTiposInscripciones.SelectedValue,
+                TipoInscripcion = (TipoInscripcion)comboBoxTiposInscripciones.SelectedItem,
+                CapacitacionId = _currentCapacitacion?.Id ?? 0,
+                Capacitacion = _currentCapacitacion,
+                Costo = numericCosto.Value
+            };
+            _currentCapacitacion?.TiposDeInscripciones.Add(tipoInscripcionCapacitacion);
+            // Actualizar el DataGridView para reflejar los cambios
+            dataGridViewTiposInscripciones.DataSource = _currentCapacitacion?.TiposDeInscripciones.ToList();
+            dataGridViewTiposInscripciones.HideColumns("Id", "CapacitacionId", "TipoInscripcionId", "IsDeleted", "Capacitacion");
+            LimpiarControlesTipoInscripcion();
+        }
+
+        private void ButtonQuitar_Click(object sender, EventArgs e)
+        {
+            var tipoInscripcionCapacitacionSeleccionada = (TipoInscripcionCapacitacion?)dataGridViewTiposInscripciones.CurrentRow?.DataBoundItem;
+            if (tipoInscripcionCapacitacionSeleccionada != null && _currentCapacitacion != null)
+            {
+                _currentCapacitacion.TiposDeInscripciones.Remove(tipoInscripcionCapacitacionSeleccionada);
+                // Actualizar el DataGridView para reflejar los cambios
+                dataGridViewTiposInscripciones.DataSource = _currentCapacitacion.TiposDeInscripciones.ToList();
+                dataGridViewTiposInscripciones.HideColumns("Id", "CapacitacionId", "TipoInscripcionId", "IsDeleted", "Capacitacion");
+
+            }
+            LimpiarControlesTipoInscripcion();
+        }
+
+        private void LimpiarControlesTipoInscripcion()
+        {
+            numericCosto.Value = 0;
+            comboBoxTiposInscripciones.SelectedIndex = 0;
         }
     }
 }
