@@ -1,4 +1,5 @@
-﻿using Service.Models;
+﻿using Service.Interfaces;
+using Service.Models;
 using Service.Services;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace Desktop.Views
     public partial class InscripcionesView : Form
     {
         GenericService<Capacitacion> _capacitacionService = new();
+        GenericService<Usuario> _usuarioService = new();
         InscripcionService _inscripcionService = new();
 
         public InscripcionesView()
@@ -25,7 +27,23 @@ namespace Desktop.Views
 
         private async Task GetAllData()
         {
+           await GetComboCapacitaciones();
+            await GetGrillaUsuarios();
+        }
+
+        private async Task GetGrillaUsuarios()
+        {
             //cargamos las capacitaciones en el combo
+
+            var usuarios = await _usuarioService.GetAllAsync();
+           dataGridViewUsuarios.DataSource = usuarios;
+
+        }
+
+        private async Task GetComboCapacitaciones()
+        {
+            //cargamos las capacitaciones en el combo
+
             var capacitaciones = await _capacitacionService.GetAllAsync();
             ComboCapacitaciones.DataSource = capacitaciones?.Where(c => c.InscripcionAbierta).ToList();
             ComboCapacitaciones.DisplayMember = "Nombre";
@@ -34,13 +52,9 @@ namespace Desktop.Views
 
         }
 
-        private async Task ComboCapacitaciones_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboCapacitaciones_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //controlamos que no sea null y haya una capacitación seleccionada
-            if (ComboCapacitaciones.SelectedItem is Capacitacion selectedCapacitacion)
-            {
-                GridInscripciones.DataSource = await _inscripcionService.GetInscriptosAsync(selectedCapacitacion.Id);
-            }
+
         }
     }
 }

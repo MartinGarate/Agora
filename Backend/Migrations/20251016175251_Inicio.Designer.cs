@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Migrations
 {
     [DbContext(typeof(AgoraContext))]
-    [Migration("20251009200509_Inicio")]
+    [Migration("20251016175251_Inicio")]
     partial class Inicio
     {
         /// <inheritdoc />
@@ -71,7 +71,7 @@ namespace Backend.Migrations
                             Cupo = 30,
                             DeleteTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Detalle = "Aprende los conceptos básicos de programación.",
-                            FechaHora = new DateTime(2025, 10, 19, 17, 5, 6, 559, DateTimeKind.Local).AddTicks(6572),
+                            FechaHora = new DateTime(2025, 10, 26, 14, 52, 50, 152, DateTimeKind.Local).AddTicks(1482),
                             InscripcionAbierta = true,
                             IsDeleted = false,
                             Nombre = "Introducción a la Programación",
@@ -83,7 +83,7 @@ namespace Backend.Migrations
                             Cupo = 25,
                             DeleteTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Detalle = "Crea aplicaciones web modernas con ASP.NET Core.",
-                            FechaHora = new DateTime(2025, 10, 29, 17, 5, 6, 559, DateTimeKind.Local).AddTicks(6598),
+                            FechaHora = new DateTime(2025, 11, 5, 14, 52, 50, 152, DateTimeKind.Local).AddTicks(1508),
                             InscripcionAbierta = true,
                             IsDeleted = false,
                             Nombre = "Desarrollo Web con ASP.NET Core",
@@ -95,7 +95,7 @@ namespace Backend.Migrations
                             Cupo = 25,
                             DeleteTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Detalle = "Crea webapps con Angular y ASP.NET Core.",
-                            FechaHora = new DateTime(2025, 10, 29, 17, 5, 6, 559, DateTimeKind.Local).AddTicks(6602),
+                            FechaHora = new DateTime(2025, 11, 5, 14, 52, 50, 152, DateTimeKind.Local).AddTicks(1511),
                             InscripcionAbierta = true,
                             IsDeleted = false,
                             Nombre = "ASP.NET Core con Angular",

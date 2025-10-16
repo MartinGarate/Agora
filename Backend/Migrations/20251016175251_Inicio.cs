@@ -159,9 +159,9 @@ namespace Backend.Migrations
                 columns: new[] { "Id", "Cupo", "DeleteTime", "Detalle", "FechaHora", "InscripcionAbierta", "IsDeleted", "Nombre", "Ponente" },
                 values: new object[,]
                 {
-                    { 1, 30, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Aprende los conceptos básicos de programación.", new DateTime(2025, 10, 19, 17, 5, 6, 559, DateTimeKind.Local).AddTicks(6572), true, false, "Introducción a la Programación", "Carlos Gómez" },
-                    { 2, 25, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Crea aplicaciones web modernas con ASP.NET Core.", new DateTime(2025, 10, 29, 17, 5, 6, 559, DateTimeKind.Local).AddTicks(6598), true, false, "Desarrollo Web con ASP.NET Core", "Ana Martínez" },
-                    { 3, 25, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Crea webapps con Angular y ASP.NET Core.", new DateTime(2025, 10, 29, 17, 5, 6, 559, DateTimeKind.Local).AddTicks(6602), true, false, "ASP.NET Core con Angular", "Pedro Martínez" }
+                    { 1, 30, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Aprende los conceptos básicos de programación.", new DateTime(2025, 10, 26, 14, 52, 50, 152, DateTimeKind.Local).AddTicks(1482), true, false, "Introducción a la Programación", "Carlos Gómez" },
+                    { 2, 25, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Crea aplicaciones web modernas con ASP.NET Core.", new DateTime(2025, 11, 5, 14, 52, 50, 152, DateTimeKind.Local).AddTicks(1508), true, false, "Desarrollo Web con ASP.NET Core", "Ana Martínez" },
+                    { 3, 25, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Crea webapps con Angular y ASP.NET Core.", new DateTime(2025, 11, 5, 14, 52, 50, 152, DateTimeKind.Local).AddTicks(1511), true, false, "ASP.NET Core con Angular", "Pedro Martínez" }
                 });
 
             migrationBuilder.InsertData(

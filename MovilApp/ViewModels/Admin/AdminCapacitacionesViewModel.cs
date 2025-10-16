@@ -17,7 +17,7 @@ namespace MovilApp.ViewModels.Admin
         [NotifyCanExecuteChangedFor(nameof(DeleteCommand))]
         private Capacitacion capacitacionCurrent
 
-        [ObservableProperty]
+        [ObservableProperty];
         private bool isRefreshing;
 
         [ObservableProperty]
