@@ -40,8 +40,6 @@ namespace Desktop.Views
             DataGrid.Columns["Id"].Visible = false; // Ocultar la columna Pais
             DataGrid.Columns["IsDeleted"].Visible = false; // Ocultar la columna Eliminado
             await GetComboTiposDeInscripciones();
-
-
         }
 
         private async Task GetComboTiposDeInscripciones()
@@ -73,8 +71,7 @@ namespace Desktop.Views
                 {
                     if (await _capacitacionService.DeleteAsync(entitySelected.Id))
                     {
-                        LabelStatusMessage.Text = $"Capacitación {entitySelected.Nombre} eliminada correctamente";
-                        TimerStatusBar.Start(); // Iniciar el temporizador para mostrar el mensaje en la barra de estado
+                        MessageBox.Show($"Capacitación {entitySelected.Nombre} eliminada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         await GetAllData();
                     }
                     else
@@ -143,8 +140,7 @@ namespace Desktop.Views
             if (response)
             {
                 _currentCapacitacion = null; // Reset the modified movie after saving
-                LabelStatusMessage.Text = $"Capacitación {capacitacionAGuardar.Nombre} guardada correctamente";
-                TimerStatusBar.Start(); // Iniciar el temporizador para mostrar el mensaje en la barra de estado
+               MessageBox.Show("Capacitación guardada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 await GetAllData();
                 LimpiarControlesAgregarEditar();
                 TabControl.SelectedTab = TabPageLista;
@@ -187,11 +183,7 @@ namespace Desktop.Views
             //BtnBuscar.PerformClick();
         }
 
-        private void TimerStatusBar_Tick(object sender, EventArgs e)
-        {
-            LabelStatusMessage.Text = string.Empty;
-            TimerStatusBar.Stop(); // Detener el temporizador después de mostrar el mensaje
-        }
+      
 
         private async void checkVerEliminados_CheckedChanged(object sender, EventArgs e)
         {
@@ -201,7 +193,7 @@ namespace Desktop.Views
         private async void BtnRestaurar_Click(object sender, EventArgs e)
         {
             if (!checkVerEliminados.Checked) return;
-            //checheamos que haya peliculas seleccionadas
+
             if (DataGrid.RowCount > 0 && DataGrid.SelectedRows.Count > 0)
             {
                 Capacitacion entitySelected = (Capacitacion)DataGrid.SelectedRows[0].DataBoundItem;
@@ -210,8 +202,7 @@ namespace Desktop.Views
                 {
                     if (await _capacitacionService.RestoreAsync(entitySelected.Id))
                     {
-                        LabelStatusMessage.Text = $"Capacitación {entitySelected.Nombre} restaurada correctamente";
-                        TimerStatusBar.Start(); // Iniciar el temporizador para mostrar el mensaje en la barra de estado
+                        MessageBox.Show($"Capacitación {entitySelected.Nombre} restaurada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         await GetAllData();
                     }
                     else
