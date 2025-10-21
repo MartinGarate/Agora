@@ -28,14 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle13 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle14 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle15 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle16 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             TabControl = new TabControl();
             TabPageLista = new TabPage();
             label10 = new Label();
@@ -47,15 +47,11 @@
             BtnSalir = new FontAwesome.Sharp.IconButton();
             DataGrid = new DataGridView();
             BtnEliminar = new FontAwesome.Sharp.IconButton();
-            BtnAgregar = new FontAwesome.Sharp.IconButton();
             BtnModificar = new FontAwesome.Sharp.IconButton();
+            BtnAgregar = new FontAwesome.Sharp.IconButton();
             TabPageAgregarEditar = new TabPage();
-            ButtonQuitar = new FontAwesome.Sharp.IconButton();
-            ButtonAnadir = new FontAwesome.Sharp.IconButton();
-            label9 = new Label();
-            numericCosto = new NumericUpDown();
-            comboBoxTiposInscripciones = new ComboBox();
             label8 = new Label();
+            label2 = new Label();
             checkInscripcionAbierta = new CheckBox();
             label7 = new Label();
             DateTimeFechaHora = new DateTimePicker();
@@ -69,17 +65,21 @@
             label3 = new Label();
             BtnCancelar = new FontAwesome.Sharp.IconButton();
             BtnGuardar = new FontAwesome.Sharp.IconButton();
-            label2 = new Label();
             panel1 = new Panel();
             dataGridViewTiposInscripciones = new DataGridView();
+            label9 = new Label();
+            comboBoxTiposInscripciones = new ComboBox();
+            ButtonQuitar = new FontAwesome.Sharp.IconButton();
+            ButtonAnadir = new FontAwesome.Sharp.IconButton();
+            numericCosto = new NumericUpDown();
             TabControl.SuspendLayout();
             TabPageLista.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DataGrid).BeginInit();
             TabPageAgregarEditar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericCosto).BeginInit();
             ((System.ComponentModel.ISupportInitialize)NumericCupo).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewTiposInscripciones).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericCosto).BeginInit();
             SuspendLayout();
             // 
             // TabControl
@@ -118,6 +118,7 @@
             // 
             // label10
             // 
+            label10.Anchor = AnchorStyles.None;
             label10.AutoSize = true;
             label10.Font = new Font("Manrope SemiBold", 16F, FontStyle.Bold, GraphicsUnit.Pixel);
             label10.ForeColor = Color.FromArgb(107, 114, 128);
@@ -130,6 +131,7 @@
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.None;
             label1.AutoSize = true;
             label1.Font = new Font("Manrope ExtraBold", 32F, FontStyle.Bold, GraphicsUnit.Pixel);
             label1.ForeColor = Color.FromArgb(31, 41, 55);
@@ -142,7 +144,7 @@
             // 
             // BtnRestaurar
             // 
-            BtnRestaurar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            BtnRestaurar.Anchor = AnchorStyles.None;
             BtnRestaurar.BackColor = Color.FromArgb(229, 231, 235);
             BtnRestaurar.FlatAppearance.BorderSize = 0;
             BtnRestaurar.FlatStyle = FlatStyle.Flat;
@@ -166,6 +168,7 @@
             // 
             // checkVerEliminados
             // 
+            checkVerEliminados.Anchor = AnchorStyles.None;
             checkVerEliminados.AutoSize = true;
             checkVerEliminados.FlatStyle = FlatStyle.Flat;
             checkVerEliminados.Font = new Font("Manrope SemiBold", 12F, FontStyle.Bold, GraphicsUnit.Pixel);
@@ -181,7 +184,7 @@
             // 
             // BtnBuscar
             // 
-            BtnBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            BtnBuscar.Anchor = AnchorStyles.None;
             BtnBuscar.BackColor = Color.Transparent;
             BtnBuscar.FlatStyle = FlatStyle.Flat;
             BtnBuscar.ForeColor = Color.FromArgb(107, 114, 128);
@@ -201,6 +204,7 @@
             // 
             // TxtBuscar
             // 
+            TxtBuscar.Anchor = AnchorStyles.None;
             TxtBuscar.BackColor = Color.White;
             TxtBuscar.Font = new Font("Manrope SemiBold", 13F, FontStyle.Regular, GraphicsUnit.Pixel);
             TxtBuscar.ForeColor = Color.FromArgb(31, 41, 55);
@@ -215,7 +219,7 @@
             // 
             // BtnSalir
             // 
-            BtnSalir.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            BtnSalir.Anchor = AnchorStyles.None;
             BtnSalir.FlatAppearance.BorderSize = 0;
             BtnSalir.FlatStyle = FlatStyle.Flat;
             BtnSalir.Font = new Font("Manrope ExtraBold", 11F, FontStyle.Bold, GraphicsUnit.Pixel);
@@ -239,48 +243,50 @@
             // 
             DataGrid.AllowUserToAddRows = false;
             DataGrid.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle9.BackColor = Color.White;
-            dataGridViewCellStyle9.Font = new Font("Manrope", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle9.SelectionBackColor = Color.FromArgb(224, 235, 249);
-            dataGridViewCellStyle9.SelectionForeColor = Color.FromArgb(0, 5, 22, 21);
-            DataGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle9;
-            DataGrid.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            DataGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle1.BackColor = Color.White;
+            dataGridViewCellStyle1.Font = new Font("Manrope", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(224, 235, 249);
+            dataGridViewCellStyle1.SelectionForeColor = Color.FromArgb(0, 5, 22, 21);
+            DataGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            DataGrid.Anchor = AnchorStyles.None;
+            DataGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            DataGrid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             DataGrid.BackgroundColor = Color.FromArgb(249, 250, 251);
-            dataGridViewCellStyle10.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = Color.FromArgb(249, 250, 251);
-            dataGridViewCellStyle10.Font = new Font("Manrope", 8.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle10.ForeColor = Color.FromArgb(75, 85, 99);
-            dataGridViewCellStyle10.Padding = new Padding(4);
-            dataGridViewCellStyle10.SelectionBackColor = Color.FromArgb(224, 235, 249);
-            dataGridViewCellStyle10.SelectionForeColor = Color.FromArgb(51, 51, 51);
-            dataGridViewCellStyle10.WrapMode = DataGridViewTriState.True;
-            DataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(249, 250, 251);
+            dataGridViewCellStyle2.Font = new Font("Manrope", 8.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = Color.FromArgb(75, 85, 99);
+            dataGridViewCellStyle2.Padding = new Padding(4);
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(224, 235, 249);
+            dataGridViewCellStyle2.SelectionForeColor = Color.FromArgb(51, 51, 51);
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            DataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             DataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle11.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = Color.FromArgb(249, 250, 251);
-            dataGridViewCellStyle11.Font = new Font("Manrope", 8.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle11.ForeColor = Color.FromArgb(75, 85, 99);
-            dataGridViewCellStyle11.Padding = new Padding(4);
-            dataGridViewCellStyle11.SelectionBackColor = Color.FromArgb(224, 235, 249);
-            dataGridViewCellStyle11.SelectionForeColor = Color.FromArgb(51, 51, 51);
-            dataGridViewCellStyle11.WrapMode = DataGridViewTriState.True;
-            DataGrid.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(249, 250, 251);
+            dataGridViewCellStyle3.Font = new Font("Manrope", 8.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.ForeColor = Color.FromArgb(75, 85, 99);
+            dataGridViewCellStyle3.Padding = new Padding(4);
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(224, 235, 249);
+            dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(51, 51, 51);
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            DataGrid.DefaultCellStyle = dataGridViewCellStyle3;
             DataGrid.GridColor = Color.FromArgb(249, 250, 251);
             DataGrid.Location = new Point(147, 165);
             DataGrid.Margin = new Padding(2);
             DataGrid.MultiSelect = false;
             DataGrid.Name = "DataGrid";
             DataGrid.ReadOnly = true;
-            dataGridViewCellStyle12.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.BackColor = Color.FromArgb(249, 250, 251);
-            dataGridViewCellStyle12.Font = new Font("Manrope", 8.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle12.ForeColor = Color.FromArgb(75, 85, 99);
-            dataGridViewCellStyle12.Padding = new Padding(4);
-            dataGridViewCellStyle12.SelectionBackColor = Color.FromArgb(224, 235, 249);
-            dataGridViewCellStyle12.SelectionForeColor = Color.FromArgb(51, 51, 51);
-            dataGridViewCellStyle12.WrapMode = DataGridViewTriState.True;
-            DataGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(249, 250, 251);
+            dataGridViewCellStyle4.Font = new Font("Manrope", 8.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle4.ForeColor = Color.FromArgb(75, 85, 99);
+            dataGridViewCellStyle4.Padding = new Padding(4);
+            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(224, 235, 249);
+            dataGridViewCellStyle4.SelectionForeColor = Color.FromArgb(51, 51, 51);
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            DataGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            DataGrid.RowHeadersVisible = false;
             DataGrid.RowHeadersWidth = 62;
             DataGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             DataGrid.Size = new Size(817, 310);
@@ -289,7 +295,7 @@
             // 
             // BtnEliminar
             // 
-            BtnEliminar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            BtnEliminar.Anchor = AnchorStyles.None;
             BtnEliminar.BackColor = Color.FromArgb(239, 68, 68);
             BtnEliminar.FlatAppearance.BorderSize = 0;
             BtnEliminar.FlatStyle = FlatStyle.Flat;
@@ -310,31 +316,9 @@
             BtnEliminar.UseVisualStyleBackColor = false;
             BtnEliminar.Click += BtnEliminar_Click_1;
             // 
-            // BtnAgregar
-            // 
-            BtnAgregar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            BtnAgregar.BackColor = Color.FromArgb(0, 71, 171);
-            BtnAgregar.FlatStyle = FlatStyle.Flat;
-            BtnAgregar.Font = new Font("Manrope ExtraBold", 11F, FontStyle.Bold, GraphicsUnit.Pixel);
-            BtnAgregar.ForeColor = Color.White;
-            BtnAgregar.IconChar = FontAwesome.Sharp.IconChar.FileCirclePlus;
-            BtnAgregar.IconColor = Color.White;
-            BtnAgregar.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            BtnAgregar.IconSize = 30;
-            BtnAgregar.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnAgregar.Location = new Point(773, 52);
-            BtnAgregar.Margin = new Padding(2);
-            BtnAgregar.Name = "BtnAgregar";
-            BtnAgregar.Size = new Size(193, 38);
-            BtnAgregar.TabIndex = 3;
-            BtnAgregar.Text = "&Crear Nueva Capacitación";
-            BtnAgregar.TextAlign = ContentAlignment.MiddleRight;
-            BtnAgregar.UseVisualStyleBackColor = false;
-            BtnAgregar.Click += BtnAgregar_Click;
-            // 
             // BtnModificar
             // 
-            BtnModificar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            BtnModificar.Anchor = AnchorStyles.None;
             BtnModificar.BackColor = Color.FromArgb(229, 231, 235);
             BtnModificar.FlatAppearance.BorderSize = 0;
             BtnModificar.FlatStyle = FlatStyle.Flat;
@@ -354,6 +338,28 @@
             BtnModificar.TextAlign = ContentAlignment.MiddleRight;
             BtnModificar.UseVisualStyleBackColor = false;
             BtnModificar.Click += BtnModificar_Click;
+            // 
+            // BtnAgregar
+            // 
+            BtnAgregar.Anchor = AnchorStyles.None;
+            BtnAgregar.BackColor = Color.FromArgb(0, 71, 171);
+            BtnAgregar.FlatStyle = FlatStyle.Flat;
+            BtnAgregar.Font = new Font("Manrope ExtraBold", 11F, FontStyle.Bold, GraphicsUnit.Pixel);
+            BtnAgregar.ForeColor = Color.White;
+            BtnAgregar.IconChar = FontAwesome.Sharp.IconChar.FileCirclePlus;
+            BtnAgregar.IconColor = Color.White;
+            BtnAgregar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            BtnAgregar.IconSize = 30;
+            BtnAgregar.ImageAlign = ContentAlignment.MiddleLeft;
+            BtnAgregar.Location = new Point(773, 52);
+            BtnAgregar.Margin = new Padding(2);
+            BtnAgregar.Name = "BtnAgregar";
+            BtnAgregar.Size = new Size(193, 38);
+            BtnAgregar.TabIndex = 3;
+            BtnAgregar.Text = "&Crear Nueva Capacitación";
+            BtnAgregar.TextAlign = ContentAlignment.MiddleRight;
+            BtnAgregar.UseVisualStyleBackColor = false;
+            BtnAgregar.Click += BtnAgregar_Click;
             // 
             // TabPageAgregarEditar
             // 
@@ -382,84 +388,6 @@
             TabPageAgregarEditar.Text = "Agregar/Editar";
             TabPageAgregarEditar.UseVisualStyleBackColor = true;
             // 
-            // ButtonQuitar
-            // 
-            ButtonQuitar.Anchor = AnchorStyles.Bottom;
-            ButtonQuitar.BackColor = Color.FromArgb(239, 68, 68);
-            ButtonQuitar.FlatAppearance.BorderSize = 0;
-            ButtonQuitar.FlatStyle = FlatStyle.Flat;
-            ButtonQuitar.Font = new Font("Manrope ExtraBold", 11F, FontStyle.Bold, GraphicsUnit.Pixel);
-            ButtonQuitar.ForeColor = Color.White;
-            ButtonQuitar.IconChar = FontAwesome.Sharp.IconChar.Trash;
-            ButtonQuitar.IconColor = Color.White;
-            ButtonQuitar.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            ButtonQuitar.IconSize = 20;
-            ButtonQuitar.ImageAlign = ContentAlignment.MiddleLeft;
-            ButtonQuitar.Location = new Point(367, 320);
-            ButtonQuitar.Margin = new Padding(2);
-            ButtonQuitar.Name = "ButtonQuitar";
-            ButtonQuitar.Size = new Size(81, 23);
-            ButtonQuitar.TabIndex = 34;
-            ButtonQuitar.Text = "&Quitar";
-            ButtonQuitar.TextAlign = ContentAlignment.MiddleRight;
-            ButtonQuitar.UseVisualStyleBackColor = false;
-            ButtonQuitar.Click += ButtonQuitar_Click;
-            // 
-            // ButtonAnadir
-            // 
-            ButtonAnadir.Anchor = AnchorStyles.Bottom;
-            ButtonAnadir.BackColor = Color.FromArgb(207, 227, 246);
-            ButtonAnadir.FlatAppearance.BorderSize = 0;
-            ButtonAnadir.FlatStyle = FlatStyle.Flat;
-            ButtonAnadir.Font = new Font("Manrope ExtraBold", 11F, FontStyle.Bold, GraphicsUnit.Pixel);
-            ButtonAnadir.ForeColor = Color.FromArgb(24, 119, 213);
-            ButtonAnadir.IconChar = FontAwesome.Sharp.IconChar.FileCirclePlus;
-            ButtonAnadir.IconColor = Color.FromArgb(24, 119, 213);
-            ButtonAnadir.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            ButtonAnadir.IconSize = 20;
-            ButtonAnadir.ImageAlign = ContentAlignment.MiddleLeft;
-            ButtonAnadir.Location = new Point(367, 289);
-            ButtonAnadir.Margin = new Padding(2);
-            ButtonAnadir.Name = "ButtonAnadir";
-            ButtonAnadir.Size = new Size(81, 27);
-            ButtonAnadir.TabIndex = 33;
-            ButtonAnadir.Text = "&Añadir";
-            ButtonAnadir.TextAlign = ContentAlignment.MiddleRight;
-            ButtonAnadir.UseVisualStyleBackColor = false;
-            ButtonAnadir.Click += ButtonAnadir_Click;
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Manrope SemiBold", 14F, FontStyle.Bold, GraphicsUnit.Pixel);
-            label9.ForeColor = Color.FromArgb(13, 20, 27);
-            label9.Location = new Point(214, 279);
-            label9.Name = "label9";
-            label9.Size = new Size(56, 19);
-            label9.TabIndex = 32;
-            label9.Text = "Costo:";
-            // 
-            // numericCosto
-            // 
-            numericCosto.DecimalPlaces = 2;
-            numericCosto.Font = new Font("Manrope SemiBold", 14F, FontStyle.Bold, GraphicsUnit.Pixel);
-            numericCosto.ForeColor = Color.FromArgb(13, 20, 27);
-            numericCosto.Location = new Point(216, 301);
-            numericCosto.Maximum = new decimal(new int[] { 1215752191, 23, 0, 0 });
-            numericCosto.Name = "numericCosto";
-            numericCosto.Size = new Size(129, 27);
-            numericCosto.TabIndex = 31;
-            // 
-            // comboBoxTiposInscripciones
-            // 
-            comboBoxTiposInscripciones.Font = new Font("Manrope SemiBold", 14F, FontStyle.Bold, GraphicsUnit.Pixel);
-            comboBoxTiposInscripciones.ForeColor = Color.FromArgb(13, 20, 27);
-            comboBoxTiposInscripciones.FormattingEnabled = true;
-            comboBoxTiposInscripciones.Location = new Point(26, 301);
-            comboBoxTiposInscripciones.Name = "comboBoxTiposInscripciones";
-            comboBoxTiposInscripciones.Size = new Size(167, 27);
-            comboBoxTiposInscripciones.TabIndex = 30;
-            // 
             // label8
             // 
             label8.AutoSize = true;
@@ -470,6 +398,18 @@
             label8.Size = new Size(359, 23);
             label8.TabIndex = 29;
             label8.Text = "Tipos de inscripciones de la capacitacion:";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Manrope ExtraBold", 32F, FontStyle.Bold, GraphicsUnit.Pixel);
+            label2.ForeColor = Color.FromArgb(31, 41, 55);
+            label2.Location = new Point(148, 29);
+            label2.Margin = new Padding(2);
+            label2.Name = "label2";
+            label2.Size = new Size(330, 44);
+            label2.TabIndex = 35;
+            label2.Text = "Editar Capacitación";
             // 
             // checkInscripcionAbierta
             // 
@@ -566,6 +506,7 @@
             TxtDetalle.Multiline = true;
             TxtDetalle.Name = "TxtDetalle";
             TxtDetalle.PlaceholderText = "Ej: Una capacitación completa sobre los fundamentos y aplicaciones de la inteligencia artificial generativa en el ámbito educativo.";
+            TxtDetalle.ScrollBars = ScrollBars.Vertical;
             TxtDetalle.Size = new Size(370, 109);
             TxtDetalle.TabIndex = 2;
             // 
@@ -647,18 +588,6 @@
             BtnGuardar.UseVisualStyleBackColor = false;
             BtnGuardar.Click += BtnGuardar_Click;
             // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Manrope ExtraBold", 32F, FontStyle.Bold, GraphicsUnit.Pixel);
-            label2.ForeColor = Color.FromArgb(31, 41, 55);
-            label2.Location = new Point(148, 29);
-            label2.Margin = new Padding(2);
-            label2.Name = "label2";
-            label2.Size = new Size(330, 44);
-            label2.TabIndex = 35;
-            label2.Text = "Editar Capacitación";
-            // 
             // panel1
             // 
             panel1.BorderStyle = BorderStyle.FixedSingle;
@@ -677,52 +606,132 @@
             // 
             dataGridViewTiposInscripciones.AllowUserToAddRows = false;
             dataGridViewTiposInscripciones.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle13.BackColor = Color.White;
-            dataGridViewCellStyle13.Font = new Font("Manrope", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle13.SelectionBackColor = Color.FromArgb(224, 235, 249);
-            dataGridViewCellStyle13.SelectionForeColor = Color.FromArgb(0, 5, 22, 21);
-            dataGridViewTiposInscripciones.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle5.BackColor = Color.White;
+            dataGridViewCellStyle5.Font = new Font("Manrope", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(224, 235, 249);
+            dataGridViewCellStyle5.SelectionForeColor = Color.FromArgb(0, 5, 22, 21);
+            dataGridViewTiposInscripciones.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             dataGridViewTiposInscripciones.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridViewTiposInscripciones.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewTiposInscripciones.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dataGridViewTiposInscripciones.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridViewTiposInscripciones.BackgroundColor = Color.FromArgb(249, 250, 251);
-            dataGridViewCellStyle14.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle14.BackColor = Color.FromArgb(249, 250, 251);
-            dataGridViewCellStyle14.Font = new Font("Manrope", 8.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle14.ForeColor = Color.FromArgb(75, 85, 99);
-            dataGridViewCellStyle14.Padding = new Padding(4);
-            dataGridViewCellStyle14.SelectionBackColor = Color.FromArgb(224, 235, 249);
-            dataGridViewCellStyle14.SelectionForeColor = Color.FromArgb(51, 51, 51);
-            dataGridViewCellStyle14.WrapMode = DataGridViewTriState.True;
-            dataGridViewTiposInscripciones.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = Color.FromArgb(249, 250, 251);
+            dataGridViewCellStyle6.Font = new Font("Manrope", 8.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle6.ForeColor = Color.FromArgb(75, 85, 99);
+            dataGridViewCellStyle6.Padding = new Padding(4);
+            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(224, 235, 249);
+            dataGridViewCellStyle6.SelectionForeColor = Color.FromArgb(51, 51, 51);
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            dataGridViewTiposInscripciones.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             dataGridViewTiposInscripciones.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle15.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle15.BackColor = Color.FromArgb(249, 250, 251);
-            dataGridViewCellStyle15.Font = new Font("Manrope", 8.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle15.ForeColor = Color.FromArgb(75, 85, 99);
-            dataGridViewCellStyle15.Padding = new Padding(4);
-            dataGridViewCellStyle15.SelectionBackColor = Color.FromArgb(224, 235, 249);
-            dataGridViewCellStyle15.SelectionForeColor = Color.FromArgb(51, 51, 51);
-            dataGridViewCellStyle15.WrapMode = DataGridViewTriState.True;
-            dataGridViewTiposInscripciones.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = Color.FromArgb(249, 250, 251);
+            dataGridViewCellStyle7.Font = new Font("Manrope", 8.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle7.ForeColor = Color.FromArgb(75, 85, 99);
+            dataGridViewCellStyle7.Padding = new Padding(4);
+            dataGridViewCellStyle7.SelectionBackColor = Color.FromArgb(224, 235, 249);
+            dataGridViewCellStyle7.SelectionForeColor = Color.FromArgb(51, 51, 51);
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
+            dataGridViewTiposInscripciones.DefaultCellStyle = dataGridViewCellStyle7;
             dataGridViewTiposInscripciones.GridColor = Color.FromArgb(249, 250, 251);
             dataGridViewTiposInscripciones.Location = new Point(26, 30);
             dataGridViewTiposInscripciones.Margin = new Padding(2);
             dataGridViewTiposInscripciones.MultiSelect = false;
             dataGridViewTiposInscripciones.Name = "dataGridViewTiposInscripciones";
             dataGridViewTiposInscripciones.ReadOnly = true;
-            dataGridViewCellStyle16.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle16.BackColor = Color.FromArgb(249, 250, 251);
-            dataGridViewCellStyle16.Font = new Font("Manrope", 8.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle16.ForeColor = Color.FromArgb(75, 85, 99);
-            dataGridViewCellStyle16.Padding = new Padding(4);
-            dataGridViewCellStyle16.SelectionBackColor = Color.FromArgb(224, 235, 249);
-            dataGridViewCellStyle16.SelectionForeColor = Color.FromArgb(51, 51, 51);
-            dataGridViewCellStyle16.WrapMode = DataGridViewTriState.True;
-            dataGridViewTiposInscripciones.RowHeadersDefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = Color.FromArgb(249, 250, 251);
+            dataGridViewCellStyle8.Font = new Font("Manrope", 8.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle8.ForeColor = Color.FromArgb(75, 85, 99);
+            dataGridViewCellStyle8.Padding = new Padding(4);
+            dataGridViewCellStyle8.SelectionBackColor = Color.FromArgb(224, 235, 249);
+            dataGridViewCellStyle8.SelectionForeColor = Color.FromArgb(51, 51, 51);
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.True;
+            dataGridViewTiposInscripciones.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewTiposInscripciones.RowHeadersVisible = false;
             dataGridViewTiposInscripciones.RowHeadersWidth = 62;
             dataGridViewTiposInscripciones.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewTiposInscripciones.Size = new Size(422, 237);
             dataGridViewTiposInscripciones.TabIndex = 37;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Manrope SemiBold", 14F, FontStyle.Bold, GraphicsUnit.Pixel);
+            label9.ForeColor = Color.FromArgb(13, 20, 27);
+            label9.Location = new Point(214, 279);
+            label9.Name = "label9";
+            label9.Size = new Size(56, 19);
+            label9.TabIndex = 32;
+            label9.Text = "Costo:";
+            // 
+            // comboBoxTiposInscripciones
+            // 
+            comboBoxTiposInscripciones.Font = new Font("Manrope SemiBold", 14F, FontStyle.Bold, GraphicsUnit.Pixel);
+            comboBoxTiposInscripciones.ForeColor = Color.FromArgb(13, 20, 27);
+            comboBoxTiposInscripciones.FormattingEnabled = true;
+            comboBoxTiposInscripciones.Location = new Point(26, 301);
+            comboBoxTiposInscripciones.Name = "comboBoxTiposInscripciones";
+            comboBoxTiposInscripciones.Size = new Size(167, 27);
+            comboBoxTiposInscripciones.TabIndex = 30;
+            // 
+            // ButtonQuitar
+            // 
+            ButtonQuitar.Anchor = AnchorStyles.Bottom;
+            ButtonQuitar.BackColor = Color.FromArgb(239, 68, 68);
+            ButtonQuitar.FlatAppearance.BorderSize = 0;
+            ButtonQuitar.FlatStyle = FlatStyle.Flat;
+            ButtonQuitar.Font = new Font("Manrope ExtraBold", 11F, FontStyle.Bold, GraphicsUnit.Pixel);
+            ButtonQuitar.ForeColor = Color.White;
+            ButtonQuitar.IconChar = FontAwesome.Sharp.IconChar.Trash;
+            ButtonQuitar.IconColor = Color.White;
+            ButtonQuitar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            ButtonQuitar.IconSize = 20;
+            ButtonQuitar.ImageAlign = ContentAlignment.MiddleLeft;
+            ButtonQuitar.Location = new Point(367, 320);
+            ButtonQuitar.Margin = new Padding(2);
+            ButtonQuitar.Name = "ButtonQuitar";
+            ButtonQuitar.Size = new Size(81, 23);
+            ButtonQuitar.TabIndex = 34;
+            ButtonQuitar.Text = "&Quitar";
+            ButtonQuitar.TextAlign = ContentAlignment.MiddleRight;
+            ButtonQuitar.UseVisualStyleBackColor = false;
+            ButtonQuitar.Click += ButtonQuitar_Click;
+            // 
+            // ButtonAnadir
+            // 
+            ButtonAnadir.Anchor = AnchorStyles.Bottom;
+            ButtonAnadir.BackColor = Color.FromArgb(207, 227, 246);
+            ButtonAnadir.FlatAppearance.BorderSize = 0;
+            ButtonAnadir.FlatStyle = FlatStyle.Flat;
+            ButtonAnadir.Font = new Font("Manrope ExtraBold", 11F, FontStyle.Bold, GraphicsUnit.Pixel);
+            ButtonAnadir.ForeColor = Color.FromArgb(24, 119, 213);
+            ButtonAnadir.IconChar = FontAwesome.Sharp.IconChar.FileCirclePlus;
+            ButtonAnadir.IconColor = Color.FromArgb(24, 119, 213);
+            ButtonAnadir.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            ButtonAnadir.IconSize = 20;
+            ButtonAnadir.ImageAlign = ContentAlignment.MiddleLeft;
+            ButtonAnadir.Location = new Point(367, 289);
+            ButtonAnadir.Margin = new Padding(2);
+            ButtonAnadir.Name = "ButtonAnadir";
+            ButtonAnadir.Size = new Size(81, 27);
+            ButtonAnadir.TabIndex = 33;
+            ButtonAnadir.Text = "&Añadir";
+            ButtonAnadir.TextAlign = ContentAlignment.MiddleRight;
+            ButtonAnadir.UseVisualStyleBackColor = false;
+            ButtonAnadir.Click += ButtonAnadir_Click;
+            // 
+            // numericCosto
+            // 
+            numericCosto.DecimalPlaces = 2;
+            numericCosto.Font = new Font("Manrope SemiBold", 14F, FontStyle.Bold, GraphicsUnit.Pixel);
+            numericCosto.ForeColor = Color.FromArgb(13, 20, 27);
+            numericCosto.Location = new Point(216, 301);
+            numericCosto.Maximum = new decimal(new int[] { 1215752191, 23, 0, 0 });
+            numericCosto.Name = "numericCosto";
+            numericCosto.Size = new Size(129, 27);
+            numericCosto.TabIndex = 31;
             // 
             // CapacitacionesView
             // 
@@ -733,6 +742,7 @@
             Margin = new Padding(2);
             Name = "CapacitacionesView";
             StartPosition = FormStartPosition.CenterScreen;
+            Text = "Gestion de Capacitaciones";
             WindowState = FormWindowState.Maximized;
             TabControl.ResumeLayout(false);
             TabPageLista.ResumeLayout(false);
@@ -740,11 +750,11 @@
             ((System.ComponentModel.ISupportInitialize)DataGrid).EndInit();
             TabPageAgregarEditar.ResumeLayout(false);
             TabPageAgregarEditar.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numericCosto).EndInit();
             ((System.ComponentModel.ISupportInitialize)NumericCupo).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewTiposInscripciones).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericCosto).EndInit();
             ResumeLayout(false);
         }
 

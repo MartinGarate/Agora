@@ -39,6 +39,7 @@ namespace Desktop.Views
             DataGrid.DataSource = _capacitaciones;
             DataGrid.Columns["Id"].Visible = false; // Ocultar la columna Pais
             DataGrid.Columns["IsDeleted"].Visible = false; // Ocultar la columna Eliminado
+            //DataGrid.HideColumns("")
             await GetComboTiposDeInscripciones();
         }
 

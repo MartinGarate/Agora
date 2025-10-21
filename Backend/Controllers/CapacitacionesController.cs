@@ -31,6 +31,25 @@ namespace Backend.Controllers
 
         }
 
+
+        [HttpGet("abiertas")]
+        public async Task<ActionResult<IEnumerable<Capacitacion>>> GetCapacitacionesAbiertas([FromQuery] string? filter ="")
+        {
+
+            return await _context.Capacitaciones.Where(c => c.InscripcionAbierta && (c.Nombre.Contains(filter) || c.Detalle.Contains(filter) || c.Ponente.Contains(filter))).AsNoTracking().ToListAsync();
+
+        }
+
+        [HttpGet("futuras")]
+        public async Task<ActionResult<IEnumerable<Capacitacion>>> GetCapacitacionesFuturas([FromQuery] string? filter ="")
+        {
+
+            return await _context.Capacitaciones.Where(c => c.FechaHora.Date>DateTime.Now.Date && !c.InscripcionAbierta && (c.Nombre.Contains(filter) || c.Detalle.Contains(filter) || c.Ponente.Contains(filter))).AsNoTracking().ToListAsync();
+
+        }
+
+
+
         // GET: api/Capacitaciones/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Capacitacion>> GetCapacitacion(int id)
