@@ -1,5 +1,7 @@
 ﻿@page "/"
 
+@inject ICapacitacionService _capacitacionService
+
 <PageTitle>Inicio</PageTitle>
 
 <h1>Ágora — Plataforma de Gestión de Capacitaciones!</h1>
@@ -7,3 +9,40 @@
 <p>
     Ágora es un proyecto educativo desarrollado junto a estudiantes de 2.º año de Programación. Su objetivo es brindar una plataforma integral para gestionar capacitaciones de una institución educativa: desde la publicación y la inscripción (online/presencial), hasta la acreditación, cobros y emisión de certificados.
 </p>
+
+@if (capacitacionesAbiertas is null)
+{
+    <p><em>Cargando...</em></p>
+}
+else
+{
+    <h3>Capacitaciones Abiertas</h3>
+    @if (capacitacionesAbiertas.Count == 0)
+    {
+        <p>No hay capacitaciones abiertas en este momento.</p>
+    }
+    else
+    {
+        <h3>Capacitaciones Abiertas</h3>
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            @foreach (var capacitacion in capacitacionesAbiertas)
+            {
+                <div class="col">
+                    <CardCapacitacion Capacitacion="capacitacion" />
+                </div>
+            }
+        </div>
+    }
+   
+}
+
+@code {
+    private List<Capacitacion>? capacitacionesAbiertas;
+    private List<Capacitacion>? capacitacionesFuturas;
+    protected override async Task OnInitializedAsync()
+    {
+        capacitacionesAbiertas = await _capacitacionService.GetCapacitacionesAbiertasAsync();
+        capacitacionesFuturas = await _capacitacionService.GetCapacitacionesFuturasAsync();
+
+    }
+}
