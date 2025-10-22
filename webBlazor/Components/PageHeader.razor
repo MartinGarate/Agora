@@ -1,0 +1,28 @@
+﻿<div class="header-card">
+    <h1 class="header-title">@Title</h1>
+    @if(Description!=null)
+    {
+        <p class="header-description">
+            @Description
+        </p>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public string Title { get; set; } = string.Empty;
+
+    [Parameter]
+    public string? Description { get; set; } = string.Empty;
+
+    [Parameter]
+    public EventCallback OnHeaderClick { get; set; }
+
+    private async Task HandleClick()
+    {
+        if (OnHeaderClick.HasDelegate)
+        {
+            await OnHeaderClick.InvokeAsync();
+        }
+    }
+}

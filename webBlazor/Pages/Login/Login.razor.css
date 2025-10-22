@@ -1,0 +1,188 @@
+﻿/* === 🌌 FONDO GLOBAL === */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: linear-gradient(145deg, #e0eafc 0%, #cfdef3 100%);
+    font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: #1a1a1a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    overflow-y: auto;
+    padding: 3rem 1rem;
+}
+
+/* === 🧊 CARD DE LOGIN CON ESTILO HEADER === */
+.card {
+    position: relative;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(245, 245, 245, 0.8) 100%);
+    backdrop-filter: blur(20px) saturate(180%) brightness(1.1);
+    -webkit-backdrop-filter: blur(20px) saturate(180%) brightness(1.1);
+    border-radius: 18px;
+    padding: 2rem 2.5rem;
+    margin-bottom: 2.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12), inset 0 1px 2px rgba(255, 255, 255, 0.8);
+    text-align: center;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    animation: fadeInDown 0.9s cubic-bezier(0.25, 0.8, 0.25, 1);
+    width: 100%;
+    max-width: 600px;
+    overflow: visible;
+}
+
+    .card:hover {
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18), inset 0 1px 2px rgba(255, 255, 255, 0.9);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.97) 0%, rgba(250, 250, 250, 0.85) 100%);
+        backdrop-filter: blur(24px) saturate(200%) brightness(1.15);
+    }
+
+/* === 🏷️ TÍTULO === */
+.card-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #0d1b2a;
+    margin-bottom: 1.2rem;
+    position: relative;
+}
+
+.card:hover .card-title::after {
+    width: 90px;
+}
+
+/* === 📋 CONTENEDOR DE FORMULARIO === */
+.container {
+    padding: 0 1rem;
+}
+
+/* === 🏷️ LABELS Y CAMPOS === */
+label.form-label,
+label.form-check-label {
+    min-width: 140px;
+    text-align: right;
+    font-weight: 500;
+    color: #2c3e50;
+    font-size: 1rem;
+    margin-right: 0.6rem;
+}
+
+input.form-control {
+    width: 100%;
+    max-width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 0.6rem 1rem;
+    background: #fff;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    transition: all 0.25s ease;
+}
+
+    input.form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 0 3px rgba(0,123,255,0.2);
+        outline: none;
+    }
+
+/* === ✅ CHECKBOX === */
+.form-check input[type="checkbox"] {
+    accent-color: #007bff;
+    width: 18px;
+    height: 18px;
+    margin-left: 0.5rem;
+    transform: scale(1.2);
+}
+
+/* === 🔘 BOTONES === */
+button.btn {
+    min-width: 160px;
+    margin: 0.3rem;
+    font-size: 0.95rem;
+    border: none;
+    border-radius: 12px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: #fff;
+    border: 1px solid #0056b3;
+}
+
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #0056b3, #004080);
+        transform: translateY(-2px);
+    }
+
+.btn-secondary {
+    background: #f8f9fa;
+    color: #333;
+    border: 1px solid #ced4da;
+}
+
+    .btn-secondary:hover {
+        background: #e2e6ea;
+        transform: translateY(-2px);
+    }
+
+/* === 🧾 FOOTER === */
+.card-footer {
+    font-size: 0.85rem;
+    color: #555;
+    margin-top: 1.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    padding-top: 1rem;
+    text-align: center;
+    font-style: italic;
+}
+
+/* === 💫 ANIMACIÓN DE ENTRADA === */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* === 📱 RESPONSIVE === */
+@media (max-width: 480px) {
+    .card {
+        padding: 1.5rem 1rem;
+    }
+
+    .card-title {
+        font-size: 1.6rem;
+    }
+
+    label.form-label,
+    label.form-check-label {
+        text-align: left;
+        min-width: unset;
+        font-size: 0.9rem;
+    }
+
+    input.form-control {
+        max-width: 100%;
+    }
+
+    button.btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+}

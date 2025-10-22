@@ -1,0 +1,74 @@
+﻿/* === 🌌 HEADER CARD === */
+.header-card {
+    position: relative;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(245, 245, 245, 0.8) 100%);
+    backdrop-filter: blur(20px) saturate(180%) brightness(1.1);
+    -webkit-backdrop-filter: blur(20px) saturate(180%) brightness(1.1);
+    border-radius: 18px;
+    padding: 2rem 2.5rem;
+    margin-bottom: 2.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12), inset 0 1px 2px rgba(255, 255, 255, 0.8);
+    text-align: center;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    cursor: pointer;
+}
+
+    .header-card:hover {
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18), inset 0 1px 2px rgba(255, 255, 255, 0.9);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.97) 0%, rgba(250, 250, 250, 0.85) 100%);
+        backdrop-filter: blur(24px) saturate(200%) brightness(1.15);
+    }
+
+/* === ✨ TÍTULO HEADER === */
+.header-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #0d1b2a;
+    margin-bottom: 0.6rem;
+    position: relative;
+}
+
+    /* Subrayado tecnológico */
+    .header-title::after {
+        content: '';
+        display: block;
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(90deg, #007bff, #00d4ff);
+        border-radius: 2px;
+        margin: 0.5rem auto 0 auto;
+        transition: width 0.4s ease;
+    }
+
+.header-card:hover .header-title::after {
+    width: 90px;
+}
+
+/* === 📝 DESCRIPCIÓN HEADER === */
+.header-description {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #555;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.5;
+}
+
+/* === ANIMACIÓN SUAVE DE ENTRADA === */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.header-card {
+    animation: fadeInDown 0.9s cubic-bezier(0.25, 0.8, 0.25, 1);
+}

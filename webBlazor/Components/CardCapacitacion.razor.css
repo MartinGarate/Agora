@@ -1,71 +1,93 @@
-﻿.card-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-    padding: 1rem;
-}
-
-.card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+﻿.card {
+    position: relative;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(250, 250, 250, 0.75) 100%);
+    backdrop-filter: blur(18px) saturate(180%) brightness(1.1);
+    -webkit-backdrop-filter: blur(18px) saturate(180%) brightness(1.1);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
     overflow: hidden;
-    background-color: #fff;
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    padding: 1.8rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), inset 0 1px 2px rgba(255, 255, 255, 0.8), inset 0 -1px 2px rgba(0, 0, 0, 0.05);
+    transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.45s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.45s ease, background 0.6s ease, backdrop-filter 0.4s ease;
+    animation: fadeInUp 0.9s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
+    /* Efecto hover */
     .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        transform: translateY(-6px);
+        border-color: rgba(0, 0, 0, 0.12);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18), inset 0 1px 2px rgba(255, 255, 255, 0.9), inset 0 -1px 2px rgba(0, 0, 0, 0.08);
+        backdrop-filter: blur(22px) saturate(200%) brightness(1.2);
     }
 
+/* Encabezado */
 .card-header {
-    background-color: #007bff;
-    color: #fff;
-    padding: 0.75rem 1rem;
-    font-size: 1.25rem;
-    font-weight: bold;
-    text-align: center;
-}
-
-.card-body {
-    padding: 1rem;
-    text-align: center;
-}
-
-.card-title {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    padding-bottom: 0.8rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
     color: #333;
 }
 
+/* Cuerpo */
+.card-body {
+    color: #444;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+    color: #222;
+}
+
 .card-text {
-    font-size: 1rem;
-    color: #666;
-    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #555;
+    margin-bottom: 1.5rem;
 }
 
-.btn {
-    background-color: #007bff;
-    color: #fff;
-    padding: 0.5rem 1rem;
+/* Botón */
+.card .btn {
+    background: linear-gradient(135deg, #007bff, #0056d2);
     border: none;
-    border-radius: 4px;
-    text-decoration: none;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
+    color: white;
+    padding: 0.6rem 1.3rem;
+    border-radius: 12px;
+    font-weight: 500;
+    transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-    .btn:hover {
-        background-color: #0056b3;
+    .card .btn:hover {
+        background: linear-gradient(135deg, #0056d2, #0041a8);
+        transform: scale(1.05);
+        box-shadow: 0 8px 24px rgba(0, 91, 255, 0.25);
     }
 
+/* Pie */
 .card-footer {
-    background-color: #f8f9fa;
-    padding: 0.75rem 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    padding-top: 0.8rem;
+    margin-top: 1rem;
     font-size: 0.9rem;
-    color: #555;
+    color: #666;
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+/* Animación de entrada */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

@@ -1,0 +1,49 @@
+﻿/* === 🌌 FONDO DEL HOME === */
+body {
+    background: linear-gradient(160deg, #f5f7fa 0%, #e0eafc 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #222;
+    margin: 0;
+    padding: 0;
+}
+
+/* === 🏠 CONTENEDOR PRINCIPAL === */
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* === 🔹 TITULOS DE SECCIONES === */
+h3 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #0d1b2a;
+    margin-bottom: 1.5rem;
+    text-align: left;
+    border-left: 4px solid #007bff;
+    padding-left: 0.8rem;
+}
+
+/* === 📝 MENSAJES DE CARGA O SIN DATOS === */
+p em {
+    display: inline-block;
+    font-style: normal;
+    color: #555;
+    background: rgba(255, 255, 255, 0.6);
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+/* === 🌐 GRID DE CARDS === */
+.row.row-cols-1.row-cols-md-2.g-4 {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* === ✨ TRANSICIONES SUAVES === */
+.container, h3, p em {
+    transition: all 0.3s ease-in-out;
+}
