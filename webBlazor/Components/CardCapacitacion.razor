@@ -1,38 +1,19 @@
-﻿<div class="card-container">
-    <div class="card">
-        <div class="card-header">
-            <h4>Orador: @Capacitacion1?.Ponente</h4>
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">@Capacitacion1?.Nombre</h5>
-            <p class="card-text">@Capacitacion1?.Detalle</p>
-            <a href="#" class="btn btn-primary">Inscribirse</a>
-        </div>
-        <div class="card-footer">
-            <span>Fecha: @Capacitacion1?.FechaHora.ToString("dd/MM/yyyy")</span>
-            <span>Hora: @Capacitacion1?.FechaHora.ToString("HH:mm")</span>
-        </div>
+﻿<div class="card">
+    <div class="card-header">
+        <h4>Orador: @capacitacion?.Ponente</h4>
     </div>
-    <div class="card">
-        <div class="card-header">
-            <h4>Orador: @Capacitacion2?.Ponente</h4>
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">@Capacitacion2?.Nombre</h5>
-            <p class="card-text">@Capacitacion2?.Detalle</p>
-            <a href="#" class="btn btn-primary">Inscribirse</a>
-        </div>
-        <div class="card-footer">
-            <span>Fecha: @Capacitacion2?.FechaHora.ToString("dd/MM/yyyy")</span>
-            <span>Hora: @Capacitacion2?.FechaHora.ToString("HH:mm")</span>
-        </div>
+    <div class="card-body">
+        <h5 class="card-title">@capacitacion?.Nombre</h5>
+        <p class="card-text">@capacitacion?.Detalle</p>
+        <a href="/capacitacion/@capacitacion?.Id" class="btn btn-primary">Inscribirse</a>
+    </div>
+    <div class="card-footer">
+        <span>Fecha: @capacitacion?.FechaHora.ToString("dd/MM/yyyy")</span>
+        <span>Hora: @capacitacion?.FechaHora.ToString("HH:mm")</span>
     </div>
 </div>
 
 @code {
     [Parameter]
-    public Capacitacion? Capacitacion1 { get; set; }
-
-    [Parameter]
-    public Capacitacion? Capacitacion2 { get; set; }
+    public Capacitacion? capacitacion { get; set; }
 }

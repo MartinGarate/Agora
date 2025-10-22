@@ -16,7 +16,6 @@
 }
 else
 {
-    <h3>Capacitaciones Abiertas</h3>
     @if (capacitacionesAbiertas.Count == 0)
     {
         <p>No hay capacitaciones abiertas en este momento.</p>
@@ -28,7 +27,7 @@ else
             @foreach (var capacitacion in capacitacionesAbiertas)
             {
                 <div class="col">
-                    <CardCapacitacion Capacitacion="capacitacion" />
+                    <CardCapacitacion capacitacion="@capacitacion" />
                 </div>
             }
         </div>
