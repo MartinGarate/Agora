@@ -32,7 +32,7 @@ namespace Desktop.Views
         private async Task GetAllData()
         {
             if (checkVerEliminados.Checked)
-                _capacitaciones = await _capacitacionService.GetAllDeletedAsync();
+                _capacitaciones = await _capacitacionService.GetAllDeletedsAsync();
             else
                 _capacitaciones = await _capacitacionService.GetAllAsync();
 

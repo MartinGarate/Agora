@@ -41,7 +41,6 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = Properties.Resources.freepik_br_5b61cdb2_68b3_4ea5_848f_688cebd8b9b5;
             pictureBox1.Location = new Point(-1, 2);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(361, 298);

@@ -30,7 +30,7 @@ namespace Desktop.Views
         private async Task GetAllData()
         {
             if (checkVerEliminados.Checked)
-                _tiposInscripciones = await _tipoInscripcionService.GetAllDeletedAsync();
+                _tiposInscripciones = await _tipoInscripcionService.GetAllDeletedsAsync();
             else
                 _tiposInscripciones = await _tipoInscripcionService.GetAllAsync();
 

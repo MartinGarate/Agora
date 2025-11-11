@@ -53,7 +53,7 @@ namespace Desktop.Views
         {
             try{
                 if (checkVerEliminados.Checked)
-                    _usuario = await _usuarioService.GetAllDeletedAsync();
+                    _usuario = await _usuarioService.GetAllDeletedsAsync();
                 else
                     _usuario = await _usuarioService.GetAllAsync();
 

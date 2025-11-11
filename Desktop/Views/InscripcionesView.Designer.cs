@@ -237,7 +237,6 @@
             SubMenuEliminarInscripcion.Name = "SubMenuEliminarInscripcion";
             SubMenuEliminarInscripcion.Size = new Size(180, 22);
             SubMenuEliminarInscripcion.Text = "toolStripMenuItem1";
-            SubMenuEliminarInscripcion.Click += this.SubMenuEliminarInscripcion_Click;
             // 
             // InscripcionesView
             // 
