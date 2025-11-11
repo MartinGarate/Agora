@@ -44,5 +44,12 @@ namespace Desktop.Views
             capacitacionesView.Show();
 
         }
+
+        private void acreditacionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var acreditacionView = new AcreditacionView();
+            acreditacionView.MdiParent = this;
+            acreditacionView.Show();
+        }
     }
 }

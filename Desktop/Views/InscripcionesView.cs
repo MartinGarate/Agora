@@ -39,7 +39,7 @@ namespace Desktop.Views
         {
             _usuarios = (await _usuarioService.GetAllAsync());
             _usuarios = _usuarios?.Where(u => _inscripciones != null && !_inscripciones.Any(i => i.UsuarioId == u.Id)).ToList();
-            GridUsuarios.DataSource = _usuarios;
+            GridUsuarios.DataSource = _usuarios.OrderBy(u=>u.Apellido).ThenBy(u=>u.Nombre).ToList(); //ordenamos por apellido y nombre.
             //ocultamos las columnas Id, DeleteDate, IsDeleted
             GridUsuarios.HideColumns("Id", "DeleteDate", "IsDeleted");
 
@@ -78,7 +78,10 @@ namespace Desktop.Views
 
             _inscripciones = selectedCapacitacion.Inscripciones.ToList();
             //_inscripciones = await _inscripcionService.GetInscriptosAsync(selectedCapacitacion.Id);
-            GridInscripciones.DataSource = _inscripciones;
+            //ordeno las inscripciones por apellido y nombre
+            //GridInscripciones.DataSource = _inscripciones;
+            GridInscripciones.DataSource = _inscripciones.OrderBy(i => i.Usuario!.Apellido).ThenBy(i => i.Usuario!.Nombre).ToList();
+            //GridInscripciones.DataSource = _inscripciones;
             //ocultamos las columnas Id, UsuarioId, TipoInscripcionId,CapacitacionId, Capacitacion
             GridInscripciones.HideColumns("Id", "UsuarioId", "TipoInscripcionId", "CapacitacionId", "Capacitacion", "UsuarioCobroId", "IsDeleted", "UsuarioCobro", "Pagado");
 
@@ -88,8 +91,52 @@ namespace Desktop.Views
                 GridInscripciones.Columns["Importe"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             }
 
+            AgregarBotonAnularInscripcion();
             await GetGrillaUsuarios();
         }
+
+        private void AgregarBotonAnularInscripcion()
+        {
+            if (GridInscripciones.Columns["Acciones"] == null)
+            {
+                // Agrego un botón para agregar la transferencias a la caja del empleado current
+                DataGridViewButtonColumn buttonColumn = new DataGridViewButtonColumn();
+                buttonColumn.Name = "Acciones"; // Especificamos el nombre para poder referenciarlo luego
+                buttonColumn.HeaderText = "Acciones";
+                buttonColumn.Text = "Anular Inscripción";
+                buttonColumn.UseColumnTextForButtonValue = true;
+                GridInscripciones.Columns.Add(buttonColumn);
+                // Defino el evento para el botón.
+                GridInscripciones.CellContentClick += AnularInscripcion();
+            }
+
+        }
+
+        private DataGridViewCellEventHandler AnularInscripcion()
+        {
+            return async (sender, e) =>
+            {
+                if (e.RowIndex >= 0 && e.ColumnIndex == GridInscripciones.Columns["Acciones"].Index)
+                {
+                    var selectedInscripcion = GridInscripciones.Rows[e.RowIndex].DataBoundItem as Inscripcion;
+                    // obtenemos la inscripción seleccionada
+                    if (selectedInscripcion == null)
+                    {
+                        MessageBox.Show("Seleccione una inscripción para anular.");
+                        return;
+                    }
+                    //preguntamos si está seguro de anular la inscripción
+                    var confirmResult = MessageBox.Show($"¿Está seguro de anular la inscripción de: {selectedInscripcion.Usuario}?", "Confirmar anulación", MessageBoxButtons.YesNo);
+                    if (confirmResult != DialogResult.Yes)
+                    {
+                        await DeleteInscripcion(selectedInscripcion);
+
+                    }
+                    }
+                };
+        }
+
+
 
         private void BtnBuscar_Click(object sender, EventArgs e)
         {
@@ -169,24 +216,29 @@ namespace Desktop.Views
             var confirmResult = MessageBox.Show($"¿Está seguro de eliminar la inscripción de: {selectedInscripcion.Usuario}?", "Confirmar eliminación", MessageBoxButtons.YesNo);
             if (confirmResult == DialogResult.Yes)
             {
-                //selecciono la capacitación actual para actualizar
-                if (ComboCapacitaciones.SelectedItem is Capacitacion selectedCapacitacion)
-                {
-                    selectedCapacitacion.Inscripciones.Remove(selectedInscripcion);
-                    try
-                    {
-                        await _capacitacionService.UpdateAsync(selectedCapacitacion);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Error al eliminar la inscripción: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                }
-                _inscripciones?.Remove(selectedInscripcion);
-                RefreshInscripciones((Capacitacion)ComboCapacitaciones.SelectedItem);
+                await DeleteInscripcion(selectedInscripcion);
 
             }
+        }
+
+        private async Task DeleteInscripcion(Inscripcion selectedInscripcion)
+        {
+            //selecciono la capacitación actual para actualizar
+            if (ComboCapacitaciones.SelectedItem is Capacitacion selectedCapacitacion)
+            {
+                selectedCapacitacion.Inscripciones.Remove(selectedInscripcion);
+                try
+                {
+                    await _capacitacionService.UpdateAsync(selectedCapacitacion);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al eliminar la inscripción: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+            _inscripciones?.Remove(selectedInscripcion);
+            RefreshInscripciones((Capacitacion)ComboCapacitaciones.SelectedItem);
         }
 
         private void GridInscripciones_MouseClick(object sender, MouseEventArgs e)
