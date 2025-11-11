@@ -12,20 +12,23 @@ namespace Service.Models
         public string Nombre { get; set; } = string.Empty;
         public string Detalle { get; set; } = string.Empty;
         public string Ponente { get; set; } = string.Empty;
-        public DateTime FechaHora { get; set; } = DateTime.Now;
+        public DateTime FechaHora { get; set; }
         public int Cupo { get; set; }
         public bool InscripcionAbierta { get; set; } = false;
         public bool IsDeleted { get; set; } = false;
 
-        public ICollection<TipoInscripcionCapacitacion> TiposDeInscripciones { get; set; } = new List<TipoInscripcionCapacitacion>();
 
+        public ICollection<TipoInscripcionCapacitacion> TiposDeInscripciones { get; set; } = new List<TipoInscripcionCapacitacion>();
         public ICollection<Inscripcion> Inscripciones { get; set; } = new List<Inscripcion>();
+
+
 
         public override string ToString()
         {
             return Nombre;
         }
     }
+}
 }
 
 
