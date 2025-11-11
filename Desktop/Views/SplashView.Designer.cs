@@ -30,40 +30,41 @@
         {
             components = new System.ComponentModel.Container();
             pictureBox1 = new PictureBox();
-            ProgressBar = new ProgressBar();
-            Timer = new System.Windows.Forms.Timer(components);
+            progressBar = new ProgressBar();
+            TimerSplash = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = Properties.Resources.Generated_Image_September_02__2025___4_57PM_removebg_preview;
-            pictureBox1.Location = new Point(153, -36);
+            pictureBox1.Image = Properties.Resources.freepik_br_5b61cdb2_68b3_4ea5_848f_688cebd8b9b5;
+            pictureBox1.Location = new Point(142, 2);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(427, 356);
+            pictureBox1.Size = new Size(365, 258);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
-            // ProgressBar
+            // progressBar
             // 
-            ProgressBar.Location = new Point(23, 293);
-            ProgressBar.Name = "ProgressBar";
-            ProgressBar.Size = new Size(670, 34);
-            ProgressBar.TabIndex = 1;
+            progressBar.Location = new Point(55, 224);
+            progressBar.Name = "progressBar";
+            progressBar.Size = new Size(557, 23);
+            progressBar.TabIndex = 1;
             // 
-            // Timer
+            // TimerSplash
             // 
-            Timer.Enabled = true;
-            Timer.Tick += timer_Tick;
+            TimerSplash.Enabled = true;
+            TimerSplash.Interval = 500;
+            TimerSplash.Tick += TimerSplash_Tick;
             // 
             // SplashView
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(23, 39, 55);
-            ClientSize = new Size(717, 339);
-            Controls.Add(ProgressBar);
+            ClientSize = new Size(682, 259);
+            Controls.Add(progressBar);
             Controls.Add(pictureBox1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "SplashView";
@@ -76,7 +77,7 @@
         #endregion
 
         private PictureBox pictureBox1;
-        private ProgressBar ProgressBar;
-        private System.Windows.Forms.Timer Timer;
+        private ProgressBar progressBar;
+        private System.Windows.Forms.Timer TimerSplash;
     }
 }

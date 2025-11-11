@@ -26,57 +26,49 @@ namespace Backend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Capacitacion>>> GetCapacitaciones([FromQuery] string? filter = "")
         {
-            return await _context.Capacitaciones
-                            .Include(c => c.TiposDeInscripciones).ThenInclude(t => t.TipoInscripcion)
-                            .Include(c => c.Inscripciones).ThenInclude(i => i.Usuario)
-                            .Include(c => c.Inscripciones).ThenInclude(i => i.UsuarioCobro)
-                            .Include(c => c.Inscripciones).ThenInclude(i => i.TipoInscripcion)
-                            .Where(c => c.Nombre.Contains(filter, StringComparison.OrdinalIgnoreCase)
-                                || c.Detalle.Contains(filter, StringComparison.OrdinalIgnoreCase)
-                                || c.Ponente.Contains(filter, StringComparison.OrdinalIgnoreCase))
-                            .AsNoTracking()
-                            .ToListAsync();
-        }
 
+            return await _context.Capacitaciones
+.AsNoTracking().Include(c => c.TiposDeInscripciones).ThenInclude(t => t.TipoInscripcion)
+.Include(i => i.Inscripciones).ThenInclude(i => i.Usuario)
+.Include(i => i.Inscripciones).ThenInclude(i => i.UsuarioCobro)
+.Where(c => c.Nombre.Contains(filter, StringComparison.OrdinalIgnoreCase)
+
+        || c.Detalle.Contains(filter, StringComparison.OrdinalIgnoreCase)
+        || c.Ponente.Contains(filter, StringComparison.OrdinalIgnoreCase))
+.ToListAsync();
+        }
         [HttpGet("abiertas")]
         public async Task<ActionResult<IEnumerable<Capacitacion>>> GetCapacitacionesAbiertas([FromQuery] string? filter = "")
         {
-            return await _context.Capacitaciones
-                                .Include(c => c.TiposDeInscripciones).ThenInclude(t => t.TipoInscripcion)
-                                .Include(c => c.Inscripciones).ThenInclude(i => i.Usuario)
-                                .Include(c => c.Inscripciones).ThenInclude(i => i.UsuarioCobro)
-                                .Include(c => c.Inscripciones).ThenInclude(i => i.TipoInscripcion)
-                                .Where(c => c.InscripcionAbierta &&
-                                        (c.Nombre.Contains(filter)
-                                            || c.Detalle.Contains(filter)
-                                            || c.Ponente.Contains(filter)))
-                                .AsNoTracking()
-                                .ToListAsync();
+
+            return await _context.Capacitaciones.
+            AsNoTracking().Include(c => c.TiposDeInscripciones).ThenInclude(t => t.TipoInscripcion)
+             .Include(i => i.Inscripciones).ThenInclude(i => i.Usuario)
+            .Include(i => i.Inscripciones).ThenInclude(i => i.UsuarioCobro)
+            .Where(c =>
+            c.InscripcionAbierta &&
+            (c.Nombre.Contains(filter) ||
+            c.Detalle.Contains(filter) ||
+            c.Ponente.Contains(filter))).ToListAsync();
         }
         [HttpGet("futuras")]
         public async Task<ActionResult<IEnumerable<Capacitacion>>> GetCapacitacionesFuturas([FromQuery] string? filter = "")
         {
-            return await _context.Capacitaciones
-                                .Include(c => c.TiposDeInscripciones).ThenInclude(t => t.TipoInscripcion)
-                                .Include(c => c.Inscripciones).ThenInclude(i => i.Usuario)
-                                .Include(c => c.Inscripciones).ThenInclude(i => i.UsuarioCobro)
-                                .Include(c => c.Inscripciones).ThenInclude(i => i.TipoInscripcion)
-                                .Where(c => !c.InscripcionAbierta
-                                        && c.FechaHora.Date > DateTime.Now.Date
-                                        && (c.Nombre.Contains(filter)
-                                            || c.Detalle.Contains(filter)
-                                            || c.Ponente.Contains(filter)))
-                                .AsNoTracking()
-                                .ToListAsync();
+
+            return await _context.Capacitaciones.AsNoTracking().Include(c => c.TiposDeInscripciones).ThenInclude(t => t.TipoInscripcion)
+            .Include(i => i.Inscripciones).ThenInclude(i => i.Usuario)
+            .Include(i => i.Inscripciones).ThenInclude(i => i.UsuarioCobro)
+            .Include(i => i.Inscripciones).ThenInclude(i => i.UsuarioCobro)
+
+            .Where(c =>
+            !c.InscripcionAbierta &&
+            c.FechaHora.Date > DateTime.Now.Date &&
+            (c.Nombre.Contains(filter) ||
+            c.Detalle.Contains(filter) ||
+            c.Ponente.Contains(filter))).ToListAsync();
         }
 
-        // GET: api/Capacitaciones
-        [HttpGet("deleteds/")]
-        public async Task<ActionResult<IEnumerable<Capacitacion>>> GetCapacitacionesDeleteds()
-        {
-            return await _context.Capacitaciones.AsNoTracking()
-                                .IgnoreQueryFilters().Where(c => c.IsDeleted).ToListAsync();
-        }
+
 
         // GET: api/Capacitaciones/5
         [HttpGet("{id}")]
@@ -102,7 +94,6 @@ namespace Backend.Controllers
                 return BadRequest();
             }
             _context.Entry(capacitacion).State = EntityState.Modified;
-
             #region Manejo de ICollection TiposDeInscripciones
             // Attach las entidades TipoInscripcion para que no intente guardarlas nuevamente
             foreach (var tipoInscripcionCapacitacion in capacitacion.TiposDeInscripciones)
@@ -141,27 +132,27 @@ namespace Backend.Controllers
                 _context.TiposInscripcionesCapacitaciones.Add(tipoInscripcionCapacitacion);
             }
             #endregion
-            #region Manejo de ICollection Inscripciones
-            // Attach las entidades Usuario y UsuarioCobro para que no intente guardarlas nuevamente
+            // Attach las entidades Usuario UsuarioCobro para que no intente guardarlas nuevamente
             foreach (var inscripcion in capacitacion.Inscripciones)
             {
-                inscripcion.Usuario = null;
-                inscripcion.UsuarioCobro = null;
+                _context.TryAttach(inscripcion.Usuario);
+                _context.TryAttach(inscripcion.UsuarioCobro);
                 inscripcion.Capacitacion = null;
-                inscripcion.TipoInscripcion = null; // Evitar duplicados
+                inscripcion.TipoInscripcion = null;
+
             }
 
 
-            var inscripcionesAEliminar = capacitacionExistente.Inscripciones
+            var InscripcionesAEliminar = capacitacionExistente.Inscripciones
                                                 .Where(t => !capacitacion.Inscripciones
                                                 .Any(ti => ti.Id == t.Id))
                                                 .ToList();
-            foreach (var inscripcion1 in inscripcionesAEliminar)
+            foreach (var inscripcion1 in InscripcionesAEliminar)
             {
                 inscripcion1.Usuario = null;
                 inscripcion1.UsuarioCobro = null;
-                inscripcion1.TipoInscripcion = null;
                 inscripcion1.Capacitacion = null;
+                inscripcion1.TipoInscripcion = null;
                 _context.Inscripciones.Remove(inscripcion1);
             }
 
@@ -174,12 +165,30 @@ namespace Backend.Controllers
             {
                 inscripcion2.Usuario = null;
                 inscripcion2.UsuarioCobro = null;
-                inscripcion2.TipoInscripcion = null;
                 inscripcion2.Capacitacion = null;
+                inscripcion2.TipoInscripcion = null;
                 _context.Inscripciones.Add(inscripcion2);
-            }
-            #endregion
 
+            }
+
+
+
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException e)
+            {
+                if (!CapacitacionExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw new Exception(e.Message);
+                }
+            }
 
 
             try
@@ -209,6 +218,7 @@ namespace Backend.Controllers
             foreach (var tipoInscripcionCapacitacion in capacitacion.TiposDeInscripciones)
             {
                 _context.Attach(tipoInscripcionCapacitacion.TipoInscripcion);
+
             }
             _context.Capacitaciones.Add(capacitacion);
             await _context.SaveChangesAsync();
@@ -225,28 +235,37 @@ namespace Backend.Controllers
             {
                 return NotFound();
             }
-            capacitacion.IsDeleted = true; // Soft delete
+            capacitacion.IsDeleted = true; // Marcamos la capacitación como eliminada en lugar de eliminarla físicamente
             _context.Capacitaciones.Update(capacitacion);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        // PUT: api/Capacitaciones/restore/5
         [HttpPut("restore/{id}")]
         public async Task<IActionResult> RestoreCapacitacion(int id)
         {
-            var capacitacion = await _context.Capacitaciones.IgnoreQueryFilters().FirstOrDefaultAsync(c => c.Id.Equals(id));
+            var capacitacion = await _context.Capacitaciones.IgnoreQueryFilters
+                ().FirstOrDefaultAsync(c => c.Id.Equals(id));
             if (capacitacion == null)
             {
                 return NotFound();
             }
-            capacitacion.IsDeleted = false; // Soft restore
+            capacitacion.IsDeleted = false;
             _context.Capacitaciones.Update(capacitacion);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
+
+
+        // GET: api/Capacitaciones
+        [HttpGet("deleteds/")]
+        public async Task<ActionResult<IEnumerable<Capacitacion>>> GetCapacitacionesDeleteds()
+        {
+            return await _context.Capacitaciones.AsNoTracking().Include(c => c.TiposDeInscripciones).IgnoreQueryFilters().Where(c => c.IsDeleted).ToListAsync();
+        }
+
 
         private bool CapacitacionExists(int id)
         {

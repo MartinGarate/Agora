@@ -16,12 +16,10 @@ namespace Desktop.Views
     {
         FirebaseAuthClient _firebaseAuthClient;
         int loginFailsCount = 0;
-
         public LoginView()
         {
             InitializeComponent();
             SettingFirebase();
-
         }
 
         private void SettingFirebase()
@@ -31,9 +29,9 @@ namespace Desktop.Views
                 ApiKey = Service.Properties.Resources.ApiKeyFirebase,
                 AuthDomain = Service.Properties.Resources.AuthDomainFirebase,
                 Providers = new FirebaseAuthProvider[]
-                {
+               {
                     new EmailProvider()
-                }
+               }
             };
             _firebaseAuthClient = new FirebaseAuthClient(config);
         }
@@ -65,8 +63,13 @@ namespace Desktop.Views
 
         private void CheckVerContraseña_CheckedChanged(object sender, EventArgs e)
         {
-            TxtPassword.PasswordChar = CheckVerContraseña.Checked? '\0':'*';
+            TxtPassword.PasswordChar = CheckVerContraseña.Checked ? '\0' : '*';
 
+        }
+
+        private void BtnCancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

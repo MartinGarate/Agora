@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -30,11 +29,9 @@ namespace Desktop.Views
 
         private async Task GetAllData()
         {
-            var stopwatch = Stopwatch.StartNew();
             var GetComboTask = GetComboCapacitaciones();
             var GetGrillaTask = GetGrillaUsuarios();
             await Task.WhenAll(GetComboTask, GetGrillaTask);
-            Debug.WriteLine($"Tiempo de carga de datos: {stopwatch.ElapsedMilliseconds} ms");
 
         }
 
@@ -45,6 +42,7 @@ namespace Desktop.Views
             GridUsuarios.DataSource = _usuarios;
             //ocultamos las columnas Id, DeleteDate, IsDeleted
             GridUsuarios.HideColumns("Id", "DeleteDate", "IsDeleted");
+
 
         }
 
@@ -63,32 +61,32 @@ namespace Desktop.Views
             if (ComboCapacitaciones.SelectedItem is Capacitacion selectedCapacitacion)
             {
                 RefreshInscripciones(selectedCapacitacion);
-                GetComboTiposDeInscripciones(selectedCapacitacion);
+                GetComboTipoDeInscripciones(selectedCapacitacion);
             }
         }
 
-        private void GetComboTiposDeInscripciones(Capacitacion selectedCapacitacion)
+        private void GetComboTipoDeInscripciones(Capacitacion selectedCapacitacion)
         {
             ComboTipoInscripcion.DataSource = selectedCapacitacion.TiposDeInscripciones.ToList();
-            ComboTipoInscripcion.DisplayMember = "TipoIncripcionConImporte";
+            ComboTipoInscripcion.DisplayMember = "TipoInscripcionConImporte";
             ComboTipoInscripcion.ValueMember = "TipoInscripcionId";
             ComboTipoInscripcion.SelectedIndex = -1;
         }
 
         private async void RefreshInscripciones(Capacitacion selectedCapacitacion)
         {
+
             _inscripciones = selectedCapacitacion.Inscripciones.ToList();
             //_inscripciones = await _inscripcionService.GetInscriptosAsync(selectedCapacitacion.Id);
             GridInscripciones.DataSource = _inscripciones;
             //ocultamos las columnas Id, UsuarioId, TipoInscripcionId,CapacitacionId, Capacitacion
             GridInscripciones.HideColumns("Id", "UsuarioId", "TipoInscripcionId", "CapacitacionId", "Capacitacion", "UsuarioCobroId", "IsDeleted", "UsuarioCobro", "Pagado");
+
             if (GridInscripciones.Columns.Contains("Importe"))
             {
                 GridInscripciones.Columns["Importe"].DefaultCellStyle.Format = "C2";
                 GridInscripciones.Columns["Importe"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-
             }
-
 
             await GetGrillaUsuarios();
         }
@@ -154,15 +152,14 @@ namespace Desktop.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al inscribir el usuario: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al inscribir el usuario: {ex.Message}");
                 return;
-            }
 
+            }
         }
 
-        private async void SubMenuEliminarInscripcion_Click(object sender, EventArgs e)
-        {
-            //controlamos que haya una inscripción seleccionada
+        private async Task SubMenuEliminarInscripcion_Click(object sender, EventArgs e)
+        {  //controlamos que haya una inscripción seleccionada
             if (GridInscripciones.CurrentRow?.DataBoundItem is not Inscripcion selectedInscripcion)
             {
                 MessageBox.Show("Seleccione una inscripción para eliminar.");
@@ -196,12 +193,10 @@ namespace Desktop.Views
         {
             if (e.Button == MouseButtons.Right)
             {
-                    //llamamos al menu contextual
-                    ContextMenuInscripcion.Show(GridInscripciones, new Point(e.X, e.Y));
-                
+                //llamamos al menu contextual
+                ContextMenuInscripcion.Show(GridInscripciones, new Point(e.X, e.Y));
+
             }
         }
-
-
     }
 }

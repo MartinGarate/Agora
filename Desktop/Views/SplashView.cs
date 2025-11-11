@@ -17,12 +17,13 @@ namespace Desktop.Views
             InitializeComponent();
         }
 
-        private void timer_Tick(object sender, EventArgs e)
+        private void TimerSplash_Tick(object sender, EventArgs e)
         {
-            ProgressBar.Value += 2;
-            if(ProgressBar.Value == 100)
+
+            progressBar.Value += 2;
+            if (progressBar.Value == 100)
             {
-                Timer.Stop();
+                TimerSplash.Stop();
                 this.Hide();
                 var login = new LoginView();
                 login.ShowDialog();

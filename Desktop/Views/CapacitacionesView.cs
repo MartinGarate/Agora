@@ -32,7 +32,7 @@ namespace Desktop.Views
         private async Task GetAllData()
         {
             if (checkVerEliminados.Checked)
-                _capacitaciones = await _capacitacionService.GetAllDeletedsAsync();
+                _capacitaciones = await _capacitacionService.GetAllDeletedAsync();
             else
                 _capacitaciones = await _capacitacionService.GetAllAsync();
 
@@ -119,6 +119,8 @@ namespace Desktop.Views
         private async void BtnGuardar_Click(object sender, EventArgs e)
         {
 
+
+
             _currentCapacitacion.Nombre = TxtNombre.Text;
             _currentCapacitacion.Detalle = TxtDetalle.Text;
             _currentCapacitacion.Ponente = TxtPonente.Text;
@@ -126,18 +128,18 @@ namespace Desktop.Views
             _currentCapacitacion.Cupo = (int)NumericCupo.Value;
             _currentCapacitacion.InscripcionAbierta = checkInscripcionAbierta.Checked;
 
-            bool successfull = false;
+            bool succesfull = false;
             try
             {
-                if (_currentCapacitacion.Id == 0)//capacitación nueva
+                if (_currentCapacitacion.Id == 0)
                 {
                     var nuevacapacitacion = await _capacitacionService.AddAsync(_currentCapacitacion);
-                    successfull = nuevacapacitacion != null;
+                    succesfull = nuevacapacitacion != null;
                 }
-
-                if (_currentCapacitacion.Id > 0) //modificando capacitación existente
+                if (_currentCapacitacion.Id > 0)
                 {
-                    successfull = await _capacitacionService.UpdateAsync(_currentCapacitacion);
+
+                    succesfull = await _capacitacionService.UpdateAsync(_currentCapacitacion);
                 }
             }
             catch (Exception ex)
@@ -145,16 +147,15 @@ namespace Desktop.Views
                 MessageBox.Show($"Error al guardar la capacitación: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
-            if (successfull)
+            if (succesfull)
             {
+
                 LabelStatusMessage.Text = $"Capacitación {_currentCapacitacion.Nombre} guardada correctamente";
                 TimerStatusBar.Start(); // Iniciar el temporizador para mostrar el mensaje en la barra de estado
                 await GetAllData();
                 LimpiarControlesAgregarEditar();
                 TabControl.SelectedTab = TabPageLista;
                 _currentCapacitacion = null; // Reset the modified movie after saving
-
             }
             else
             {
@@ -176,7 +177,7 @@ namespace Desktop.Views
                 checkInscripcionAbierta.Checked = _currentCapacitacion.InscripcionAbierta;
                 GridTiposDeInscripciones.DataSource = _currentCapacitacion.TiposDeInscripciones;
                 GridTiposDeInscripciones.HideColumns("Id", "CapacitacionId", "Capacitacion", "TipoInscripcionId", "IsDeleted");
-                //mostramos la columna costo como moneda con 2 decimales
+                //msostrar la columna de costo como moneda con 2 decimales
                 GridTiposDeInscripciones.Columns["Costo"].DefaultCellStyle.Format = "C2";
 
 
@@ -243,14 +244,13 @@ namespace Desktop.Views
             {
                 TipoInscripcionId = (int)ComboTiposInscripciones.SelectedValue,
                 TipoInscripcion = (TipoInscripcion)ComboTiposInscripciones.SelectedItem,
-                CapacitacionId = _currentCapacitacion?.Id ?? 0,                
+                CapacitacionId = _currentCapacitacion?.Id ?? 0,
                 Costo = numericCosto.Value
             };
             _currentCapacitacion?.TiposDeInscripciones?.Add(tipoInscripcionCapacitacion);
             GridTiposDeInscripciones.DataSource = _currentCapacitacion?.TiposDeInscripciones?.ToList();
             GridTiposDeInscripciones.HideColumns("Id", "CapacitacionId", "Capacitacion", "TipoInscripcionId", "IsDeleted");
             GridTiposDeInscripciones.Columns["Costo"].DefaultCellStyle.Format = "C2";
-
         }
 
         private void BtnQuitar_Click(object sender, EventArgs e)
@@ -259,5 +259,7 @@ namespace Desktop.Views
             _currentCapacitacion?.TiposDeInscripciones.Remove(tipoInscripcionCapacitacionSeleccionado);
             GridTiposDeInscripciones.DataSource = _currentCapacitacion?.TiposDeInscripciones.ToList();
         }
+
+      
     }
 }

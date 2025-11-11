@@ -10,8 +10,8 @@ namespace Backend.ExtensionMethods
     public static class MyExtensions
     {
         public static void TryAttach<TContext, TEntity>(this TContext context, TEntity entity)
-        where TContext : DbContext
-        where TEntity : class?
+            where TContext : DbContext
+            where TEntity : class?
         {
             if (entity == null)
             {
