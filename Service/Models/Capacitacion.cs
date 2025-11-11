@@ -11,14 +11,16 @@ namespace Service.Models
         public int Id { get; set; }
         public string Nombre { get; set; } = string.Empty;
         public string Detalle { get; set; } = string.Empty;
-        public DateTime FechaHora { get; set; }
-        public DateTime DeleteTime { get; set; }
         public string Ponente { get; set; } = string.Empty;
-        public bool InscripcionAbierta { get; set; } = true; // Si la inscripción está abierta o no
-        public bool IsDeleted { get; set; } = false; // Presencial, Virtual, Mixta
+        public DateTime FechaHora { get; set; } = DateTime.Now;
         public int Cupo { get; set; }
-        
+        public bool InscripcionAbierta { get; set; } = false;
+        public bool IsDeleted { get; set; } = false;
+
         public ICollection<TipoInscripcionCapacitacion> TiposDeInscripciones { get; set; } = new List<TipoInscripcionCapacitacion>();
+
+        public ICollection<Inscripcion> Inscripciones { get; set; } = new List<Inscripcion>();
+
         public override string ToString()
         {
             return Nombre;
