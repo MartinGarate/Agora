@@ -1,25 +1,19 @@
 ﻿using Desktop.ExtensionMethod;
 using Service.Models;
 using Service.Services;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace Desktop.Views
 {
-    public partial class AcreditacionView : Form
+    public partial class AcreditacionesView : Form
     {
         GenericService<Capacitacion> _capacitacionService = new();
         InscripcionService _inscripcionService = new();
         List<Inscripcion>? _inscripciones = new();
 
-        public AcreditacionView()
+        public AcreditacionesView()
         {
             InitializeComponent();
             _ = GetAllData();
@@ -27,12 +21,11 @@ namespace Desktop.Views
 
         private async Task GetAllData()
         {
+            var stopwatch = Stopwatch.StartNew();
             var GetComboTask = GetComboCapacitaciones();
             await Task.WhenAll(GetComboTask);
-
+            Debug.WriteLine($"Tiempo de carga de datos: {stopwatch.ElapsedMilliseconds} ms");
         }
-
-       
 
         private async Task GetComboCapacitaciones()
         {
@@ -53,43 +46,52 @@ namespace Desktop.Views
         }
 
 
-
         private async void RefreshInscripciones(Capacitacion selectedCapacitacion)
         {
-
             _inscripciones = selectedCapacitacion.Inscripciones.ToList();
-            //_inscripciones = await _inscripcionService.GetInscriptosAsync(selectedCapacitacion.Id);
             //ordeno las inscripciones por apellido y nombre
-            //GridInscripciones.DataSource = _inscripciones;
-            GridInscripciones.DataSource = _inscripciones.OrderBy(i => i.Usuario!.Apellido).ThenBy(i => i.Usuario!.Nombre).ToList();
-            //GridInscripciones.DataSource = _inscripciones;
+            GridInscripciones.DataSource = _inscripciones?.OrderBy(i => i?.Usuario?.Apellido).ThenBy(i => i?.Usuario?.Nombre).ToList();
+
             //ocultamos las columnas Id, UsuarioId, TipoInscripcionId,CapacitacionId, Capacitacion
             GridInscripciones.HideColumns("Id", "UsuarioId", "TipoInscripcionId", "CapacitacionId", "Capacitacion", "UsuarioCobroId", "IsDeleted", "UsuarioCobro", "Pagado");
-
             if (GridInscripciones.Columns.Contains("Importe"))
             {
                 GridInscripciones.Columns["Importe"].DefaultCellStyle.Format = "C2";
                 GridInscripciones.Columns["Importe"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             }
-
             AgregarBotonAcreditarInscripcion();
+            ActualizarTextoBotonesAccion();
         }
 
         private void AgregarBotonAcreditarInscripcion()
         {
             if (GridInscripciones.Columns["Acciones"] == null)
             {
-                // Agrego un botón para agregar la transferencias a la caja del empleado current
-                DataGridViewButtonColumn buttonColumn = new DataGridViewButtonColumn();
-                buttonColumn.Name = "Acciones"; // Especificamos el nombre para poder referenciarlo luego
-                buttonColumn.HeaderText = "Acciones";
-                buttonColumn.Text = "Acreditar Inscripción";
-                buttonColumn.UseColumnTextForButtonValue = true;
+                var buttonColumn = new DataGridViewButtonColumn
+                {
+                    Name = "Acciones",
+                    HeaderText = "Acciones",
+                    UseColumnTextForButtonValue = false // usaremos texto dinámico por celda
+                };
                 GridInscripciones.Columns.Add(buttonColumn);
-                // Defino el evento para el botón.
                 GridInscripciones.CellContentClick += AcreditarInscripcion();
             }
+        }
 
+        private void ActualizarTextoBotonesAccion()
+        {
+            if (GridInscripciones.Columns["Acciones"] == null) return;
+            foreach (DataGridViewRow row in GridInscripciones.Rows)
+            {
+                if (row.DataBoundItem is Inscripcion ins)
+                {
+                    var cell = row.Cells["Acciones"] as DataGridViewButtonCell;
+                    if (cell != null)
+                    {
+                        cell.Value = ins.Acreditado ? "Desacreditar inscripción" : "Acreditar inscripción";
+                    }
+                }
+            }
         }
 
         private DataGridViewCellEventHandler AcreditarInscripcion()
@@ -143,8 +145,6 @@ namespace Desktop.Views
             };
         }
 
-
-
         private void BtnBuscar_Click(object sender, EventArgs e)
         {
             TxtBuscarInscripto_TextChanged(sender, e);
@@ -152,14 +152,15 @@ namespace Desktop.Views
 
         private async void TxtBuscarInscripto_TextChanged(object sender, EventArgs e)
         {
-                GridInscripciones.DataSource = _inscripciones?
-                    .Where(i => i.Usuario!.Nombre.Contains(TxtBuscarInscripto.Text, StringComparison.OrdinalIgnoreCase) ||
-                                i.Usuario!.Apellido.Contains(TxtBuscarInscripto.Text, StringComparison.OrdinalIgnoreCase) ||
-                                i.Usuario!.Dni.ToString().Contains(TxtBuscarInscripto.Text, StringComparison.OrdinalIgnoreCase))
-                    .OrderBy(i => i.Usuario!.Apellido)
-                    .ThenBy(i => i.Usuario!.Nombre)
-                    .ToList();
+            GridInscripciones.DataSource = _inscripciones?
+                .Where(i => i.Usuario!.Nombre!.Contains(TxtBuscarInscripto.Text,
+                                                StringComparison.OrdinalIgnoreCase) ||
+                            i.Usuario!.Apellido!.Contains(TxtBuscarInscripto.Text,
+                                                StringComparison.OrdinalIgnoreCase))
+                .OrderBy(i => i.Usuario!.Apellido)
+                .ThenBy(i => i.Usuario!.Nombre)
+                .ToList();
+            ActualizarTextoBotonesAccion();
         }
-
     }
 }

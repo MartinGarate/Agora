@@ -1,6 +1,6 @@
-﻿using Desktop.Views;
+using Desktop.Views;
 
-namespace Desktop.Views
+namespace Desktop
 {
     public partial class MenuPrincipalView : Form
     {
@@ -19,17 +19,24 @@ namespace Desktop.Views
             var usuariosView = new UsuariosView();
             usuariosView.MdiParent = this;
             usuariosView.Show();
+
         }
 
-        private void SubMenuTipoInscripciones_Click(object sender, EventArgs e)
+        private void subMenuCapacitaciones_Click(object sender, EventArgs e)
+        {
+            var capacitacionesView = new CapacitacionesView();
+            capacitacionesView.MdiParent = this;
+            capacitacionesView.Show();
+        }
+
+        private void SubMenuTiposDeInscripciones_Click(object sender, EventArgs e)
         {
             var tipoInscripcionView = new TipoInscripcionView();
             tipoInscripcionView.MdiParent = this;
             tipoInscripcionView.Show();
-
         }
 
-        private void inscripcionesToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SubmenuInscripciones_Click(object sender, EventArgs e)
         {
             var inscripcionesView = new InscripcionesView();
             inscripcionesView.MdiParent = this;
@@ -37,19 +44,11 @@ namespace Desktop.Views
 
         }
 
-        private void SubMenuCapacitaciones_Click(object sender, EventArgs e)
+        private void SubmenuAcreditaciones_Click(object sender, EventArgs e)
         {
-            var capacitacionesView = new CapacitacionesView();
-            capacitacionesView.MdiParent = this;
-            capacitacionesView.Show();
-
-        }
-
-        private void acreditacionToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var acreditacionView = new AcreditacionView();
-            acreditacionView.MdiParent = this;
-            acreditacionView.Show();
+            var acreditacionesView = new AcreditacionesView();
+            acreditacionesView.MdiParent = this;
+            acreditacionesView.Show();
         }
     }
 }

@@ -1,15 +1,8 @@
 ﻿using Desktop.ExtensionMethod;
 using Service.Models;
 using Service.Services;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Desktop.Views
@@ -42,7 +35,7 @@ namespace Desktop.Views
         {
             _usuarios = (await _usuarioService.GetAllAsync());
             _usuarios = _usuarios?.Where(u => _inscripciones != null && !_inscripciones.Any(i => i.UsuarioId == u.Id)).ToList();
-            GridUsuarios.DataSource = _usuarios.OrderBy(u => u.Apellido).ThenBy(u => u.Nombre).ToList();
+            GridUsuarios.DataSource = _usuarios.OrderBy(u=>u.Apellido).ThenBy(u=>u.Nombre).ToList();
             //ocultamos las columnas Id, DeleteDate, IsDeleted
             GridUsuarios.HideColumns("Id", "DeleteDate", "IsDeleted");
 
@@ -244,9 +237,9 @@ namespace Desktop.Views
         {
             if (e.Button == MouseButtons.Right)
             {
-                //llamamos al menu contextual
-                ContextMenuInscripcion.Show(GridInscripciones, new Point(e.X, e.Y));
-
+                    //llamamos al menu contextual
+                    ContextMenuInscripcion.Show(GridInscripciones, new Point(e.X, e.Y));
+                
             }
         }
 
