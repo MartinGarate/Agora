@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -29,9 +30,11 @@ namespace Desktop.Views
 
         private async Task GetAllData()
         {
+            var stopwatch = Stopwatch.StartNew();
             var GetComboTask = GetComboCapacitaciones();
             var GetGrillaTask = GetGrillaUsuarios();
             await Task.WhenAll(GetComboTask, GetGrillaTask);
+            Debug.WriteLine($"Tiempo de carga de datos: {stopwatch.ElapsedMilliseconds} ms");
 
         }
 
@@ -39,10 +42,9 @@ namespace Desktop.Views
         {
             _usuarios = (await _usuarioService.GetAllAsync());
             _usuarios = _usuarios?.Where(u => _inscripciones != null && !_inscripciones.Any(i => i.UsuarioId == u.Id)).ToList();
-            GridUsuarios.DataSource = _usuarios.OrderBy(u=>u.Apellido).ThenBy(u=>u.Nombre).ToList(); //ordenamos por apellido y nombre.
+            GridUsuarios.DataSource = _usuarios.OrderBy(u => u.Apellido).ThenBy(u => u.Nombre).ToList();
             //ocultamos las columnas Id, DeleteDate, IsDeleted
             GridUsuarios.HideColumns("Id", "DeleteDate", "IsDeleted");
-
 
         }
 
@@ -61,37 +63,35 @@ namespace Desktop.Views
             if (ComboCapacitaciones.SelectedItem is Capacitacion selectedCapacitacion)
             {
                 RefreshInscripciones(selectedCapacitacion);
-                GetComboTipoDeInscripciones(selectedCapacitacion);
+                GetComboTiposDeInscripciones(selectedCapacitacion);
             }
         }
 
-        private void GetComboTipoDeInscripciones(Capacitacion selectedCapacitacion)
+        private void GetComboTiposDeInscripciones(Capacitacion selectedCapacitacion)
         {
             ComboTipoInscripcion.DataSource = selectedCapacitacion.TiposDeInscripciones.ToList();
-            ComboTipoInscripcion.DisplayMember = "TipoInscripcionConImporte";
+            ComboTipoInscripcion.DisplayMember = "TipoIncripcionConImporte";
             ComboTipoInscripcion.ValueMember = "TipoInscripcionId";
             ComboTipoInscripcion.SelectedIndex = -1;
         }
 
         private async void RefreshInscripciones(Capacitacion selectedCapacitacion)
         {
-
             _inscripciones = selectedCapacitacion.Inscripciones.ToList();
             //_inscripciones = await _inscripcionService.GetInscriptosAsync(selectedCapacitacion.Id);
             //ordeno las inscripciones por apellido y nombre
-            //GridInscripciones.DataSource = _inscripciones;
-            GridInscripciones.DataSource = _inscripciones.OrderBy(i => i.Usuario!.Apellido).ThenBy(i => i.Usuario!.Nombre).ToList();
-            //GridInscripciones.DataSource = _inscripciones;
+            GridInscripciones.DataSource = _inscripciones?.OrderBy(i => i?.Usuario?.Apellido).ThenBy(i => i?.Usuario?.Nombre).ToList();
+
             //ocultamos las columnas Id, UsuarioId, TipoInscripcionId,CapacitacionId, Capacitacion
             GridInscripciones.HideColumns("Id", "UsuarioId", "TipoInscripcionId", "CapacitacionId", "Capacitacion", "UsuarioCobroId", "IsDeleted", "UsuarioCobro", "Pagado");
-
             if (GridInscripciones.Columns.Contains("Importe"))
             {
                 GridInscripciones.Columns["Importe"].DefaultCellStyle.Format = "C2";
                 GridInscripciones.Columns["Importe"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            }
 
+            }
             AgregarBotonAnularInscripcion();
+
             await GetGrillaUsuarios();
         }
 
@@ -103,13 +103,12 @@ namespace Desktop.Views
                 DataGridViewButtonColumn buttonColumn = new DataGridViewButtonColumn();
                 buttonColumn.Name = "Acciones"; // Especificamos el nombre para poder referenciarlo luego
                 buttonColumn.HeaderText = "Acciones";
-                buttonColumn.Text = "Anular Inscripción";
+                buttonColumn.Text = "Anular inscripción";
                 buttonColumn.UseColumnTextForButtonValue = true;
                 GridInscripciones.Columns.Add(buttonColumn);
                 // Defino el evento para el botón.
                 GridInscripciones.CellContentClick += AnularInscripcion();
             }
-
         }
 
         private DataGridViewCellEventHandler AnularInscripcion()
@@ -127,13 +126,13 @@ namespace Desktop.Views
                     }
                     //preguntamos si está seguro de anular la inscripción
                     var confirmResult = MessageBox.Show($"¿Está seguro de anular la inscripción de: {selectedInscripcion.Usuario}?", "Confirmar anulación", MessageBoxButtons.YesNo);
-                    if (confirmResult != DialogResult.Yes)
+                    if (confirmResult == DialogResult.Yes)
                     {
                         await DeleteInscripcion(selectedInscripcion);
+                    }
 
-                    }
-                    }
-                };
+                }
+            };
         }
 
 
@@ -199,14 +198,15 @@ namespace Desktop.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al inscribir el usuario: {ex.Message}");
+                MessageBox.Show($"Error al inscribir el usuario: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
-
             }
+
         }
 
-        private async Task SubMenuEliminarInscripcion_Click(object sender, EventArgs e)
-        {  //controlamos que haya una inscripción seleccionada
+        private async void SubMenuEliminarInscripcion_Click(object sender, EventArgs e)
+        {
+            //controlamos que haya una inscripción seleccionada
             if (GridInscripciones.CurrentRow?.DataBoundItem is not Inscripcion selectedInscripcion)
             {
                 MessageBox.Show("Seleccione una inscripción para eliminar.");
@@ -217,7 +217,6 @@ namespace Desktop.Views
             if (confirmResult == DialogResult.Yes)
             {
                 await DeleteInscripcion(selectedInscripcion);
-
             }
         }
 
@@ -250,5 +249,7 @@ namespace Desktop.Views
 
             }
         }
+
+
     }
 }
